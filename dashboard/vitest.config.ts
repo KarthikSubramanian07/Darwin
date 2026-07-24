@@ -1,0 +1,9 @@
+import { defineConfig } from "vitest/config";
+
+// Logic-only unit tests (routing math + event reducer). No DOM needed.
+export default defineConfig({
+  test: {
+    environment: "node",
+    include: ["src/**/*.test.ts"],
+  },
+});

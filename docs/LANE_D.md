@@ -1,0 +1,157 @@
+# Lane D — Dashboard, Auth, CodeRabbit, Demo
+
+This is the map for everything Lane D owns and the exact seams where the other lanes plug in.
+
+## Files owned
+
+```
+dashboard/                         React + Vite + TypeScript dashboard
+  app.html                         Lane D's Vite entry (the run dashboard)
+  src/mainLaneD.tsx                Lane D entry module (AuthProvider + LaneDApp + lane-d.css)
+  src/LaneDApp.tsx                 Lane D root: landing / run / library router
+  src/lane-d.css                   Lane D's design system (scoped to the app.html bundle)
+  src/types.ts                     the ONE normalized frontend event/data contract
+  src/lib/routing.ts               winner selection, single-model baseline, comparison, export
+  src/lib/format.ts                display formatters
+  src/store/reducer.ts             pure run-state reducer (the only place events are applied)
+  src/store/useDarwinRun.ts        run lifecycle: owns the reducer + active source + demo mode
+  src/sources/replay.ts            deterministic recorded/mock replay
+  src/sources/websocket.ts         live WS client (reconnect + honest failure states)
+  src/sources/backendAdapter.ts    raw backend event -> normalized DarwinEvent
+  src/fixtures/                     mock/recorded runs (Legal services, Customer support)
+  src/auth/                         WorkOS AuthKit integration + dev identity fallback
+  src/components/                   all UI (landing, decomposition, race grid, routing, library…)
+  scripts/dumpFixtures.ts          serialize fixtures to data/runs/*.dashboard.json
+
+darwin/server/events.py            event channel (Lane D owns the WS surface; see open items)
+darwin/review/coderabbit.py        review integration stub (Lane D/B)
+.coderabbit.yaml                   CodeRabbit config (filters + cross-lane interface guidance)
+data/runs/*.dashboard.json         serialized replay fixtures (generated; source of truth is TS)
+docs/DEVPOST.md, DEMO_RUNBOOK.md, docs/CODERABBIT.md, docs/LANE_D.md
+```
+
+Lane D does **not** edit `darwin/core/*`, `darwin/eval/*`, `darwin/sandbox/*`, `pipeline/*`.
+
+## How Lane D coexists with the landing app (two Vite entries)
+
+`main` already ships a landing / evolution-replay app (`index.html` → `src/main.tsx` →
+`src/App.tsx` + `src/app.css`). Lane D's dashboard carries an independent design system, and the
+two collide by name: both define a `.app` class and both define `--bg`, `--fg`, `--warn`,
+`--radius`, `--font-sans`, `--font-mono` on `:root`. In a single bundle whichever stylesheet loads
+last silently restyles the other.
+
+So the two ship as **separate Vite entries** (`build.rollupOptions.input`), which keeps their CSS
+in separate chunks:
+
+| Entry | URL | Owner | Bundle |
+|---|---|---|---|
+| `index.html` | `/` | landing / evolution replay (untouched by Lane D) | `main-*.js` + `main-*.css` |
+| `app.html` | `/app.html` | Lane D run dashboard | `app-*.js` + `app-*.css` |
+
+Lane D changed **no** file belonging to the landing app: `index.html`, `src/App.tsx`,
+`src/main.tsx`, `src/index.css`, and `src/app.css` are byte-identical to `main`.
+
+**The demo runs at `/app.html`, not `/`.**
+
+## Architecture
+
+Every data source is adapted into one normalized event stream (`DarwinEvent` in `types.ts`) and
+fed to one reducer (`store/reducer.ts`). Components read state and dispatch nothing directly —
+`useDarwinRun` is the single owner of the active source and the demo mode.
+
+```
+ IndustryInput ─┐
+ RunLibrary ────┤        ┌─ mock replay ──────┐
+ DemoControls ──┼─▶ useDarwinRun ─ source ─────┼─ recorded replay ─┐
+                │        │                      └─ live WebSocket ──┴─▶ backendAdapter
+                │        ▼                                                    │
+                │   runReducer(state, {kind:'event', event})  ◀──────────────┘
+                ▼        │
+           React views ◀─ RunState (phase, cells, feed, routingCard, connection)
+```
+
+### The normalized contract (`DarwinEvent`)
+
+`run_started · task_created · decomposition_complete · race_queued · race_started · race_scoring ·
+sandbox_started · sandbox_result · race_scored · race_failed · routing_updated · run_completed`
+
+Cells are keyed `taskId::modelId`. The reducer patches a cell through
+`queued → running → scoring → [executing] → complete | failed` and derives the routing card and
+the activity feed. `lib/routing.ts` is pure and unit-tested; it never hardcodes a positive claim.
+
+### Event adapter (the important backend seam)
+
+`darwin/server/events.py` currently emits **evolution** events for the self-improvement loop:
+`run_started, generation_started, variant_evaluated, generation_complete, champion_changed,
+mutation, guard, run_complete`. Those describe generations of a coding agent — not a task × model
+race — so they do not carry the grid data the routing view needs.
+
+`sources/backendAdapter.ts` therefore does three honest things:
+
+1. **Pass-through** for any event that already uses our race vocabulary (`race_scored`, etc.). So
+   when a race emitter is added backend-side with these names, the live grid lights up with **zero
+   UI changes**.
+2. **Best-effort lifecycle mapping** of the current evolution events it can (`run_started`,
+   `run_complete`).
+3. **Ignore** (return `null`) evolution events with no faithful race mapping, rather than invent
+   grid cells.
+
+## Mock data
+
+`src/fixtures/` builds complete runs from a score matrix via `buildRunDoc` (which derives the
+routing card through the same `lib/routing` code the live path uses). `models.ts` is the single,
+clearly-labeled place mock Fireworks model ids / cost / latency live. Winners differ per task by
+construction (Legal: Kimi / Qwen / DeepSeek / Llama / DeepSeek). `npx vite-node
+scripts/dumpFixtures.ts` serializes them to `data/runs/*.dashboard.json`.
+
+## Live integration (what teammates need to wire)
+
+To make **Live pipeline** mode fill the grid for real, the backend needs to:
+
+1. **Add a WebSocket fan-out** to `darwin/server/events.py` (Phase 4): a FastAPI `/ws` endpoint
+   that registers each client as an `EventChannel` subscriber and forwards `{type, payload, ts}`.
+   Vite already proxies `/ws → localhost:8000`.
+2. **Emit race-shaped events** using the normalized names above (the adapter passes them through).
+   Minimum viable set: `task_created` (per decomposed task), `race_queued/started/scoring`,
+   `sandbox_started/sandbox_result` (code tasks), `race_scored` (with a `RaceResult`-shaped
+   payload), and `run_completed` (with a `RoutingCard`). Field names must match `types.ts`.
+3. **Provide a run trigger** the dashboard can call to start a live run for a typed industry
+   (e.g. `POST /run {industry}`), or run the engine and let the dashboard attach to the stream.
+
+Until then, live mode connects, shows an honest "waiting/unavailable" state, and offers one-click
+recovery to the recorded run. Recorded mode is the demo floor.
+
+## Auth flag (WorkOS AuthKit)
+
+`src/auth/AuthProvider.tsx` mounts real WorkOS AuthKit when `VITE_WORKOS_ENABLED=true` **and** a
+client id is present; otherwise a polished dev identity. Both paths implement login/logout, a
+protected route (`LoginGate`), and identity + workspace in the nav.
+
+Activate real WorkOS:
+
+1. In the WorkOS dashboard create an AuthKit app; copy the **Client ID** and add
+   `http://localhost:5173/callback` (and the prod URL) as a redirect URI.
+2. In `dashboard/.env`:
+   ```
+   VITE_WORKOS_ENABLED=true
+   VITE_WORKOS_CLIENT_ID=client_...
+   VITE_WORKOS_REDIRECT_URI=http://localhost:5173/callback
+   VITE_WORKOS_ORG_NAME=Your Org
+   ```
+3. Restart `npm run dev`. AuthKit is a client-side redirect flow (`@workos-inc/authkit-react`); no
+   server secret is required for this integration. No secret is ever committed.
+
+## Demo modes
+
+`Live pipeline` / `Recorded successful run` / `Mock development run`, switchable in the nav and
+lockable with `VITE_DEMO_MODE`. Default is `recorded` (safest). The selected source is always
+labeled; cached runs never display as LIVE.
+
+## Remaining integration points (open)
+
+- [ ] Backend: WS fan-out in `darwin/server/events.py` + a run trigger endpoint.
+- [ ] Backend: emit normalized race events (or a thin translator from evolution → race).
+- [ ] Lane C: real Fireworks model ids + measured cost/latency → replace `src/fixtures/models.ts`.
+- [ ] Lane B: real Braintrust experiment URLs on `race_scored` payloads (nulls handled today).
+- [ ] `darwin/review/coderabbit.py`: real PR-review result surfaced as a safeguards signal.
+- [ ] Deploy `dashboard/dist` to `darwin.pages.dev` (Wrangler) — see SPEC §17.

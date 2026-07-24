@@ -1,0 +1,1352 @@
+{
+  "summary": {
+    "runId": "customer-support-2026-07-23",
+    "industry": "Customer support",
+    "createdAt": "2026-07-23T16:12:00Z",
+    "source": "previously_computed",
+    "taskCount": 4,
+    "modelCount": 4,
+    "overallScore": 0.91
+  },
+  "models": [
+    {
+      "id": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+      "label": "Llama 3.3 70B",
+      "vendor": "Meta",
+      "costPer1k": 0.9,
+      "p50LatencyMs": 820
+    },
+    {
+      "id": "accounts/fireworks/models/qwen2p5-72b-instruct",
+      "label": "Qwen2.5 72B",
+      "vendor": "Alibaba",
+      "costPer1k": 0.9,
+      "p50LatencyMs": 900
+    },
+    {
+      "id": "accounts/fireworks/models/deepseek-v3",
+      "label": "DeepSeek V3",
+      "vendor": "DeepSeek",
+      "costPer1k": 0.9,
+      "p50LatencyMs": 1100
+    },
+    {
+      "id": "accounts/fireworks/models/kimi-k2-instruct",
+      "label": "Kimi K2",
+      "vendor": "Moonshot",
+      "costPer1k": 0.6,
+      "p50LatencyMs": 1300
+    }
+  ],
+  "tasks": [
+    {
+      "id": "intent_classification",
+      "name": "Intent classification",
+      "description": "Route an inbound ticket to the correct queue from a fixed taxonomy.",
+      "type": "STRUCTURED",
+      "caseCount": 12
+    },
+    {
+      "id": "reply_drafting",
+      "name": "Reply drafting",
+      "description": "Draft an on-brand, policy-compliant response to a customer message.",
+      "type": "TEXT",
+      "caseCount": 10
+    },
+    {
+      "id": "sentiment_tagging",
+      "name": "Sentiment tagging",
+      "description": "Tag message sentiment and escalation risk against a rubric.",
+      "type": "STRUCTURED",
+      "caseCount": 10
+    },
+    {
+      "id": "kb_sql",
+      "name": "Analytics SQL",
+      "description": "Write SQL for support-volume analytics; executed for correctness.",
+      "type": "CODE",
+      "caseCount": 8
+    }
+  ],
+  "results": [
+    {
+      "taskId": "intent_classification",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+      "score": 0.9,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 820,
+      "caseCount": 12,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-intent_classification-llama-3-3-70b",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "intent_classification",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+      "score": 0.93,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 900,
+      "caseCount": 12,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-intent_classification-qwen2-5-72b",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "intent_classification",
+      "modelId": "accounts/fireworks/models/deepseek-v3",
+      "score": 0.88,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 1100,
+      "caseCount": 12,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-intent_classification-deepseek-v3",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "intent_classification",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+      "score": 0.85,
+      "costPer1k": 0.6,
+      "p50LatencyMs": 1300,
+      "caseCount": 12,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-intent_classification-kimi-k2",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "reply_drafting",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+      "score": 0.87,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 820,
+      "caseCount": 10,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-reply_drafting-llama-3-3-70b",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "reply_drafting",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+      "score": 0.84,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 900,
+      "caseCount": 10,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-reply_drafting-qwen2-5-72b",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "reply_drafting",
+      "modelId": "accounts/fireworks/models/deepseek-v3",
+      "score": 0.86,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 1100,
+      "caseCount": 10,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-reply_drafting-deepseek-v3",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "reply_drafting",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+      "score": 0.92,
+      "costPer1k": 0.6,
+      "p50LatencyMs": 1300,
+      "caseCount": 10,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-reply_drafting-kimi-k2",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "sentiment_tagging",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+      "score": 0.89,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 820,
+      "caseCount": 10,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-sentiment_tagging-llama-3-3-70b",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "sentiment_tagging",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+      "score": 0.86,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 900,
+      "caseCount": 10,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-sentiment_tagging-qwen2-5-72b",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "sentiment_tagging",
+      "modelId": "accounts/fireworks/models/deepseek-v3",
+      "score": 0.83,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 1100,
+      "caseCount": 10,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-sentiment_tagging-deepseek-v3",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "sentiment_tagging",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+      "score": 0.81,
+      "costPer1k": 0.6,
+      "p50LatencyMs": 1300,
+      "caseCount": 10,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-sentiment_tagging-kimi-k2",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "kb_sql",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+      "score": 0.72,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 820,
+      "caseCount": 8,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-kb_sql-llama-3-3-70b",
+      "sandbox": {
+        "passed": 5,
+        "total": 8
+      },
+      "state": "complete"
+    },
+    {
+      "taskId": "kb_sql",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+      "score": 0.79,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 900,
+      "caseCount": 8,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-kb_sql-qwen2-5-72b",
+      "sandbox": {
+        "passed": 6,
+        "total": 8
+      },
+      "state": "complete"
+    },
+    {
+      "taskId": "kb_sql",
+      "modelId": "accounts/fireworks/models/deepseek-v3",
+      "score": 0.9,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 1100,
+      "caseCount": 8,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-kb_sql-deepseek-v3",
+      "sandbox": {
+        "passed": 8,
+        "total": 8
+      },
+      "state": "complete"
+    },
+    {
+      "taskId": "kb_sql",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+      "score": 0.68,
+      "costPer1k": 0.6,
+      "p50LatencyMs": 1300,
+      "caseCount": 8,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-kb_sql-kimi-k2",
+      "sandbox": {
+        "passed": 4,
+        "total": 8
+      },
+      "state": "complete"
+    }
+  ],
+  "routingCard": {
+    "industry": "Customer support",
+    "entries": [
+      {
+        "taskId": "intent_classification",
+        "taskName": "Intent classification",
+        "taskType": "STRUCTURED",
+        "bestModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+        "runnerUpModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+        "score": 0.93,
+        "scoreDelta": 0.030000000000000027,
+        "p50LatencyMs": 900,
+        "costPer1k": 0.9,
+        "rationale": "Qwen2.5 72B leads at 93% on real eval cases, 3 pts over the runner-up.",
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-intent_classification-qwen2-5-72b",
+        "sandboxVerified": false
+      },
+      {
+        "taskId": "reply_drafting",
+        "taskName": "Reply drafting",
+        "taskType": "TEXT",
+        "bestModelId": "accounts/fireworks/models/kimi-k2-instruct",
+        "runnerUpModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+        "score": 0.92,
+        "scoreDelta": 0.050000000000000044,
+        "p50LatencyMs": 1300,
+        "costPer1k": 0.6,
+        "rationale": "Kimi K2 leads at 92% on real eval cases, 5 pts over the runner-up.",
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-reply_drafting-kimi-k2",
+        "sandboxVerified": false
+      },
+      {
+        "taskId": "sentiment_tagging",
+        "taskName": "Sentiment tagging",
+        "taskType": "STRUCTURED",
+        "bestModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+        "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+        "score": 0.89,
+        "scoreDelta": 0.030000000000000027,
+        "p50LatencyMs": 820,
+        "costPer1k": 0.9,
+        "rationale": "Llama 3.3 70B leads at 89% on real eval cases, 3 pts over the runner-up.",
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-sentiment_tagging-llama-3-3-70b",
+        "sandboxVerified": false
+      },
+      {
+        "taskId": "kb_sql",
+        "taskName": "Analytics SQL",
+        "taskType": "CODE",
+        "bestModelId": "accounts/fireworks/models/deepseek-v3",
+        "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+        "score": 0.9,
+        "scoreDelta": 0.10999999999999999,
+        "p50LatencyMs": 1100,
+        "costPer1k": 0.9,
+        "rationale": "DeepSeek V3 leads at 90% on real eval cases, 11 pts over the runner-up, verified by execution (8/8 tests).",
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-kb_sql-deepseek-v3",
+        "sandboxVerified": true
+      }
+    ]
+  },
+  "events": [
+    {
+      "type": "run_started",
+      "ts": 0,
+      "run": {
+        "runId": "customer-support-2026-07-23",
+        "industry": "Customer support",
+        "createdAt": "2026-07-23T16:12:00Z",
+        "source": "previously_computed",
+        "taskCount": 4,
+        "modelCount": 4,
+        "overallScore": 0.91
+      },
+      "models": [
+        {
+          "id": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+          "label": "Llama 3.3 70B",
+          "vendor": "Meta",
+          "costPer1k": 0.9,
+          "p50LatencyMs": 820
+        },
+        {
+          "id": "accounts/fireworks/models/qwen2p5-72b-instruct",
+          "label": "Qwen2.5 72B",
+          "vendor": "Alibaba",
+          "costPer1k": 0.9,
+          "p50LatencyMs": 900
+        },
+        {
+          "id": "accounts/fireworks/models/deepseek-v3",
+          "label": "DeepSeek V3",
+          "vendor": "DeepSeek",
+          "costPer1k": 0.9,
+          "p50LatencyMs": 1100
+        },
+        {
+          "id": "accounts/fireworks/models/kimi-k2-instruct",
+          "label": "Kimi K2",
+          "vendor": "Moonshot",
+          "costPer1k": 0.6,
+          "p50LatencyMs": 1300
+        }
+      ]
+    },
+    {
+      "type": "task_created",
+      "ts": 320,
+      "task": {
+        "id": "intent_classification",
+        "name": "Intent classification",
+        "description": "Route an inbound ticket to the correct queue from a fixed taxonomy.",
+        "type": "STRUCTURED",
+        "caseCount": 12
+      }
+    },
+    {
+      "type": "task_created",
+      "ts": 640,
+      "task": {
+        "id": "reply_drafting",
+        "name": "Reply drafting",
+        "description": "Draft an on-brand, policy-compliant response to a customer message.",
+        "type": "TEXT",
+        "caseCount": 10
+      }
+    },
+    {
+      "type": "task_created",
+      "ts": 960,
+      "task": {
+        "id": "sentiment_tagging",
+        "name": "Sentiment tagging",
+        "description": "Tag message sentiment and escalation risk against a rubric.",
+        "type": "STRUCTURED",
+        "caseCount": 10
+      }
+    },
+    {
+      "type": "task_created",
+      "ts": 1280,
+      "task": {
+        "id": "kb_sql",
+        "name": "Analytics SQL",
+        "description": "Write SQL for support-volume analytics; executed for correctness.",
+        "type": "CODE",
+        "caseCount": 8
+      }
+    },
+    {
+      "type": "decomposition_complete",
+      "ts": 1540
+    },
+    {
+      "type": "race_queued",
+      "ts": 1580,
+      "taskId": "intent_classification",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+      "caseCount": 12
+    },
+    {
+      "type": "race_queued",
+      "ts": 1620,
+      "taskId": "intent_classification",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+      "caseCount": 12
+    },
+    {
+      "type": "race_queued",
+      "ts": 1660,
+      "taskId": "intent_classification",
+      "modelId": "accounts/fireworks/models/deepseek-v3",
+      "caseCount": 12
+    },
+    {
+      "type": "race_queued",
+      "ts": 1700,
+      "taskId": "intent_classification",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+      "caseCount": 12
+    },
+    {
+      "type": "race_queued",
+      "ts": 1740,
+      "taskId": "reply_drafting",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+      "caseCount": 10
+    },
+    {
+      "type": "race_queued",
+      "ts": 1780,
+      "taskId": "reply_drafting",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+      "caseCount": 10
+    },
+    {
+      "type": "race_queued",
+      "ts": 1820,
+      "taskId": "reply_drafting",
+      "modelId": "accounts/fireworks/models/deepseek-v3",
+      "caseCount": 10
+    },
+    {
+      "type": "race_queued",
+      "ts": 1860,
+      "taskId": "reply_drafting",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+      "caseCount": 10
+    },
+    {
+      "type": "race_queued",
+      "ts": 1900,
+      "taskId": "sentiment_tagging",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+      "caseCount": 10
+    },
+    {
+      "type": "race_queued",
+      "ts": 1940,
+      "taskId": "sentiment_tagging",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+      "caseCount": 10
+    },
+    {
+      "type": "race_queued",
+      "ts": 1980,
+      "taskId": "sentiment_tagging",
+      "modelId": "accounts/fireworks/models/deepseek-v3",
+      "caseCount": 10
+    },
+    {
+      "type": "race_queued",
+      "ts": 2020,
+      "taskId": "sentiment_tagging",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+      "caseCount": 10
+    },
+    {
+      "type": "race_queued",
+      "ts": 2060,
+      "taskId": "kb_sql",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+      "caseCount": 8
+    },
+    {
+      "type": "race_queued",
+      "ts": 2100,
+      "taskId": "kb_sql",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+      "caseCount": 8
+    },
+    {
+      "type": "race_queued",
+      "ts": 2140,
+      "taskId": "kb_sql",
+      "modelId": "accounts/fireworks/models/deepseek-v3",
+      "caseCount": 8
+    },
+    {
+      "type": "race_queued",
+      "ts": 2180,
+      "taskId": "kb_sql",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+      "caseCount": 8
+    },
+    {
+      "type": "race_started",
+      "ts": 2400,
+      "taskId": "intent_classification",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 2580,
+      "taskId": "intent_classification",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 2700,
+      "result": {
+        "taskId": "intent_classification",
+        "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+        "score": 0.9,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 820,
+        "caseCount": 12,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-intent_classification-llama-3-3-70b",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 2920,
+      "taskId": "intent_classification",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 3100,
+      "taskId": "intent_classification",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 3220,
+      "result": {
+        "taskId": "intent_classification",
+        "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+        "score": 0.93,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 900,
+        "caseCount": 12,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-intent_classification-qwen2-5-72b",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 3440,
+      "taskId": "intent_classification",
+      "modelId": "accounts/fireworks/models/deepseek-v3"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 3620,
+      "taskId": "intent_classification",
+      "modelId": "accounts/fireworks/models/deepseek-v3"
+    },
+    {
+      "type": "race_scored",
+      "ts": 3740,
+      "result": {
+        "taskId": "intent_classification",
+        "modelId": "accounts/fireworks/models/deepseek-v3",
+        "score": 0.88,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 1100,
+        "caseCount": 12,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-intent_classification-deepseek-v3",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 3960,
+      "taskId": "intent_classification",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 4140,
+      "taskId": "intent_classification",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 4260,
+      "result": {
+        "taskId": "intent_classification",
+        "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+        "score": 0.85,
+        "costPer1k": 0.6,
+        "p50LatencyMs": 1300,
+        "caseCount": 12,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-intent_classification-kimi-k2",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "routing_updated",
+      "ts": 4340,
+      "card": {
+        "industry": "Customer support",
+        "entries": [
+          {
+            "taskId": "intent_classification",
+            "taskName": "Intent classification",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+            "score": 0.93,
+            "scoreDelta": 0.030000000000000027,
+            "p50LatencyMs": 900,
+            "costPer1k": 0.9,
+            "rationale": "Qwen2.5 72B leads at 93% on real eval cases, 3 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-intent_classification-qwen2-5-72b",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "reply_drafting",
+            "taskName": "Reply drafting",
+            "taskType": "TEXT",
+            "bestModelId": "accounts/fireworks/models/kimi-k2-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+            "score": 0.92,
+            "scoreDelta": 0.050000000000000044,
+            "p50LatencyMs": 1300,
+            "costPer1k": 0.6,
+            "rationale": "Kimi K2 leads at 92% on real eval cases, 5 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-reply_drafting-kimi-k2",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "sentiment_tagging",
+            "taskName": "Sentiment tagging",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.89,
+            "scoreDelta": 0.030000000000000027,
+            "p50LatencyMs": 820,
+            "costPer1k": 0.9,
+            "rationale": "Llama 3.3 70B leads at 89% on real eval cases, 3 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-sentiment_tagging-llama-3-3-70b",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "kb_sql",
+            "taskName": "Analytics SQL",
+            "taskType": "CODE",
+            "bestModelId": "accounts/fireworks/models/deepseek-v3",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.9,
+            "scoreDelta": 0.10999999999999999,
+            "p50LatencyMs": 1100,
+            "costPer1k": 0.9,
+            "rationale": "DeepSeek V3 leads at 90% on real eval cases, 11 pts over the runner-up, verified by execution (8/8 tests).",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-kb_sql-deepseek-v3",
+            "sandboxVerified": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 4560,
+      "taskId": "reply_drafting",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 4740,
+      "taskId": "reply_drafting",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 4860,
+      "result": {
+        "taskId": "reply_drafting",
+        "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+        "score": 0.87,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 820,
+        "caseCount": 10,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-reply_drafting-llama-3-3-70b",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 5080,
+      "taskId": "reply_drafting",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 5260,
+      "taskId": "reply_drafting",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 5380,
+      "result": {
+        "taskId": "reply_drafting",
+        "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+        "score": 0.84,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 900,
+        "caseCount": 10,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-reply_drafting-qwen2-5-72b",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 5600,
+      "taskId": "reply_drafting",
+      "modelId": "accounts/fireworks/models/deepseek-v3"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 5780,
+      "taskId": "reply_drafting",
+      "modelId": "accounts/fireworks/models/deepseek-v3"
+    },
+    {
+      "type": "race_scored",
+      "ts": 5900,
+      "result": {
+        "taskId": "reply_drafting",
+        "modelId": "accounts/fireworks/models/deepseek-v3",
+        "score": 0.86,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 1100,
+        "caseCount": 10,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-reply_drafting-deepseek-v3",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 6120,
+      "taskId": "reply_drafting",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 6300,
+      "taskId": "reply_drafting",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 6420,
+      "result": {
+        "taskId": "reply_drafting",
+        "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+        "score": 0.92,
+        "costPer1k": 0.6,
+        "p50LatencyMs": 1300,
+        "caseCount": 10,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-reply_drafting-kimi-k2",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "routing_updated",
+      "ts": 6500,
+      "card": {
+        "industry": "Customer support",
+        "entries": [
+          {
+            "taskId": "intent_classification",
+            "taskName": "Intent classification",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+            "score": 0.93,
+            "scoreDelta": 0.030000000000000027,
+            "p50LatencyMs": 900,
+            "costPer1k": 0.9,
+            "rationale": "Qwen2.5 72B leads at 93% on real eval cases, 3 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-intent_classification-qwen2-5-72b",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "reply_drafting",
+            "taskName": "Reply drafting",
+            "taskType": "TEXT",
+            "bestModelId": "accounts/fireworks/models/kimi-k2-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+            "score": 0.92,
+            "scoreDelta": 0.050000000000000044,
+            "p50LatencyMs": 1300,
+            "costPer1k": 0.6,
+            "rationale": "Kimi K2 leads at 92% on real eval cases, 5 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-reply_drafting-kimi-k2",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "sentiment_tagging",
+            "taskName": "Sentiment tagging",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.89,
+            "scoreDelta": 0.030000000000000027,
+            "p50LatencyMs": 820,
+            "costPer1k": 0.9,
+            "rationale": "Llama 3.3 70B leads at 89% on real eval cases, 3 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-sentiment_tagging-llama-3-3-70b",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "kb_sql",
+            "taskName": "Analytics SQL",
+            "taskType": "CODE",
+            "bestModelId": "accounts/fireworks/models/deepseek-v3",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.9,
+            "scoreDelta": 0.10999999999999999,
+            "p50LatencyMs": 1100,
+            "costPer1k": 0.9,
+            "rationale": "DeepSeek V3 leads at 90% on real eval cases, 11 pts over the runner-up, verified by execution (8/8 tests).",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-kb_sql-deepseek-v3",
+            "sandboxVerified": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 6720,
+      "taskId": "sentiment_tagging",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 6900,
+      "taskId": "sentiment_tagging",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 7020,
+      "result": {
+        "taskId": "sentiment_tagging",
+        "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+        "score": 0.89,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 820,
+        "caseCount": 10,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-sentiment_tagging-llama-3-3-70b",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 7240,
+      "taskId": "sentiment_tagging",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 7420,
+      "taskId": "sentiment_tagging",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 7540,
+      "result": {
+        "taskId": "sentiment_tagging",
+        "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+        "score": 0.86,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 900,
+        "caseCount": 10,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-sentiment_tagging-qwen2-5-72b",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 7760,
+      "taskId": "sentiment_tagging",
+      "modelId": "accounts/fireworks/models/deepseek-v3"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 7940,
+      "taskId": "sentiment_tagging",
+      "modelId": "accounts/fireworks/models/deepseek-v3"
+    },
+    {
+      "type": "race_scored",
+      "ts": 8060,
+      "result": {
+        "taskId": "sentiment_tagging",
+        "modelId": "accounts/fireworks/models/deepseek-v3",
+        "score": 0.83,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 1100,
+        "caseCount": 10,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-sentiment_tagging-deepseek-v3",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 8280,
+      "taskId": "sentiment_tagging",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 8460,
+      "taskId": "sentiment_tagging",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 8580,
+      "result": {
+        "taskId": "sentiment_tagging",
+        "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+        "score": 0.81,
+        "costPer1k": 0.6,
+        "p50LatencyMs": 1300,
+        "caseCount": 10,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-sentiment_tagging-kimi-k2",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "routing_updated",
+      "ts": 8660,
+      "card": {
+        "industry": "Customer support",
+        "entries": [
+          {
+            "taskId": "intent_classification",
+            "taskName": "Intent classification",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+            "score": 0.93,
+            "scoreDelta": 0.030000000000000027,
+            "p50LatencyMs": 900,
+            "costPer1k": 0.9,
+            "rationale": "Qwen2.5 72B leads at 93% on real eval cases, 3 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-intent_classification-qwen2-5-72b",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "reply_drafting",
+            "taskName": "Reply drafting",
+            "taskType": "TEXT",
+            "bestModelId": "accounts/fireworks/models/kimi-k2-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+            "score": 0.92,
+            "scoreDelta": 0.050000000000000044,
+            "p50LatencyMs": 1300,
+            "costPer1k": 0.6,
+            "rationale": "Kimi K2 leads at 92% on real eval cases, 5 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-reply_drafting-kimi-k2",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "sentiment_tagging",
+            "taskName": "Sentiment tagging",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.89,
+            "scoreDelta": 0.030000000000000027,
+            "p50LatencyMs": 820,
+            "costPer1k": 0.9,
+            "rationale": "Llama 3.3 70B leads at 89% on real eval cases, 3 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-sentiment_tagging-llama-3-3-70b",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "kb_sql",
+            "taskName": "Analytics SQL",
+            "taskType": "CODE",
+            "bestModelId": "accounts/fireworks/models/deepseek-v3",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.9,
+            "scoreDelta": 0.10999999999999999,
+            "p50LatencyMs": 1100,
+            "costPer1k": 0.9,
+            "rationale": "DeepSeek V3 leads at 90% on real eval cases, 11 pts over the runner-up, verified by execution (8/8 tests).",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-kb_sql-deepseek-v3",
+            "sandboxVerified": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 8880,
+      "taskId": "kb_sql",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 9060,
+      "taskId": "kb_sql",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct"
+    },
+    {
+      "type": "sandbox_started",
+      "ts": 9200,
+      "taskId": "kb_sql",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct"
+    },
+    {
+      "type": "sandbox_result",
+      "ts": 9460,
+      "taskId": "kb_sql",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+      "passed": 5,
+      "total": 8
+    },
+    {
+      "type": "race_scored",
+      "ts": 9580,
+      "result": {
+        "taskId": "kb_sql",
+        "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+        "score": 0.72,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 820,
+        "caseCount": 8,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-kb_sql-llama-3-3-70b",
+        "sandbox": {
+          "passed": 5,
+          "total": 8
+        },
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 9800,
+      "taskId": "kb_sql",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 9980,
+      "taskId": "kb_sql",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct"
+    },
+    {
+      "type": "sandbox_started",
+      "ts": 10120,
+      "taskId": "kb_sql",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct"
+    },
+    {
+      "type": "sandbox_result",
+      "ts": 10380,
+      "taskId": "kb_sql",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+      "passed": 6,
+      "total": 8
+    },
+    {
+      "type": "race_scored",
+      "ts": 10500,
+      "result": {
+        "taskId": "kb_sql",
+        "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+        "score": 0.79,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 900,
+        "caseCount": 8,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-kb_sql-qwen2-5-72b",
+        "sandbox": {
+          "passed": 6,
+          "total": 8
+        },
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 10720,
+      "taskId": "kb_sql",
+      "modelId": "accounts/fireworks/models/deepseek-v3"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 10900,
+      "taskId": "kb_sql",
+      "modelId": "accounts/fireworks/models/deepseek-v3"
+    },
+    {
+      "type": "sandbox_started",
+      "ts": 11040,
+      "taskId": "kb_sql",
+      "modelId": "accounts/fireworks/models/deepseek-v3"
+    },
+    {
+      "type": "sandbox_result",
+      "ts": 11300,
+      "taskId": "kb_sql",
+      "modelId": "accounts/fireworks/models/deepseek-v3",
+      "passed": 8,
+      "total": 8
+    },
+    {
+      "type": "race_scored",
+      "ts": 11420,
+      "result": {
+        "taskId": "kb_sql",
+        "modelId": "accounts/fireworks/models/deepseek-v3",
+        "score": 0.9,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 1100,
+        "caseCount": 8,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-kb_sql-deepseek-v3",
+        "sandbox": {
+          "passed": 8,
+          "total": 8
+        },
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 11640,
+      "taskId": "kb_sql",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 11820,
+      "taskId": "kb_sql",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct"
+    },
+    {
+      "type": "sandbox_started",
+      "ts": 11960,
+      "taskId": "kb_sql",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct"
+    },
+    {
+      "type": "sandbox_result",
+      "ts": 12220,
+      "taskId": "kb_sql",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+      "passed": 4,
+      "total": 8
+    },
+    {
+      "type": "race_scored",
+      "ts": 12340,
+      "result": {
+        "taskId": "kb_sql",
+        "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+        "score": 0.68,
+        "costPer1k": 0.6,
+        "p50LatencyMs": 1300,
+        "caseCount": 8,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-kb_sql-kimi-k2",
+        "sandbox": {
+          "passed": 4,
+          "total": 8
+        },
+        "state": "complete"
+      }
+    },
+    {
+      "type": "routing_updated",
+      "ts": 12420,
+      "card": {
+        "industry": "Customer support",
+        "entries": [
+          {
+            "taskId": "intent_classification",
+            "taskName": "Intent classification",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+            "score": 0.93,
+            "scoreDelta": 0.030000000000000027,
+            "p50LatencyMs": 900,
+            "costPer1k": 0.9,
+            "rationale": "Qwen2.5 72B leads at 93% on real eval cases, 3 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-intent_classification-qwen2-5-72b",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "reply_drafting",
+            "taskName": "Reply drafting",
+            "taskType": "TEXT",
+            "bestModelId": "accounts/fireworks/models/kimi-k2-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+            "score": 0.92,
+            "scoreDelta": 0.050000000000000044,
+            "p50LatencyMs": 1300,
+            "costPer1k": 0.6,
+            "rationale": "Kimi K2 leads at 92% on real eval cases, 5 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-reply_drafting-kimi-k2",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "sentiment_tagging",
+            "taskName": "Sentiment tagging",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.89,
+            "scoreDelta": 0.030000000000000027,
+            "p50LatencyMs": 820,
+            "costPer1k": 0.9,
+            "rationale": "Llama 3.3 70B leads at 89% on real eval cases, 3 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-sentiment_tagging-llama-3-3-70b",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "kb_sql",
+            "taskName": "Analytics SQL",
+            "taskType": "CODE",
+            "bestModelId": "accounts/fireworks/models/deepseek-v3",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.9,
+            "scoreDelta": 0.10999999999999999,
+            "p50LatencyMs": 1100,
+            "costPer1k": 0.9,
+            "rationale": "DeepSeek V3 leads at 90% on real eval cases, 11 pts over the runner-up, verified by execution (8/8 tests).",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-kb_sql-deepseek-v3",
+            "sandboxVerified": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "run_completed",
+      "ts": 12620,
+      "card": {
+        "industry": "Customer support",
+        "entries": [
+          {
+            "taskId": "intent_classification",
+            "taskName": "Intent classification",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+            "score": 0.93,
+            "scoreDelta": 0.030000000000000027,
+            "p50LatencyMs": 900,
+            "costPer1k": 0.9,
+            "rationale": "Qwen2.5 72B leads at 93% on real eval cases, 3 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-intent_classification-qwen2-5-72b",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "reply_drafting",
+            "taskName": "Reply drafting",
+            "taskType": "TEXT",
+            "bestModelId": "accounts/fireworks/models/kimi-k2-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+            "score": 0.92,
+            "scoreDelta": 0.050000000000000044,
+            "p50LatencyMs": 1300,
+            "costPer1k": 0.6,
+            "rationale": "Kimi K2 leads at 92% on real eval cases, 5 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-reply_drafting-kimi-k2",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "sentiment_tagging",
+            "taskName": "Sentiment tagging",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.89,
+            "scoreDelta": 0.030000000000000027,
+            "p50LatencyMs": 820,
+            "costPer1k": 0.9,
+            "rationale": "Llama 3.3 70B leads at 89% on real eval cases, 3 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-sentiment_tagging-llama-3-3-70b",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "kb_sql",
+            "taskName": "Analytics SQL",
+            "taskType": "CODE",
+            "bestModelId": "accounts/fireworks/models/deepseek-v3",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.9,
+            "scoreDelta": 0.10999999999999999,
+            "p50LatencyMs": 1100,
+            "costPer1k": 0.9,
+            "rationale": "DeepSeek V3 leads at 90% on real eval cases, 11 pts over the runner-up, verified by execution (8/8 tests).",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/customer-support-kb_sql-deepseek-v3",
+            "sandboxVerified": true
+          }
+        ]
+      }
+    }
+  ]
+}

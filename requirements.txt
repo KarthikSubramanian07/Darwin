@@ -6,7 +6,8 @@ python-dotenv>=1.0.0
 
 # Sponsor SDKs — VERIFY install name + import surface before writing calls
 daytona            # Daytona: parallel sandboxes + snapshot/restore  (verified: pip install daytona)
-braintrust         # Braintrust: Eval(), scorers, experiment logging (VERIFY)
+braintrust         # Braintrust: init()/Experiment.log()/summarize() (verified 2026-07)
+autoevals          # Braintrust scorers (ExactMatch, Levenshtein, LLM-judge); optional at runtime
 openai>=1.30.0     # Fireworks is OpenAI-compatible; set base_url     (VERIFY base_url + model ids)
 
 # Server / plumbing

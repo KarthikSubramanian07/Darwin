@@ -128,4 +128,33 @@ Cloudflare Pages with `wrangler pages deploy`. Owner approves the auth prompt.
 **Why:** hands-off for the owner, one clean SEO link that works with no backend and doubles as
 the honest cached-run fallback.
 
-<!-- Append D11+ as decisions are made during the sprint. -->
+### D11 - Fireworks verified surface + pinned race catalog (RESOLVED, 2026-07-24)
+**What:** all Fireworks calls go through `darwin/core/fw_client.py` (OpenAI-compatible client,
+`base_url=https://api.fireworks.ai/inference/v1`, semaphore + retry/backoff, latency + cost
+capture from the response `usage` object). The race catalog is queried live
+(`client.models.list()`) and validated against the pinned fallback `RACE_MODELS`:
+`gpt-oss-120b`, `kimi-k2p6`, `glm-5p1`, `glm-5p2`, `deepseek-v4-pro` (5 text models live on
+this account; `flux-1-schnell-fp8` excluded as image-gen). Prices per 1M tokens pinned in
+`MODEL_PRICES` from fireworks.ai/models. `DEFAULT_MODEL` is now `gpt-oss-120b` (cheapest
+verified: $0.15/M in, $0.60/M out) - the old `llama-v3p1-8b-instruct` was removed from
+serverless in the 2026-05-14 legacy purge.
+**Why:** SDK surfaces and catalogs drift; every claim above came from a live probe or current
+docs (see LEARNINGS.md). Mutation calls FORCE the function via `tool_choice` and validate
+`{target, new_content}` strictly, because probed models otherwise reply in prose or fill
+`target` loosely.
+**Caveat:** deepseek-v4-pro pricing reads garbled in the docs; we pinned the conservative
+$1.74/$3.48 reading and label all cost figures as estimates.
+
+### D12 - Rollback = in-sandbox directory snapshot, not platform snapshots (RESOLVED)
+**What:** `DaytonaSandboxPool.snapshot/restore` copies the run directory inside the sandbox
+(`cp -a`), exactly mirroring the local reference pool's `copytree` semantics. Sandboxes are
+created once per run and reused across generations (run dirs wiped per variant).
+**Why:** Daytona's per-sandbox snapshot API is experimental (`_experimental_create_snapshot`),
+captures to object storage with state polling, and restore requires creating a new sandbox -
+too slow at per-variant cadence for the 2-minute live budget. Directory snapshots restore in
+one exec and the demo beat (regression -> rolled_back) stays visibly instant.
+**Caveat:** this rolls back the *variant's filesystem state*, not the whole VM image. The
+containment story is unchanged (the sandbox itself is still the isolation boundary); if a
+demo ever needs full-image rollback, the platform snapshot path is the upgrade.
+
+<!-- Append D13+ as decisions are made during the sprint. -->

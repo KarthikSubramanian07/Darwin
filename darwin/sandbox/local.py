@@ -88,6 +88,13 @@ class LocalSandboxPool:
             err = (proc.stderr or "harness crashed").strip()[-500:]
             return {pid: [{"got": None, "error": err} for _ in info["cases"]] for pid, info in inputs_spec.items()}
 
+    def handle_by_id(self, sandbox_id: str) -> LocalHandle | None:
+        """Look up a live handle so guards._rollback can restore it (SPEC section 11)."""
+        for h in self._handles:
+            if h.sandbox_id == sandbox_id:
+                return h
+        return None
+
     def snapshot(self, handle: LocalHandle) -> str:
         snap_id = f"{handle.sandbox_id}-snap-{len(self._snapshots)}"
         dest = self._root / f"{snap_id}"

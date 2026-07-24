@@ -20,7 +20,9 @@ DEFAULT_SYSTEM_PROMPT = (
 
 # The default model gene. A Fireworks model id when the Fireworks path is on; a readable label
 # offline. Evolution may swap this to any model in the catalog (see darwin/core/mutate.py).
-DEFAULT_MODEL = "accounts/fireworks/models/llama-v3p1-8b-instruct"
+# Verified live on serverless 2026-07-24 (legacy ids like llama-v3p1 were removed 2026-05-14;
+# see DECISIONS.md D11 + darwin/core/fw_client.py RACE_MODELS).
+DEFAULT_MODEL = "accounts/fireworks/models/gpt-oss-120b"
 
 
 class Genome(BaseModel):

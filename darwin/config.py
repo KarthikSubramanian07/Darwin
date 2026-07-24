@@ -70,6 +70,9 @@ class Config:
     max_wall_clock_s: int = field(default_factory=lambda: _int("MAX_WALL_CLOCK_S", 180))
     random_seed: int = field(default_factory=lambda: _int("RANDOM_SEED", 1337))
     auto_approve: bool = field(default_factory=lambda: _flag("AUTO_APPROVE"))
+    # demo: generation index at which one deliberately-regressing canary child is seeded so the
+    # auto-reject + rollback beat happens on stage (SPEC section 7). -1 = off.
+    seed_regression_gen: int = field(default_factory=lambda: _int("SEED_REGRESSION_GEN", -1))
 
 
 def load_config() -> Config:

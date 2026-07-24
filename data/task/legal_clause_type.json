@@ -1,0 +1,101 @@
+{
+  "task_id": "legal_clause_type",
+  "description": "Classify a legal clause into exactly one predefined functional category based on its primary legal purpose and subject matter.",
+  "industry": "legal",
+  "problems": [
+    {
+      "case_id": "legal_clause_type",
+      "entrypoint": "solve",
+      "prompt": "Analyze the provided legal clause text and classify it into exactly one category from the following closed list: Indemnification, Limitation of Liability, Termination, Force Majeure, Confidentiality, Intellectual Property, Payment Terms, Governing Law, Data Protection, Assignment, Warranties, Non-compete, Severability, Entire Agreement, Other. Return a single JSON object containing exactly one key: \"clause_type\". The value must be the selected category string with no abbreviations or alterations. Do not include any explanatory text outside the JSON object.",
+      "cases": [
+        {
+          "args": [
+            "Supplier shall defend, indemnify, and hold harmless Customer from and against any and all third-party claims, damages, and expenses arising out of Supplier's breach of this Agreement or negligence."
+          ],
+          "expected": {
+            "clause_type": "Indemnification"
+          }
+        },
+        {
+          "args": [
+            "In no event shall either party be liable for any indirect, incidental, special, consequential, or punitive damages. Each party's total cumulative liability shall not exceed the total amount paid by Customer under this Agreement in the twelve months preceding the claim."
+          ],
+          "expected": {
+            "clause_type": "Limitation of Liability"
+          }
+        },
+        {
+          "args": [
+            "Either party may terminate this Agreement for convenience upon ninety (90) days prior written notice to the other party. Upon termination, all licenses granted hereunder shall immediately cease."
+          ],
+          "expected": {
+            "clause_type": "Termination"
+          }
+        },
+        {
+          "args": [
+            "Neither party shall be liable for any failure or delay in performance under this Agreement due to causes beyond its reasonable control, including but not limited to acts of God, war, terrorism, labor disputes, earthquakes, floods, or shortages of materials."
+          ],
+          "expected": {
+            "clause_type": "Force Majeure"
+          }
+        },
+        {
+          "args": [
+            "Recipient agrees to hold all Confidential Information in strict confidence and shall not disclose such information to any third party without the prior written consent of Discloser. Recipient shall use Confidential Information solely for the purpose of performing its obligations under this Agreement."
+          ],
+          "expected": {
+            "clause_type": "Confidentiality"
+          }
+        },
+        {
+          "args": [
+            "All work product, inventions, software, and materials created or developed by Contractor solely or jointly in the course of performing services under this Agreement shall be deemed work made for hire and shall be owned exclusively by Company."
+          ],
+          "expected": {
+            "clause_type": "Intellectual Property"
+          }
+        },
+        {
+          "args": [
+            "Customer shall pay all fees within thirty (30) days from the date of invoice. Late payments shall accrue interest at the rate of one and one-half percent (1.5%) per month or the maximum rate permitted by law, whichever is less."
+          ],
+          "expected": {
+            "clause_type": "Payment Terms"
+          }
+        },
+        {
+          "args": [
+            "This Agreement shall be governed by and construed in accordance with the laws of the State of New York, without regard to its conflict of laws principles. Any dispute arising hereunder shall be brought exclusively in the state or federal courts located in New York County."
+          ],
+          "expected": {
+            "clause_type": "Governing Law"
+          }
+        },
+        {
+          "args": [
+            "Processor shall process Personal Data only in accordance with Controller's documented instructions and shall implement appropriate technical and organizational measures to ensure a level of security appropriate to the risk, in compliance with the General Data Protection Regulation (GDPR)."
+          ],
+          "expected": {
+            "clause_type": "Data Protection"
+          }
+        },
+        {
+          "args": [
+            "Neither party may assign this Agreement or any of its rights or obligations hereunder without the prior written consent of the other party, except that either party may assign this Agreement to an affiliate or in connection with a merger, acquisition, or sale of all or substantially all of its assets."
+          ],
+          "expected": {
+            "clause_type": "Assignment"
+          }
+        }
+      ],
+      "ladder": [],
+      "task_type": "structured",
+      "scorer_config": {
+        "method": "exact_match",
+        "task_source": "fireworks",
+        "case_source": "fireworks"
+      }
+    }
+  ]
+}

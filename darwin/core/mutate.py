@@ -281,14 +281,20 @@ class Mutator:
         child_tools = dict(parent.genome.tools)
         note = "no improvable problem; carried forward"
         if targets:
-            # offspring k targets the k-th worst improvable problem, for diversity
-            problem_id = targets[k % len(targets)]
-            ladder = self._ladders.get(problem_id, [])
-            cur = child_tools.get(problem_id, "")
-            idx = ladder.index(cur) if cur in ladder else 0
-            if idx + 1 < len(ladder):
-                child_tools[problem_id] = ladder[idx + 1]
-                note = f"rewrote tool '{problem_id}' (ladder rung {idx} -> {idx + 1})"
+            # Repair a small rotated batch so the documented five-generation offline run
+            # reaches the demo threshold. Rotation still gives siblings distinct edits.
+            start = k % len(targets)
+            rotated = targets[start:] + targets[:start]
+            changes = []
+            for problem_id in rotated[:2]:
+                ladder = self._ladders.get(problem_id, [])
+                cur = child_tools.get(problem_id, "")
+                idx = ladder.index(cur) if cur in ladder else 0
+                if idx + 1 < len(ladder):
+                    child_tools[problem_id] = ladder[idx + 1]
+                    changes.append(f"{problem_id} ({idx} -> {idx + 1})")
+            if changes:
+                note = f"rewrote tool(s) {', '.join(changes)}"
         self._counter += 1
         return parent.genome.clone(
             genome_id=f"g{generation}-{self._counter}",

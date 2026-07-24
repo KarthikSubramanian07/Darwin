@@ -1,0 +1,81 @@
+{
+  "task_id": "support_order_status",
+  "description": "Classifies the specific order status phase or issue type described in the customer message to trigger the correct fulfillment or logistics workflow.",
+  "industry": "support",
+  "problems": [
+    {
+      "case_id": "support_order_status",
+      "entrypoint": "solve",
+      "prompt": "Read the customer message and identify the order status category that is either explicitly stated or directly implied. Select exactly one.\n\nCategories:\n- pending: Order not yet processed; customer asking before shipment.\n- shipped: Order has left warehouse; customer wants tracking or confirms dispatch.\n- in_transit: Carrier has package; customer asks about intermediate location or estimated arrival.\n- out_for_delivery: Package is with local courier; customer asks about today's delivery.\n- delivered: Customer confirms receipt, reports missing package after delivery scan, or asks about proof of delivery.\n- delayed: Explicit mention of late shipment, missed estimated date, or carrier delay.\n- cancelled: Order voided by customer or system; questions about cancellation confirmation or refund timing.\n- returned: Return initiated, reverse logistics, or refund after return.\n- unknown: No order status information is present or inferable.\n\nMessage: {message}\n\nOutput only the exact status label.",
+      "cases": [
+        {
+          "args": [
+            "Hi, I just placed order #12345 and realized I put the wrong address. Can you update it before it ships?"
+          ],
+          "expected": "pending"
+        },
+        {
+          "args": [
+            "My order was dispatched yesterday but I never received a tracking link. Can you send me the tracking number?"
+          ],
+          "expected": "shipped"
+        },
+        {
+          "args": [
+            "The tracking shows my package left Chicago two days ago but hasn't updated since. Where is it now?"
+          ],
+          "expected": "in_transit"
+        },
+        {
+          "args": [
+            "It says out for delivery since 8am. Will it arrive before 5pm today?"
+          ],
+          "expected": "out_for_delivery"
+        },
+        {
+          "args": [
+            "Thanks, I got the package this morning. Everything looks great!"
+          ],
+          "expected": "delivered"
+        },
+        {
+          "args": [
+            "My package was supposed to arrive last Friday but it's still not here. Why is it late?"
+          ],
+          "expected": "delayed"
+        },
+        {
+          "args": [
+            "I cancelled my order yesterday. When will the refund hit my credit card?"
+          ],
+          "expected": "cancelled"
+        },
+        {
+          "args": [
+            "I dropped the return package at the post office yesterday. Have you received it back yet?"
+          ],
+          "expected": "returned"
+        },
+        {
+          "args": [
+            "Do you offer gift wrapping for birthday presents?"
+          ],
+          "expected": "unknown"
+        },
+        {
+          "args": [
+            "The tracking says delivered but I never found the box on my porch. Can you provide proof of delivery?"
+          ],
+          "expected": "delivered"
+        }
+      ],
+      "ladder": [],
+      "task_type": "structured",
+      "scorer_config": {
+        "method": "exact_match",
+        "task_source": "fireworks",
+        "case_source": "fireworks"
+      }
+    }
+  ]
+}

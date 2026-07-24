@@ -40,11 +40,27 @@ and evolution in sandboxes, **D** visualizes it as the task×model grid and the 
 ## Dev setup
 
 ```bash
-python -m venv .venv && source .venv/bin/activate
+python3.11 -m venv .venv && source .venv/bin/activate   # 3.11+ required (Daytona SDK needs 3.10+)
 pip install -r requirements.txt
 cp .env.example .env
 pytest            # tests must pass before you push
 ruff check .      # lint before you push
+```
+
+Useful runners (Lane C):
+
+```bash
+python scripts/smoke_sponsors.py            # ~15s connectivity check: Fireworks catalog + one
+                                            # throwaway Daytona sandbox (run before any demo)
+python -m darwin.main --offline --echo      # offline demo floor (all flags off, still climbs)
+python -m darwin.main --echo                # live run using the feature flags/keys in .env
+SEED_REGRESSION_GEN=2 python -m darwin.main --echo   # demo beat: seeded canary regresses in
+                                            # gen 2 -> auto-reject + sandbox rollback on screen
+python scripts/precompute_library.py --runs 3        # record real RunRecords into data/runs/
+                                            # (the honest cached library; prints wall-clock vs
+                                            # the 2-minute live budget)
+pytest tests/test_daytona_pool.py -q        # includes a live Daytona round-trip when
+                                            # FEATURE_DAYTONA=1 and DAYTONA_API_KEY are set
 ```
 
 ## Branch & PR flow

@@ -70,7 +70,12 @@ class BraintrustLogger:
                         "model": genome.model,
                     },
                 )
-            summary = experiment.summarize()
+            # summarize_scores=False skips the server-side score/metric computation, which
+            # (a) blocks each variant's scoring thread and (b) hit Braintrust DB timeouts in
+            # live runs ("Failed to run BrainstoreQuery"). Metadata-only still returns the
+            # experiment_url (docs: /v1/experiment/{id}/summarize, verified 2026-07-24).
+            # Cross-lane one-liner by Lane C - flagged to Lane B.
+            summary = experiment.summarize(summarize_scores=False)
             return getattr(summary, "experiment_url", "") or ""
         except Exception:  # noqa: BLE001 - logging must never break the loop
             return ""

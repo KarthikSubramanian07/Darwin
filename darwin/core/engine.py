@@ -45,7 +45,14 @@ class EvolutionEngine:
         population = [
             Genome.seed(task, genome_id=f"g0-{i}") for i in range(self.config.population_size)
         ]
-        # gen-0 genomes are identical baselines; nudge ids only (mutation diversity starts gen 1)
+        # THE MODEL RACE: when the mutator carries a live catalog, round-robin gen-0 across it
+        # so every model starts a lineage. Offline (empty catalog) all seeds keep DEFAULT_MODEL
+        # and the deterministic climb is untouched.
+        race_models = getattr(self.mutator, "race_models", None) or []
+        for i, genome in enumerate(population):
+            if race_models:
+                genome.model = race_models[i % len(race_models)]
+                genome.lineage_note = f"seed (racing {genome.model.rsplit('/', 1)[-1]})"
 
         record = RunRecord(
             run_id=run_id,
@@ -111,7 +118,14 @@ class EvolutionEngine:
                 "index": gen_index,
                 "best_fitness": round(best_fitness, 4),
                 "leaderboard": [
-                    {"genome_id": v.genome.genome_id, "fitness": round(v.fitness, 4), "status": v.status}
+                    {
+                        "genome_id": v.genome.genome_id,
+                        "model": v.genome.model,
+                        "fitness": round(v.fitness, 4),
+                        "cost_est": v.cost_est,
+                        "p50_latency_ms": v.p50_latency_ms,
+                        "status": v.status,
+                    }
                     for v in rank(variants)
                 ],
             })
@@ -181,11 +195,15 @@ class EvolutionEngine:
             except Exception as e:  # noqa: BLE001 - a broken variant is simply unfit
                 outputs, per_case, fitness, status = {}, [], 0.0, "failed"
                 self._emit("guard", {"guard": "variant_failed", "genome_id": genome.genome_id, "error": str(e)})
+            # mutation-call stats recorded by the mutator when this genome was created
+            mstats = getattr(self.mutator, "call_stats", {}).pop(genome.genome_id, None) or {}
             v = Variant(
                 genome=genome,
                 fitness=fitness,
                 per_case=per_case,
                 raw_outputs=outputs,
+                cost_est=round(mstats.get("cost_est", 0.0), 6),
+                p50_latency_ms=int(mstats.get("latency_ms", 0)),
                 braintrust_experiment_url=experiment_url,
                 sandbox_id=handle.sandbox_id,
                 snapshot_id=snapshot_id,
@@ -194,7 +212,10 @@ class EvolutionEngine:
             )
             self._emit("variant_evaluated", {
                 "genome_id": genome.genome_id,
+                "model": genome.model,
                 "fitness": round(fitness, 4),
+                "cost_est": v.cost_est,
+                "p50_latency_ms": v.p50_latency_ms,
                 "status": status,
                 "generation": gen_index,
             })

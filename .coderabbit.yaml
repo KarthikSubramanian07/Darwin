@@ -16,6 +16,14 @@ reviews:
   auto_review:
     enabled: true
     drafts: true            # champion PRs open as drafts; review before promotion
+  # Don't spend review budget on generated artifacts, lockfiles, or persisted run data.
+  path_filters:
+    - "!**/node_modules/**"
+    - "!**/dist/**"
+    - "!dashboard/package-lock.json"
+    - "!**/*.min.js"
+    - "!**/*.map"
+    - "!data/runs/**/*.json"   # persisted RunRecords / dashboard replay fixtures (data, not logic)
   path_instructions:
     - path: "data/runs/**/genome_*/tools/**"
       instructions: >
@@ -24,6 +32,25 @@ reviews:
         sandbox workdir, attempts to read or import the fitness/grader module, obfuscation,
         and any path that could reward-hack the evaluation. Severity matters: a critical
         finding blocks promotion.
+    - path: "darwin/core/genome.py"
+      instructions: >
+        Frozen cross-lane data contract (Genome/Variant/Generation/RunRecord/RoutingCard).
+        Flag ANY field rename, removal, or type change: downstream lanes and the dashboard
+        depend on these shapes. A shape change must come with a matching SPEC.md section 10
+        update in the same PR.
+    - path: "darwin/core/population.py"
+      instructions: >
+        Frozen cross-lane data contract. Same rule as genome.py: flag field renames/removals/
+        type changes and require a SPEC.md section 10 update in the same PR.
+    - path: "darwin/server/events.py"
+      instructions: >
+        The event contract the dashboard consumes ({type, payload, ts}). Flag changes to event
+        type names or payload keys, since they silently break the Lane D adapter.
+    - path: "dashboard/**"
+      instructions: >
+        Lane D dashboard (React + TypeScript). Keep changes inside dashboard/. Flag edits that
+        reach into other lanes' Python modules from here, hardcoded secrets, and any event/field
+        handling that diverges from the frozen backend contract instead of adapting to it.
 
 chat:
   auto_reply: true

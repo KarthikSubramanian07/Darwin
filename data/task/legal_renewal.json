@@ -1,0 +1,101 @@
+{
+  "task_id": "legal_renewal",
+  "description": "Determine the contract renewal mechanism or post-initial term behavior described in a clause.",
+  "industry": "legal",
+  "problems": [
+    {
+      "case_id": "legal_renewal",
+      "entrypoint": "solve",
+      "prompt": "Analyze the provided renewal clause and classify the renewal mechanism into exactly one category from the following list: Automatic, Manual/Opt-in, Non-renewing fixed term, Not specified. Return a single JSON object containing exactly one key: \"renewal_type\". The value must be the exact string of the selected category. Output only the JSON object.",
+      "cases": [
+        {
+          "args": [
+            "This Agreement shall automatically renew for additional successive one (1) year periods unless either party provides written notice of non-renewal at least sixty (60) days prior to the expiration of the then-current term."
+          ],
+          "expected": {
+            "renewal_type": "Automatic"
+          }
+        },
+        {
+          "args": [
+            "Following the Initial Term, this Agreement may be renewed for up to two (2) additional one-year terms upon mutual written consent of the parties, such consent to be evidenced by a signed renewal addendum."
+          ],
+          "expected": {
+            "renewal_type": "Manual/Opt-in"
+          }
+        },
+        {
+          "args": [
+            "This Agreement is effective as of January 1, 2024 and shall automatically terminate on December 31, 2024 without renewal or extension of any kind."
+          ],
+          "expected": {
+            "renewal_type": "Non-renewing fixed term"
+          }
+        },
+        {
+          "args": [
+            "The initial term of this License shall be twenty-four (24) months commencing on the Effective Date."
+          ],
+          "expected": {
+            "renewal_type": "Not specified"
+          }
+        },
+        {
+          "args": [
+            "Upon expiration of the initial three-year term, this Agreement shall continue on a month-to-month basis on the same terms and conditions until either party gives thirty (30) days written notice of termination."
+          ],
+          "expected": {
+            "renewal_type": "Automatic"
+          }
+        },
+        {
+          "args": [
+            "Company shall have the right, but not the obligation, to renew this Service Contract for an additional period of twelve (12) months by providing written notice of its election to renew no later than ninety (90) days before the end of the current term."
+          ],
+          "expected": {
+            "renewal_type": "Manual/Opt-in"
+          }
+        },
+        {
+          "args": [
+            "The Consultant shall perform the Services for a fixed term ending on March 15, 2025, at which time this Agreement shall expire in its entirety and shall not be extended or renewed under any circumstances."
+          ],
+          "expected": {
+            "renewal_type": "Non-renewing fixed term"
+          }
+        },
+        {
+          "args": [
+            "This Lease shall commence on the first day of July, 2024 and shall continue for a period of thirty-six (36) months."
+          ],
+          "expected": {
+            "renewal_type": "Not specified"
+          }
+        },
+        {
+          "args": [
+            "Unless terminated earlier in accordance with Article 12, this Agreement shall automatically renew at the end of each Term for a Renewal Term of one (1) year, and successive Renewal Terms thereafter, unless written notice is given by either party at least forty-five (45) days prior to expiration."
+          ],
+          "expected": {
+            "renewal_type": "Automatic"
+          }
+        },
+        {
+          "args": [
+            "The parties may, by execution of a written instrument delivered no fewer than thirty (30) days prior to the expiration of the Initial Term, elect to extend this Agreement for one additional one-year period."
+          ],
+          "expected": {
+            "renewal_type": "Manual/Opt-in"
+          }
+        }
+      ],
+      "ladder": [],
+      "task_type": "structured",
+      "scorer_config": {
+        "method": "exact_match",
+        "task_source": "fireworks",
+        "case_source": "fireworks"
+      }
+    }
+  ]
+}

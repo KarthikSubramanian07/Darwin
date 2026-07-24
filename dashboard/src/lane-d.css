@@ -13,8 +13,8 @@
   --fg: #fafafa;
   --dim: #a1a1aa;
   --dim-2: #d4d4d8;
-  --primary: #4f7bff; /* indigo accent, matches the landing */
-  --primary-dim: #34509c;
+  --primary: oklch(0.68 0.17 250); /* exact same accent as the landing (app.css --accent) */
+  --primary-dim: oklch(0.5 0.13 250);
   --mutate: #a970ff; /* violet, model swaps */
   --danger: #ff6b6b; /* coral, regressions/failures */
   --warn: #ffc24e; /* amber */

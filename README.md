@@ -101,24 +101,53 @@ flowchart TD
     GR[[Immutable grader<br/>the agent cannot read or edit it]] -. scores, out of reach .-> B
 ```
 
-## Quickstart
+## Setup
+
+**Prerequisites:** Python 3.11+ and (for the dashboard) Node 20+.
+
+**1. Clone + install**
 
 ```bash
 git clone https://github.com/KarthikSubramanian07/darwin.git && cd darwin
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env         # add keys, or leave blank to run fully offline
-
-python -m darwin.main        # evolve on the built-in coding benchmark
-
-# point it at a whole domain: decompose an industry, then evolve a specialist per task
-python -m pipeline.build legal
-python -m darwin.main --task legal
-
-# dashboard: cd dashboard && npm install && npm run dev   (live at trydarwin.pages.dev)
+python scripts/build_task.py          # (re)generate the coding benchmark
 ```
 
-**No keys? It still climbs.** With every feature flag off, Darwin falls back to a local subprocess sandbox, a local scorer, canned mutations, and a local static-analysis reviewer, and the fitness curve still climbs. That offline path is the demo floor. With keys on, variants run in real **Daytona** sandboxes, mutate and race across the live **Fireworks** catalog, and every variant is logged as a **Braintrust** experiment.
+**2. Keys (optional — it runs fully offline without them)**
+
+```bash
+cp .env.example .env
+# fill in any of these to light up the real sponsors (all independently optional):
+#   DAYTONA_API_KEY=      + FEATURE_DAYTONA=1      real sandboxes + rollback
+#   BRAINTRUST_API_KEY=   + FEATURE_BRAINTRUST=1   experiments = the fitness fn
+#   FIREWORKS_API_KEY=    + FEATURE_FIREWORKS=1    real mutation + the model race
+```
+
+**3. Run an evolution (CLI)**
+
+```bash
+python -m darwin.main --offline            # ~2s, offline, curve climbs 37.5 -> 100%
+python -m darwin.main                       # uses whatever keys/flags are in .env
+
+# point it at a whole domain: decompose an industry, then evolve a specialist per task
+python -m pipeline.build legal              # writes data/task/legal.json
+python -m darwin.main --task legal
+```
+
+**4. The dashboard**
+
+```bash
+# terminal 1 — the live engine + WebSocket server
+python -m darwin.server.app                 # serves :8000 (offline-safe; add keys for real runs)
+
+# terminal 2 — the dashboard (proxies /ws + /api to :8000)
+cd dashboard && npm install && npm run dev  # http://localhost:5173
+```
+
+The home page is the pitch + the self-improvement run (the climb, the safety beats). **The Lab** (`/app`) is the interactive routing tool: name a domain, watch the task x model race, get a routing card. **Deploy:** `cd dashboard && npm run build && npx wrangler pages deploy dist --project-name trydarwin`.
+
+**No keys? It still climbs.** With every flag off, Darwin uses a local subprocess sandbox, a local scorer, and canned mutations, and the curve still climbs. That offline path is the demo floor. With keys on, variants run in real **Daytona** sandboxes, mutate and race across the live **Fireworks AI** catalog, and every variant is logged as a **Braintrust** experiment.
 
 ## License
 

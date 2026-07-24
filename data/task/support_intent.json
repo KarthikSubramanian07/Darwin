@@ -1,0 +1,81 @@
+{
+  "task_id": "support_intent",
+  "description": "Classifies the primary customer objective in a support message into a single mutually exclusive category to enable automatic routing and response template selection.",
+  "industry": "support",
+  "problems": [
+    {
+      "case_id": "support_intent",
+      "entrypoint": "solve",
+      "prompt": "You are a support intent classifier. Read the customer message below and select exactly one category from the list. Base your decision solely on explicit content or strong direct implication. Do not infer unstated intent. If multiple intents appear, choose the one that is the primary focus (the main reason the customer contacted support).\n\nCategories:\n- refund_request: Customer asks for money back, return, chargeback, or reversal of payment.\n- order_inquiry: Customer asks about order status, tracking number, shipping, delivery, or order confirmation.\n- technical_issue: Customer reports a bug, crash, error message, or broken product functionality.\n- account_issue: Customer reports login problems, unauthorized access, or need for account/profile changes.\n- complaint: Customer expresses strong dissatisfaction, demands a supervisor, or threatens churn/legal action without making a specific transactional request.\n- general_question: Customer asks about policies, pricing, product details, or how-to information.\n\nMessage: {message}\n\nOutput only the exact category name.",
+      "cases": [
+        {
+          "args": [
+            "I want my money back. This app crashes every time I open it and is completely unusable."
+          ],
+          "expected": "refund_request"
+        },
+        {
+          "args": [
+            "Can you tell me the status of order #98765? I never received a confirmation email or tracking link."
+          ],
+          "expected": "order_inquiry"
+        },
+        {
+          "args": [
+            "When I click 'Save Document' I get an error message saying 'Failed to write to disk: Error 0x80070057'. This happens on every file."
+          ],
+          "expected": "technical_issue"
+        },
+        {
+          "args": [
+            "I forgot my password and the reset email never arrives. I am locked out of my account."
+          ],
+          "expected": "account_issue"
+        },
+        {
+          "args": [
+            "This is the worst service I have ever experienced. I am furious and demand to speak with a manager right now."
+          ],
+          "expected": "complaint"
+        },
+        {
+          "args": [
+            "What are your customer service hours? I need to know if someone will be available to call this evening."
+          ],
+          "expected": "general_question"
+        },
+        {
+          "args": [
+            "I was charged $49.99 twice on my credit card for the same month. Please reverse one of these charges immediately."
+          ],
+          "expected": "refund_request"
+        },
+        {
+          "args": [
+            "Where is my package? It was supposed to arrive last Tuesday. Also, does your standard shipping usually take this long?"
+          ],
+          "expected": "order_inquiry"
+        },
+        {
+          "args": [
+            "I am extremely frustrated. The sync feature has been broken for three days and none of my data is updating across devices."
+          ],
+          "expected": "technical_issue"
+        },
+        {
+          "args": [
+            "I received an email saying my account password was changed, but I did not make this change. Please secure my account immediately."
+          ],
+          "expected": "account_issue"
+        }
+      ],
+      "ladder": [],
+      "task_type": "structured",
+      "scorer_config": {
+        "method": "exact_match",
+        "task_source": "fireworks",
+        "case_source": "fireworks"
+      }
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "task_id": "legal_confidentiality",
+  "description": "Characterize the confidentiality obligation symmetry and duration from a non-disclosure or confidentiality clause.",
+  "industry": "legal",
+  "problems": [
+    {
+      "case_id": "legal_confidentiality",
+      "entrypoint": "solve",
+      "prompt": "Analyze the provided confidentiality clause and extract two attributes. Return a single JSON object containing exactly two keys: (1) \"obligation_type\" with a value of exactly one of: Mutual, Unilateral - recipient bound, Unilateral - discloser bound, None/Not specified; and (2) \"duration\" with a value of exactly one of: Perpetual, Term of agreement, Fixed post-termination period, Not specified. Both values must match the listed strings exactly. Output only the JSON object.",
+      "cases": [
+        {
+          "args": [
+            "Each party agrees to hold all Confidential Information of the other party in strict confidence and shall not disclose such information to any third party. These confidentiality obligations shall survive termination of this Agreement and remain in effect indefinitely."
+          ],
+          "expected": {
+            "obligation_type": "Mutual",
+            "duration": "Perpetual"
+          }
+        },
+        {
+          "args": [
+            "The Receiving Party agrees to maintain the confidentiality of the Disclosing Party's Confidential Information for a period of five (5) years following the termination of this Agreement."
+          ],
+          "expected": {
+            "obligation_type": "Unilateral - recipient bound",
+            "duration": "Fixed post-termination period"
+          }
+        },
+        {
+          "args": [
+            "The Disclosing Party agrees to keep all Confidential Information of the Receiving Party confidential during the term of this Agreement."
+          ],
+          "expected": {
+            "obligation_type": "Unilateral - discloser bound",
+            "duration": "Term of agreement"
+          }
+        },
+        {
+          "args": [
+            "Both parties agree to keep all exchanged information confidential solely during the term of this Agreement."
+          ],
+          "expected": {
+            "obligation_type": "Mutual",
+            "duration": "Term of agreement"
+          }
+        },
+        {
+          "args": [
+            "The Recipient shall hold all Confidential Information of the Discloser in strict confidence and shall not disclose the same at any time, and these obligations shall continue in perpetuity."
+          ],
+          "expected": {
+            "obligation_type": "Unilateral - recipient bound",
+            "duration": "Perpetual"
+          }
+        },
+        {
+          "args": [
+            "For purposes of this Agreement, 'Confidential Information' means any non-public technical or financial information disclosed by either party."
+          ],
+          "expected": {
+            "obligation_type": "None/Not specified",
+            "duration": "Not specified"
+          }
+        },
+        {
+          "args": [
+            "Each party shall maintain the confidentiality of the other party's Confidential Information for a period of three (3) years following the expiration or termination of this Agreement."
+          ],
+          "expected": {
+            "obligation_type": "Mutual",
+            "duration": "Fixed post-termination period"
+          }
+        },
+        {
+          "args": [
+            "The Consultant, as recipient, agrees to keep the Client's Confidential Information confidential during the term of this engagement."
+          ],
+          "expected": {
+            "obligation_type": "Unilateral - recipient bound",
+            "duration": "Term of agreement"
+          }
+        },
+        {
+          "args": [
+            "The Disclosing Party agrees to maintain the confidentiality of the Recipient's trade secrets in perpetuity."
+          ],
+          "expected": {
+            "obligation_type": "Unilateral - discloser bound",
+            "duration": "Perpetual"
+          }
+        },
+        {
+          "args": [
+            "As the disclosing party, Vendor agrees to hold Buyer's order details in confidence for two (2) years after termination of this Agreement."
+          ],
+          "expected": {
+            "obligation_type": "Unilateral - discloser bound",
+            "duration": "Fixed post-termination period"
+          }
+        }
+      ],
+      "ladder": [],
+      "task_type": "structured",
+      "scorer_config": {
+        "method": "exact_match",
+        "task_source": "fireworks",
+        "case_source": "fireworks"
+      }
+    }
+  ]
+}

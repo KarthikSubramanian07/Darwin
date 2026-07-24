@@ -1,0 +1,101 @@
+{
+  "task_id": "legal_governing_law",
+  "description": "Extract and normalize the governing law or jurisdiction explicitly stated in a contract clause.",
+  "industry": "legal",
+  "problems": [
+    {
+      "case_id": "legal_governing_law",
+      "entrypoint": "solve",
+      "prompt": "Identify the governing law or jurisdiction stated in the provided contract clause. Return a single JSON object containing exactly one key: \"jurisdiction\". Normalize the value to the standard full legal name (e.g., \"New York\", \"Delaware\", \"England and Wales\", \"Federal law of the United States\"). If the clause does not specify a governing law, return the value \"Not specified\". Output only the JSON object.",
+      "cases": [
+        {
+          "args": [
+            "This Agreement shall be governed by and construed in accordance with the laws of the State of New York, without regard to its conflict of laws principles."
+          ],
+          "expected": {
+            "jurisdiction": "New York"
+          }
+        },
+        {
+          "args": [
+            "The internal laws of the State of Delaware shall govern all matters arising out of this Contract."
+          ],
+          "expected": {
+            "jurisdiction": "Delaware"
+          }
+        },
+        {
+          "args": [
+            "This agreement is subject to the non-exclusive jurisdiction of the courts of England and Wales."
+          ],
+          "expected": {
+            "jurisdiction": "England and Wales"
+          }
+        },
+        {
+          "args": [
+            "These Terms of Service are governed by the Federal law of the United States."
+          ],
+          "expected": {
+            "jurisdiction": "Federal law of the United States"
+          }
+        },
+        {
+          "args": [
+            "The laws of the Commonwealth of Massachusetts shall govern this agreement."
+          ],
+          "expected": {
+            "jurisdiction": "Massachusetts"
+          }
+        },
+        {
+          "args": [
+            "This contract shall be interpreted in accordance with Texas law."
+          ],
+          "expected": {
+            "jurisdiction": "Texas"
+          }
+        },
+        {
+          "args": [
+            "The parties irrevocably submit to the exclusive jurisdiction of the courts of Singapore."
+          ],
+          "expected": {
+            "jurisdiction": "Singapore"
+          }
+        },
+        {
+          "args": [
+            "The Seller shall deliver the goods within thirty (30) days of receipt of purchase order."
+          ],
+          "expected": {
+            "jurisdiction": "Not specified"
+          }
+        },
+        {
+          "args": [
+            "Le présent contrat est régi par les lois de la République française."
+          ],
+          "expected": {
+            "jurisdiction": "France"
+          }
+        },
+        {
+          "args": [
+            "This Deed shall be governed by and construed in accordance with the laws of the Republic of India."
+          ],
+          "expected": {
+            "jurisdiction": "India"
+          }
+        }
+      ],
+      "ladder": [],
+      "task_type": "structured",
+      "scorer_config": {
+        "method": "exact_match",
+        "task_source": "fireworks",
+        "case_source": "fireworks"
+      }
+    }
+  ]
+}

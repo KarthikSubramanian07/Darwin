@@ -26,10 +26,11 @@ export function IndustryInput({
   return (
     <section className="landing">
       <div className="landing-inner">
-        <h1 className="landing-title">Find the best LLM for every task in your business.</h1>
+        <h1 className="landing-title">The best agent, and model, for every task you run.</h1>
         <p className="landing-sub">
-          Darwin benchmarks models against the actual work your company needs done, then creates
-          an evidence-backed routing strategy.
+          Name your domain. Darwin decomposes it into tasks, evolves a specialist agent for each,
+          races the models, and hands back a routing card, every score a real Braintrust
+          experiment, every run inside a Daytona sandbox.
         </p>
 
         <form className="industry-form" onSubmit={submit}>

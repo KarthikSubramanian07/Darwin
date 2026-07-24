@@ -96,10 +96,10 @@ export default function App() {
       <div className="aurora" />
 
       <nav className="nav">
-        <div className="brand">
+        <a className="brand" href="/" aria-label="Darwin home">
           <Logo size={26} />
           <span className="wordmark">Darwin</span>
-        </div>
+        </a>
         <div className="links">
           <a className="navlink" href="#run">Overview</a>
           <a className="navlink" href="https://github.com/KarthikSubramanian07/Darwin">GitHub</a>
@@ -138,7 +138,7 @@ export default function App() {
           </div>
           <div className="config reveal" style={{ animationDelay: "0.24s" }}>
             8 variants · 6 generations · {MODELS.length} models in the race · sandboxed by
-            <b> Daytona</b> · scored by <b>Braintrust</b> · mutated by <b>Fireworks</b>
+            <b> Daytona</b> · scored by <b>Braintrust</b> · mutated by <b>Fireworks AI</b>
           </div>
         </div>
       </section>

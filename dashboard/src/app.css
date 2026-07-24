@@ -181,25 +181,14 @@
   border-radius: 9px;
 }
 
-/* ---------- hero (full-width, startup landing) ---------- */
+/* ---------- hero (left-aligned, startup landing) ---------- */
 .hero {
   position: relative;
   z-index: 1;
   padding: 84px 0 36px;
-  text-align: center;
-}
-.hero .eyebrow {
-  margin: 0 auto;
 }
 .hero .lede {
-  margin-left: auto;
-  margin-right: auto;
-}
-.hero .cta {
-  justify-content: center;
-}
-.hero .config {
-  text-align: center;
+  max-width: 62ch;
 }
 @media (max-width: 768px) {
   .hero {

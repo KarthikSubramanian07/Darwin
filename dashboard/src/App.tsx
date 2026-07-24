@@ -119,7 +119,7 @@ export default function App() {
             {phase === "playing" ? "● live" : phase === "done" ? "done" : "ready"}
           </span>
         </div>
-        <FitnessCurve values={CURVE.slice(0, gen + 1)} height={200} />
+        <FitnessCurve values={CURVE} activeIndex={gen} height={200} />
         <div className="metric">
           <span className="big num">{Math.round(pct)}%</span>
           <span className="delta">

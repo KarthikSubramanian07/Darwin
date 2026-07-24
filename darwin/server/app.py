@@ -20,7 +20,7 @@ from __future__ import annotations
 
 import asyncio
 import threading
-from dataclasses import replace
+from dataclasses import fields, replace
 
 from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from pydantic import BaseModel
@@ -59,7 +59,8 @@ def _run_engine(task_id: str, offline: bool) -> None:
 
         config = load_config()
         if offline:
-            config = replace(config, features=Features(False, False, False, False))
+            # field-agnostic all-off Features: survives flags being added/removed upstream
+            config = replace(config, features=Features(**{f.name: False for f in fields(Features)}))
         task = Task.load(task_id)
         engine, sandboxes, _events = build_engine(config, task, events=channel)
         try:

@@ -8,6 +8,15 @@
 import { useEffect, useRef, useState } from "react";
 import type { EventKind, Genome, RunEvent } from "./run";
 
+export interface LiveRewrite {
+  kind: "tool" | "model" | "prompt";
+  tool?: string;
+  old: string;
+  new: string;
+  genomeId: string;
+  gen: number;
+}
+
 export interface LiveState {
   runId: string;
   task: string;
@@ -15,17 +24,24 @@ export interface LiveState {
   curve: number[]; // best fitness per completed generation
   pool: Genome[]; // every evaluated variant (id, gen, fit, model)
   events: RunEvent[]; // the evolution log, engine-truth
+  models: string[]; // short model names in order of first appearance (the race columns)
+  // problem -> model -> best pass-rate seen this run (the live task x model grid)
+  race: Record<string, Record<string, number>>;
+  lastRewrite: LiveRewrite | null; // the most recent real self-written diff
   running: boolean;
   finished: boolean;
 }
 
-const EMPTY: LiveState = {
+export const EMPTY: LiveState = {
   runId: "",
   task: "",
   totalGens: 6,
   curve: [],
   pool: [],
   events: [],
+  models: [],
+  race: {},
+  lastRewrite: null,
   running: false,
   finished: false,
 };
@@ -33,8 +49,8 @@ const EMPTY: LiveState = {
 const shortModel = (m?: string) => (m ? m.split("/").pop() ?? m : "?");
 
 // One engine event -> state. Mirrors darwin/server/events.py's type list; unknown types no-op
-// so the server can grow without breaking the page.
-function reduce(s: LiveState, e: { type: string; payload: Record<string, any> }): LiveState {
+// so the server can grow without breaking the page. Exported for unit tests.
+export function reduce(s: LiveState, e: { type: string; payload: Record<string, any> }): LiveState {
   const p = e.payload ?? {};
   const push = (kind: EventKind, gen: number, text: string): LiveState => ({
     ...s,
@@ -60,13 +76,26 @@ function reduce(s: LiveState, e: { type: string; payload: Record<string, any> })
         ],
       };
     case "variant_evaluated": {
+      const model = shortModel(p.model);
       const g: Genome = {
         id: p.genome_id,
         gen: p.generation ?? 0,
         fit: p.fitness ?? 0,
-        model: shortModel(p.model),
+        model,
       };
-      return { ...s, pool: [...s.pool.filter((x) => x.id !== g.id), g] };
+      // fold per-problem pass rates into the race grid: best score per (problem, model)
+      const race = { ...s.race };
+      for (const [pid, score] of Object.entries<number>(p.problems ?? {})) {
+        const row = { ...(race[pid] ?? {}) };
+        row[model] = Math.max(row[model] ?? 0, score);
+        race[pid] = row;
+      }
+      return {
+        ...s,
+        pool: [...s.pool.filter((x) => x.id !== g.id), g],
+        models: s.models.includes(model) ? s.models : [...s.models, model],
+        race,
+      };
     }
     case "generation_complete":
       return {
@@ -83,8 +112,21 @@ function reduce(s: LiveState, e: { type: string; payload: Record<string, any> })
         p.generation ?? s.curve.length,
         `new champion ${p.genome_id}, ${Math.round((p.fitness ?? 0) * 100)}%`,
       );
-    case "mutation":
-      return push("mutate", (p.generation ?? 1) - 1, `${p.genome_id}: ${p.note ?? "mutated"}`);
+    case "mutation": {
+      const next = push("mutate", (p.generation ?? 1) - 1, `${p.genome_id}: ${p.note ?? "mutated"}`);
+      const rw = p.rewrite;
+      if (rw && rw.kind && typeof rw.new === "string") {
+        next.lastRewrite = {
+          kind: rw.kind,
+          tool: rw.tool,
+          old: rw.old ?? "",
+          new: rw.new,
+          genomeId: p.genome_id,
+          gen: p.generation ?? 0,
+        };
+      }
+      return next;
+    }
     case "guard": {
       const gen = s.curve.length;
       switch (p.guard) {

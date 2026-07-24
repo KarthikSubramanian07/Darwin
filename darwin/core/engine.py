@@ -19,6 +19,31 @@ from darwin.core.genome import Genome
 from darwin.core.population import Generation, RunRecord, Variant, rank, select
 from darwin.sandbox.runner import run_agent_in_sandbox
 
+_REWRITE_SRC_CAP = 1600  # chars per side of a diff payload; keeps WS frames small
+
+
+def _describe_rewrite(parent: Genome | None, child: Genome) -> dict | None:
+    """What actually changed vs the parent, compactly, for the dashboard's diff panel."""
+    if parent is None:
+        return None
+    for name, src in child.tools.items():
+        if src != parent.tools.get(name):
+            return {
+                "kind": "tool",
+                "tool": name,
+                "old": (parent.tools.get(name) or "")[:_REWRITE_SRC_CAP],
+                "new": src[:_REWRITE_SRC_CAP],
+            }
+    if child.model != parent.model:
+        return {"kind": "model", "old": parent.model, "new": child.model}
+    if child.system_prompt != parent.system_prompt:
+        return {
+            "kind": "prompt",
+            "old": parent.system_prompt[:_REWRITE_SRC_CAP],
+            "new": child.system_prompt[:_REWRITE_SRC_CAP],
+        }
+    return None
+
 
 class EvolutionEngine:
     """Drives evolution and streams events to the dashboard after every step."""
@@ -150,12 +175,19 @@ class EvolutionEngine:
             offspring = self.mutator.mutate_offspring(
                 elite, variants, self.config.population_size - len(elite), generation=gen_index + 1
             )
+            genomes_by_id = {v.genome.genome_id: v.genome for v in variants}
             for child in offspring:
                 self._emit("mutation", {
                     "genome_id": child.genome_id,
                     "parents": child.parent_ids,
                     "note": child.lineage_note,
                     "generation": child.generation,
+                    # the "what it rewrote in itself" beat: the actual diff vs the parent, so
+                    # the dashboard shows real self-written code, not a canned sample
+                    "rewrite": _describe_rewrite(
+                        genomes_by_id.get(child.parent_ids[0]) if child.parent_ids else None,
+                        child,
+                    ),
                 })
             population = [e.genome for e in elite] + offspring
 
@@ -217,6 +249,10 @@ class EvolutionEngine:
                 status=status,
                 duration_ms=int((time.time() - t0) * 1000),
             )
+            # per-problem pass rates power the live task x model race grid + routing card
+            problem_scores: dict[str, list[float]] = {}
+            for pc in per_case:
+                problem_scores.setdefault(pc.case_id.split("#", 1)[0], []).append(pc.score)
             self._emit("variant_evaluated", {
                 "genome_id": genome.genome_id,
                 "model": genome.model,
@@ -225,6 +261,10 @@ class EvolutionEngine:
                 "p50_latency_ms": v.p50_latency_ms,
                 "status": status,
                 "generation": gen_index,
+                "problems": {
+                    pid: round(sum(scores) / len(scores), 4)
+                    for pid, scores in problem_scores.items()
+                },
             })
             return v
 

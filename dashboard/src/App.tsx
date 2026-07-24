@@ -61,6 +61,18 @@ export default function App() {
     : leaderboardAt(gen);
   const log = isLive ? [...L.events].reverse() : [...eventsUpTo(gen)].reverse();
 
+  // The race grid + routing card: real per-problem x per-model scores from this run when
+  // live; the bundled sample (labelled as such) otherwise.
+  const liveRaceReady = isLive && L.models.length > 0 && Object.keys(L.race).length > 0;
+  const raceModels = liveRaceReady ? L.models : MODELS;
+  const raceRows = liveRaceReady
+    ? Object.entries(L.race).map(([task, perModel]) => {
+        const scores = raceModels.map((m) => Math.round((perModel[m] ?? 0) * 100));
+        return { task, scores, winner: scores.indexOf(Math.max(...scores)) };
+      })
+    : RACE;
+  const raceResolved = isLive ? L.finished : phase === "done";
+
   // The primary button: drive a REAL run when the server is there, else replay the sample.
   const onRun = live.connected ? () => void live.startRun() : run;
   const running = isLive ? L.running : phase === "playing";
@@ -173,10 +185,16 @@ export default function App() {
       <section className="grid2">
         <div className="card hoverable">
           <h3>Population</h3>
-          <div className="cap" style={{ marginBottom: 6 }}>ranked by fitness. the fittest breed.</div>
+          <div className="cap" style={{ marginBottom: 6 }}>
+            ranked by fitness. the fittest breed. · <b>g4-17</b> reads: born in generation 4,
+            the 17th genome created this run
+          </div>
           {leaderboard.map((v, i) => (
             <div className="row" key={v.id}>
-              <span className="name num">{v.id}</span>
+              <span className="name num">
+                {v.id}
+                <span style={{ color: "var(--fg-faint)", fontSize: 11 }}> · {v.model}</span>
+              </span>
               <span className="bar">
                 <span key={`${v.id}-${genIdx}`} style={{ width: `${v.fit * 100}%`, animationDelay: `${i * 0.05}s` }} />
               </span>
@@ -223,19 +241,21 @@ export default function App() {
         </div>
       </section>
 
-      <section className={`card hoverable race ${(isLive ? L.finished : phase === "done") ? "resolved" : ""}`}>
+      <section className={`card hoverable race ${raceResolved ? "resolved" : ""}`}>
         <h3>The race</h3>
         <div className="cap" style={{ marginBottom: 12 }}>
-          {MODELS.length} models × {RACE.length} tasks. each cell is a real Braintrust experiment.
+          {liveRaceReady
+            ? `${raceModels.length} models × ${raceRows.length} problems on ${L.task} · every cell is a best pass-rate from THIS run`
+            : `sample data · ${MODELS.length} models × ${RACE.length} tasks. connect the server and run to fill this from a real race.`}
         </div>
         <div className="racescroll">
-          <div className="racegrid" style={{ gridTemplateColumns: `120px repeat(${MODELS.length}, minmax(64px, 1fr))` }}>
+          <div className="racegrid" style={{ gridTemplateColumns: `120px repeat(${raceModels.length}, minmax(64px, 1fr))` }}>
             <div className="rh" />
-            {MODELS.map((m) => (
+            {raceModels.map((m) => (
               <div className="rh" key={m}>{m}</div>
             ))}
-            {RACE.map((r) => (
-              <RaceRow key={r.task} row={r} reveal={isLive ? L.finished : phase === "done"} />
+            {raceRows.map((r) => (
+              <RaceRow key={r.task} row={r} reveal={raceResolved} />
             ))}
           </div>
         </div>
@@ -243,29 +263,60 @@ export default function App() {
 
       <section className="grid2">
         <div className="card hoverable">
-          <h3>What it rewrote in itself · gen 1 → 2</h3>
-          <div className="cap">no human wrote this. the agent did, to beat its last version.</div>
-          <div className="diff">
-            <span className="ctx">  def two_sum(nums, target):{"\n"}</span>
-            <span className="del">-     return []            # gives up{"\n"}</span>
-            <span className="add">+     seen = {"{}"}{"\n"}</span>
-            <span className="add">+     for i, x in enumerate(nums):{"\n"}</span>
-            <span className="add">+         if target - x in seen:{"\n"}</span>
-            <span className="add">+             return [seen[target - x], i]{"\n"}</span>
-            <span className="add">+         seen[x] = i{"\n"}</span>
-          </div>
+          {isLive && L.lastRewrite ? (
+            <>
+              <h3>
+                What it rewrote in itself · gen {L.lastRewrite.gen} ·{" "}
+                {L.lastRewrite.kind === "tool" ? `tool ${L.lastRewrite.tool}` : L.lastRewrite.kind}
+              </h3>
+              <div className="cap">
+                no human wrote this. {L.lastRewrite.genomeId} did, to beat its parent.
+              </div>
+              <div className="diff">
+                {L.lastRewrite.kind === "model" ? (
+                  <>
+                    <span className="del">- model: {L.lastRewrite.old.split("/").pop()}{"\n"}</span>
+                    <span className="add">+ model: {L.lastRewrite.new.split("/").pop()}{"\n"}</span>
+                  </>
+                ) : (
+                  <>
+                    {L.lastRewrite.old.split("\n").slice(0, 6).map((line, i) => (
+                      <span className="del" key={`d${i}`}>- {line}{"\n"}</span>
+                    ))}
+                    {L.lastRewrite.new.split("\n").slice(0, 10).map((line, i) => (
+                      <span className="add" key={`a${i}`}>+ {line}{"\n"}</span>
+                    ))}
+                  </>
+                )}
+              </div>
+            </>
+          ) : (
+            <>
+              <h3>What it rewrote in itself · sample</h3>
+              <div className="cap">no human wrote this. the agent did, to beat its last version.</div>
+              <div className="diff">
+                <span className="ctx">  def two_sum(nums, target):{"\n"}</span>
+                <span className="del">-     return []            # gives up{"\n"}</span>
+                <span className="add">+     seen = {"{}"}{"\n"}</span>
+                <span className="add">+     for i, x in enumerate(nums):{"\n"}</span>
+                <span className="add">+         if target - x in seen:{"\n"}</span>
+                <span className="add">+             return [seen[target - x], i]{"\n"}</span>
+                <span className="add">+         seen[x] = i{"\n"}</span>
+              </div>
+            </>
+          )}
         </div>
 
         <div className="card hoverable">
-          <h3>Routing card</h3>
+          <h3>Routing card{liveRaceReady ? "" : " · sample"}</h3>
           <div className="cap" style={{ marginBottom: 6 }}>
             stop picking one model for everything. here's the specialist for each task.
           </div>
-          {RACE.map((r, i) => (
+          {raceRows.map((r, i) => (
             <div className="row" key={r.task}>
               <span className="name" style={{ width: 150 }}>
                 {r.task}
-                <span style={{ color: "var(--fg-faint)", fontSize: 11 }}> · {MODELS[r.winner]}</span>
+                <span style={{ color: "var(--fg-faint)", fontSize: 11 }}> · {raceModels[r.winner]}</span>
               </span>
               <span className="bar">
                 <span style={{ width: `${r.scores[r.winner]}%`, animationDelay: `${0.2 + i * 0.06}s` }} />

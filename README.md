@@ -89,6 +89,15 @@ python -m darwin.main       # start an evolution run
 
 **No keys? It still climbs.** With every feature flag off, Darwin falls back to a local subprocess sandbox, a local scorer, canned mutations, and a local static-analysis reviewer, and the fitness curve still climbs on a canned task. That offline path is the demo floor.
 
+## Team
+
+Built at the Daytona HackSprint (SF, July 2026):
+
+- **Lane A** · task decomposition + synthetic data · Shoo
+- **Lane B** · Braintrust eval harness (scorers, experiments, the leaderboard's credibility) · [@KarthikSubramanian07](https://github.com/KarthikSubramanian07)
+- **Lane C** · parallel model race on Fireworks + Daytona sandbox execution · deano
+- **Lane D** · dashboard, WorkOS auth, CodeRabbit, and the demo
+
 ## License
 
 [MIT](./LICENSE) © Karthik Subramanian

@@ -170,10 +170,12 @@ class EvolutionEngine:
                 snapshot_id = self.sandboxes.snapshot(handle)
             except Exception:  # noqa: BLE001
                 pass
+            experiment_url = ""
             try:
                 outputs = run_agent_in_sandbox(self.sandboxes, handle, genome, task, self.guards)
-                fitness, per_case = self.fitness.score(
-                    outputs, genome_id=genome.genome_id, generation=gen_index
+                result = self.fitness.score(outputs, genome=genome, generation=gen_index)
+                fitness, per_case, experiment_url = (
+                    result.fitness, result.per_case, result.experiment_url
                 )
                 status = "evaluated"
             except Exception as e:  # noqa: BLE001 - a broken variant is simply unfit
@@ -183,12 +185,13 @@ class EvolutionEngine:
                 genome=genome,
                 fitness=fitness,
                 per_case=per_case,
+                raw_outputs=outputs,
+                braintrust_experiment_url=experiment_url,
                 sandbox_id=handle.sandbox_id,
                 snapshot_id=snapshot_id,
                 status=status,
                 duration_ms=int((time.time() - t0) * 1000),
             )
-            v.raw_outputs = outputs
             self._emit("variant_evaluated", {
                 "genome_id": genome.genome_id,
                 "fitness": round(fitness, 4),

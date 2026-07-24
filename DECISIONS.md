@@ -66,8 +66,20 @@ official docs. These SDKs change; training data is stale.
   stop. Resources cap at 4 vCPU / 8GB / 10GB per sandbox.
 - Parallelism (headline use): create N sandboxes concurrently to evaluate a whole generation.
 
-**Braintrust / Fireworks / CodeRabbit:** record verified surfaces + pinned versions here as
-Lanes C/A/B implement them.
+**Verified Braintrust surface (2026-07-24, braintrust.dev):**
+- Install: `pip install braintrust autoevals`. Braintrust does NOT generate data (Datasets only
+  stores/curates); synthetic data is Lane A's job (see SPEC 14a).
+- Experiment: `braintrust.init(project="Darwin", experiment=<name>, api_key=..., metadata={...},
+  tags=[...], update=False) -> Experiment`.
+- Log a row: `experiment.log(input=, output=, expected=, scores={<name>: 0..1}, metadata={...})`.
+- URL: `experiment.summarize().experiment_url`.
+- `Eval(name, data, task, scores=[...])` is the higher-level framework; we log per-variant
+  experiments directly so each variant/model is an auditable cell in the grid.
+- Darwin logs one experiment per variant tagged `[task, model, gen<N>]`; numeric truth is also
+  computed locally (`darwin/eval/scorers.py`) so offline and online agree on code tasks.
+
+**Fireworks / CodeRabbit / WorkOS:** record verified surfaces + pinned versions here as those
+lanes implement them.
 
 ### D6 - CodeRabbit is a load-bearing safety component, not a lint pass
 **What:** Darwin is an AI that rewrites its own code, so CodeRabbit reviews every self-written

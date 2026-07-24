@@ -109,36 +109,39 @@ feature-flagged with a local fallback, so the demo floor is an offline path that
 The `model` gene makes the "parallel model race" and "self-improvement" the same loop, so the
 work splits cleanly across four people:
 
-### Lane A (person 1) - Task decomposition + synthetic data [Fireworks]
-Owns `pipeline/decompose.py`, `pipeline/synth.py`, `darwin/eval/task.py`, `scripts/build_task.py`,
-`data/task/`. Industry -> a list of real tasks via one Fireworks structured-output call; per-task
-synthetic `EvalCase`s (Fireworks JSON mode), with expected outputs. **Spot-check every dataset by
-hand:** garbage cases mean a meaningless leaderboard, and Braintrust's judge looks at the dataset
-first. Offline fallback: canned task lists + cases for the two live industries. See section 14a on
-data-generation tooling (Braintrust does not generate data; consider NeMo Data Designer).
-**Done when:** `python -m pipeline.decompose "legal"` yields ~5 sane tasks, each with ~10 checked
-cases on disk, loadable by `Task.load`.
+### Lane A (person 1) - Evolution engine + mutation [Fireworks] (sacred path)
+Owns `darwin/core/engine.py`, `darwin/core/genome.py`, `darwin/core/population.py`,
+`darwin/core/mutate.py`, and the decompose/synth pipeline (`pipeline/decompose.py`,
+`pipeline/synth.py`). Deliverable: the score climbs repeatably; the model gene is mutated and
+the routing card falls out. Elitism makes `best_fitness` monotonic (the on-stage curve never
+drops). Also owns industry -> a list of real tasks via one Fireworks structured-output call,
+and per-task synthetic `EvalCase`s (Fireworks JSON mode), with expected outputs. **Spot-check
+every dataset by hand:** garbage cases mean a meaningless leaderboard. Offline fallback: canned
+task lists + cases for the two live industries, and a canned mutator for a deterministic climb.
+See section 14a on data-generation tooling (Braintrust does not generate data; consider NeMo
+Data Designer).
+**Done when:** `python -m darwin.main` climbs 40 -> 90+ offline, swapping the model gene changes
+the winner on at least one task, and `python -m pipeline.decompose "legal"` yields ~5 sane
+tasks, each with ~10 checked cases on disk, loadable by `Task.load`.
 
-### Lane B (person 2) - Braintrust eval harness [Braintrust]
-Owns `darwin/eval/fitness.py`, scorer selection per `task_type` (autoevals ExactMatch/Levenshtein
-for structured, LLM-as-judge with a tight low-temperature rubric for text, execution-based for
-code), experiment naming/tagging (project=Darwin; tags: industry, task, model, generation), and
-the offline "does the winner generalize" check on a held-out slice. Guards the immutable-grader
-property (`tests/test_immutable_grader.py`). This is the deepest sponsor lane and the leaderboard's
-credibility.
-**Done when:** one (task, model) pair produces a scored Braintrust experiment visible in the UI,
-the Braintrust project page is demo-able, and the grader-untouched test passes.
+### Lane B (person 2) - Daytona sandbox pool + safety [Daytona]
+Owns `darwin/sandbox/daytona.py`, `darwin/sandbox/runner.py`, `darwin/safety/guards.py`.
+Parallel sandbox pool, snapshot rollback, the four guard pillars, and real execution scoring
+for code-type tasks. Code-type task outputs are executed in the sandbox and scored on **real
+execution**, not an opinion.
+**Done when:** population evaluates in parallel sandboxes; a seeded bad mutation is rejected
+and rolled back on screen; a code task is scored on real execution.
 
-### Lane C (person 3) - Parallel model race + Daytona + library [Fireworks + Daytona]
-Owns `darwin/core/engine.py`, `darwin/core/mutate.py`, `darwin/sandbox/*`, `darwin/safety/guards.py`,
-and the precomputed library in `data/runs/`. The race is the engine's evaluate-population step:
-N models x M cases fanned out concurrently through Fireworks' OpenAI-compatible API (semaphore +
-retry/backoff for burst limits), each variant run in its own Daytona sandbox with snapshot
-rollback, code-type task outputs scored on **real execution** in the sandbox. Also captures per
--model cost + p50 latency, and pre-computes the extra industries in-window as the honest library.
-**Done when:** one industry races end-to-end in under 2 minutes and writes a `RunRecord`; 3+
-precomputed `RunRecord`s exist; a bad mutation is rolled back on screen; a code task is scored on
-real execution.
+### Lane C (person 3) - Braintrust fitness + eval [Braintrust]
+Owns `darwin/eval/fitness.py`, `darwin/eval/task.py`, scorer selection per `task_type`
+(autoevals ExactMatch/Levenshtein for structured, LLM-as-judge with a tight low-temperature
+rubric for text, execution-based for code), experiment naming/tagging (project=Darwin; tags:
+task, model, generation), and the offline "does the winner generalize" check on a held-out
+slice. Guards the immutable-grader property (`tests/test_immutable_grader.py`). This is the
+deepest sponsor lane and the leaderboard's credibility.
+**Done when:** every variant is a scored Braintrust experiment visible in the UI, the
+Braintrust project page is demo-able, and the grader-untouched test passes; before/after table
+proves the gain.
 
 ### Lane D (person 4) - Dashboard + auth + CodeRabbit + demo [WorkOS + CodeRabbit + the wow]
 Owns `dashboard/` (fitness curve is the hero, lineage tree, genome diff, task x model grid,

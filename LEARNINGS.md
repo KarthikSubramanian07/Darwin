@@ -77,6 +77,27 @@ it was verified against the running services. Companion to DECISIONS.md D11/D12.
   testing. Lesson: when a fallback path exists, test the happy path through the internals
   directly, not just through the shielded entry point.
 
+## Live UI bridge (server <-> dashboard, 2026-07-24)
+
+- **Sync engine -> async WebSocket needs one bridge pattern:** the engine emits synchronously
+  from a daemon thread; each WS client owns an `asyncio.Queue` fed via
+  `loop.call_soon_threadsafe`. The engine never touches the event loop
+  (`darwin/server/app.py`).
+- **Late-joiner snapshots have an ordering trap.** Capture-history-then-subscribe silently
+  drops events emitted in between; subscribe-then-capture duplicates them instead. We
+  subscribe first and dedupe by object identity (`emit` stores and forwards the same dict),
+  which is exact and free at demo scale.
+- **The replay page's "live" chip was dishonest** - it showed "● live" while playing the
+  canned replay, which the SPEC's honesty rule explicitly forbids. Live mode now owns
+  "● live"; the replay labels itself "replay" / "cached replay".
+- **run.ts's sample data had fictional models** (llama-3.1-8b, qwen-2.5-coder, deepseek-v3)
+  that were never in the live catalog; live mode renders engine truth (gpt-oss-120b et al.).
+  The static race grid + routing card still show sample data - real per-task cells need
+  multi-task runs (the industry mode) folded into a RoutingCard, which is still unbuilt.
+- Verified end to end twice: a real-process uvicorn + websockets client (curve climbing over
+  the socket), and in Chrome through the vite proxy - the "Run a live evolution" button drove
+  a real engine run and the panels rendered engine truth.
+
 ## Toolchain footnotes
 
 - `issubclass(X, Protocol)` raises `TypeError` when the protocol has non-method members

@@ -64,6 +64,19 @@ pytest tests/test_daytona_pool.py -q        # includes a live Daytona round-trip
                                             # FEATURE_DAYTONA=1 and DAYTONA_API_KEY are set
 ```
 
+Live dashboard (UI wired to real engine events over WebSocket):
+
+```bash
+python -m darwin.server.app                 # WS/API server on :8000 (WS /ws streams events,
+                                            # POST /api/run starts a run, GET /api/status)
+cd dashboard && npm install && npm run dev  # dashboard on :5173; vite proxies /ws + /api to
+                                            # :8000. With the server up the page goes LIVE
+                                            # (the "Run live" button drives a real run);
+                                            # without it, the labelled cached replay renders.
+curl -X POST localhost:8000/api/run -H 'Content-Type: application/json' \
+     -d '{"task": "coding_bench", "offline": true}'   # start a run without the UI
+```
+
 ## Branch & PR flow
 
 - Branch off `main`: `lane-a/mutation-crossover`, `lane-b/snapshot-rollback`, etc.

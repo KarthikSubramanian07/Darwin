@@ -65,7 +65,14 @@ class EvolutionEngine:
                 "real_isolation": getattr(self.sandboxes, "is_real_isolation", False),
             },
         )
-        self._emit("run_started", {"run_id": run_id, "task": task.task_id, "total_cases": task.total_cases})
+        self._emit("run_started", {
+            "run_id": run_id,
+            "task": task.task_id,
+            "total_cases": task.total_cases,
+            "generations": self.config.generations,
+            "population_size": self.config.population_size,
+            "real_isolation": getattr(self.sandboxes, "is_real_isolation", False),
+        })
 
         best_fitness = 0.0
         champion: Variant | None = None

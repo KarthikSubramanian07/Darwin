@@ -31,6 +31,13 @@ class EventChannel:
     def subscribe(self, fn: Subscriber) -> None:
         self._subscribers.append(fn)
 
+    def unsubscribe(self, fn: Subscriber) -> None:
+        """Remove a subscriber (a disconnected WebSocket client). Safe if already gone."""
+        try:
+            self._subscribers.remove(fn)
+        except ValueError:
+            pass
+
     def emit(self, event_type: str, payload: dict | None = None) -> None:
         event = {"type": event_type, "payload": payload or {}, "ts": time.time()}
         self.events.append(event)

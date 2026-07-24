@@ -38,8 +38,9 @@ def _make_sandbox_pool(config: Config):
     return LocalSandboxPool()
 
 
-def build_engine(config: Config, task: Task, *, echo: bool = False):
-    events = EventChannel(echo=echo)
+def build_engine(config: Config, task: Task, *, echo: bool = False, events: EventChannel | None = None):
+    # an injected channel lets the WS server (darwin/server/app.py) stream a run it started
+    events = events if events is not None else EventChannel(echo=echo)
     sandboxes = _make_sandbox_pool(config)
     fitness = Fitness(config, task)
     mutator = Mutator(config, task)

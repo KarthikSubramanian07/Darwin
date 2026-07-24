@@ -1,0 +1,170 @@
+// Live wiring: WebSocket client + reducer that folds engine events into the exact shapes the
+// replay page already renders (curve / pool / log), so App.tsx switches sources, not layouts.
+//
+// Server: darwin/server/app.py (`python -m darwin.server.app`). In dev, vite proxies /ws and
+// /api to :8000. When no server is reachable the hook reports connected=false and the page
+// falls back to the bundled replay - with the honest "cached" badge, never a fake "live".
+
+import { useEffect, useRef, useState } from "react";
+import type { EventKind, Genome, RunEvent } from "./run";
+
+export interface LiveState {
+  runId: string;
+  task: string;
+  totalGens: number;
+  curve: number[]; // best fitness per completed generation
+  pool: Genome[]; // every evaluated variant (id, gen, fit, model)
+  events: RunEvent[]; // the evolution log, engine-truth
+  running: boolean;
+  finished: boolean;
+}
+
+const EMPTY: LiveState = {
+  runId: "",
+  task: "",
+  totalGens: 6,
+  curve: [],
+  pool: [],
+  events: [],
+  running: false,
+  finished: false,
+};
+
+const shortModel = (m?: string) => (m ? m.split("/").pop() ?? m : "?");
+
+// One engine event -> state. Mirrors darwin/server/events.py's type list; unknown types no-op
+// so the server can grow without breaking the page.
+function reduce(s: LiveState, e: { type: string; payload: Record<string, any> }): LiveState {
+  const p = e.payload ?? {};
+  const push = (kind: EventKind, gen: number, text: string): LiveState => ({
+    ...s,
+    events: [...s.events, { gen, kind, text }],
+  });
+
+  switch (e.type) {
+    case "run_started":
+      return {
+        ...EMPTY,
+        runId: p.run_id ?? "",
+        task: p.task ?? "",
+        totalGens: p.generations ?? 6,
+        running: true,
+        events: [
+          {
+            gen: 0,
+            kind: "seed",
+            text: `run started on ${p.task} (${p.total_cases} cases, ${
+              p.population_size
+            } variants${p.real_isolation ? ", real Daytona isolation" : ", local sandbox"})`,
+          },
+        ],
+      };
+    case "variant_evaluated": {
+      const g: Genome = {
+        id: p.genome_id,
+        gen: p.generation ?? 0,
+        fit: p.fitness ?? 0,
+        model: shortModel(p.model),
+      };
+      return { ...s, pool: [...s.pool.filter((x) => x.id !== g.id), g] };
+    }
+    case "generation_complete":
+      return {
+        ...push(
+          "eval",
+          p.index ?? s.curve.length,
+          `gen ${(p.index ?? 0) + 1} evaluated, best ${Math.round((p.best_fitness ?? 0) * 100)}%`,
+        ),
+        curve: [...s.curve, p.best_fitness ?? 0],
+      };
+    case "champion_changed":
+      return push(
+        "champion",
+        p.generation ?? s.curve.length,
+        `new champion ${p.genome_id}, ${Math.round((p.fitness ?? 0) * 100)}%`,
+      );
+    case "mutation":
+      return push("mutate", (p.generation ?? 1) - 1, `${p.genome_id}: ${p.note ?? "mutated"}`);
+    case "guard": {
+      const gen = s.curve.length;
+      switch (p.guard) {
+        case "regression_rejected":
+          return push("reject", gen, `${p.genome_id} scored below its parent, rejected`);
+        case "rolled_back":
+          return push("reject", gen, `${p.genome_id} sandbox rolled back from snapshot`);
+        case "grader_tamper":
+          return push("block", gen, `${p.genome_id} blocked: tried to reach the grader`);
+        case "promotion_blocked":
+          return push("block", gen, `${p.genome_id} promotion blocked by review`);
+        case "variant_failed":
+          return push("eval", gen, `${p.genome_id} failed in its sandbox, scored 0`);
+        default:
+          return s;
+      }
+    }
+    case "run_complete":
+      return {
+        ...push("champion", s.curve.length - 1, `run complete, final ${Math.round((p.final_fitness ?? 0) * 100)}%`),
+        running: false,
+        finished: true,
+      };
+    case "run_failed":
+      return { ...push("block", s.curve.length, `run failed: ${p.error}`), running: false };
+    default:
+      return s;
+  }
+}
+
+export function useLiveRun() {
+  const [connected, setConnected] = useState(false);
+  const [state, setState] = useState<LiveState>(EMPTY);
+  const wsRef = useRef<WebSocket | null>(null);
+
+  useEffect(() => {
+    let closed = false;
+    let retry = 0;
+    let timer = 0;
+
+    function connect() {
+      const proto = location.protocol === "https:" ? "wss" : "ws";
+      const ws = new WebSocket(`${proto}://${location.host}/ws`);
+      wsRef.current = ws;
+      ws.onopen = () => {
+        retry = 0;
+        setConnected(true);
+      };
+      ws.onmessage = (msg) => {
+        try {
+          setState((s) => reduce(s, JSON.parse(msg.data)));
+        } catch {
+          /* malformed frame: ignore */
+        }
+      };
+      ws.onclose = () => {
+        setConnected(false);
+        if (!closed && retry < 5) {
+          timer = window.setTimeout(connect, 2000 * ++retry);
+        }
+      };
+    }
+
+    connect();
+    return () => {
+      closed = true;
+      window.clearTimeout(timer);
+      wsRef.current?.close();
+    };
+  }, []);
+
+  async function startRun(task = "coding_bench") {
+    const res = await fetch("/api/run", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ task }),
+    });
+    return res.ok;
+  }
+
+  // hasData: at least one run reached the page (snapshot or live), so live panels are honest
+  return { connected, hasData: state.events.length > 0, state, startRun };
+}

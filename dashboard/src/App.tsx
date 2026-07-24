@@ -10,6 +10,7 @@ import {
   safeguardsFired,
 } from "./run";
 import { useEvolution } from "./useEvolution";
+import { useLiveRun } from "./useLiveRun";
 import { useTween } from "./useTween";
 
 const KIND_LABEL: Record<string, string> = {
@@ -38,19 +39,46 @@ const MARQUEE = [
 
 export default function App() {
   const { gen, phase, run } = useEvolution();
-  const best = CURVE[gen];
-  const pct = useTween(best * 100);
-  const variants = useTween(8 + gen * 6);
-  const fired = useTween(safeguardsFired(gen));
-  const leaderboard = leaderboardAt(gen);
-  const log = [...eventsUpTo(gen)].reverse();
+  const live = useLiveRun();
 
-  const statusText =
-    phase === "playing"
-      ? `generation ${gen + 1} of 6`
+  // Live when the WS server is up and at least one run has streamed; otherwise the bundled
+  // replay - always labelled as such (honesty rule: never present a cached run as live).
+  const isLive = live.connected && live.hasData;
+  const L = live.state;
+
+  const curve = isLive ? (L.curve.length ? L.curve : [0]) : CURVE;
+  const genIdx = isLive ? Math.max(0, L.curve.length - 1) : gen;
+  const totalGens = isLive ? L.totalGens : 6;
+  const best = curve[genIdx] ?? 0;
+  const pct = useTween(best * 100);
+  const variants = useTween(isLive ? L.pool.length : 8 + gen * 6);
+  const fired = useTween(
+    isLive
+      ? L.events.filter((e) => e.kind === "reject" || e.kind === "block").length
+      : safeguardsFired(gen),
+  );
+  const leaderboard = isLive
+    ? [...L.pool].sort((a, b) => b.fit - a.fit || a.id.localeCompare(b.id)).slice(0, 6)
+    : leaderboardAt(gen);
+  const log = isLive ? [...L.events].reverse() : [...eventsUpTo(gen)].reverse();
+
+  // The primary button: drive a REAL run when the server is there, else replay the sample.
+  const onRun = live.connected ? () => void live.startRun() : run;
+  const running = isLive ? L.running : phase === "playing";
+
+  const statusText = isLive
+    ? L.running
+      ? `generation ${Math.min(L.curve.length + 1, totalGens)} of ${totalGens} · live`
+      : L.finished
+        ? "done, it solved itself · live run"
+        : "server connected, ready"
+    : phase === "playing"
+      ? `generation ${gen + 1} of 6 · replay`
       : phase === "done"
-        ? "done, it solved itself"
-        : "ready when you are";
+        ? "done, it solved itself · replay"
+        : live.connected
+          ? "server connected, ready when you are"
+          : "ready when you are";
 
   return (
     <div className="app">
@@ -64,8 +92,8 @@ export default function App() {
         <div className="links">
           <a className="navlink" href="#run">Overview</a>
           <a className="navlink" href="https://github.com/KarthikSubramanian07/Darwin">GitHub</a>
-          <button className="btn btn-primary btn-sm" onClick={run}>
-            {phase === "idle" ? "Watch it evolve" : "Replay"}
+          <button className="btn btn-primary btn-sm" onClick={onRun}>
+            {live.connected ? (running ? "Evolving…" : "Run live") : phase === "idle" ? "Watch it evolve" : "Replay"}
           </button>
         </div>
       </nav>
@@ -73,7 +101,8 @@ export default function App() {
       <section className="hero">
         <div className="herotext">
           <span className="eyebrow reveal">
-            <span className={`dot ${phase}`} /> {statusText}
+            <span className={`dot ${running ? "playing" : isLive && L.finished ? "done" : phase}`} />{" "}
+            {statusText}
           </span>
           <h1 className="title reveal" style={{ animationDelay: "0.06s" }}>
             Agents that <span className="accent">breed better agents.</span>
@@ -85,8 +114,14 @@ export default function App() {
             just gets better.
           </p>
           <div className="cta reveal" style={{ animationDelay: "0.18s" }}>
-            <button className="btn btn-primary" onClick={run}>
-              {phase === "playing" ? "Evolving…" : phase === "done" ? "Run it again" : "Run the evolution"}
+            <button className="btn btn-primary" onClick={onRun}>
+              {running
+                ? "Evolving…"
+                : live.connected
+                  ? "Run a live evolution"
+                  : phase === "done"
+                    ? "Run it again"
+                    : "Run the evolution"}
             </button>
             <a className="btn btn-ghost" href="https://github.com/KarthikSubramanian07/Darwin">
               Steal our code (it's MIT)
@@ -115,15 +150,25 @@ export default function App() {
             <h3>Fitness</h3>
             <div className="cap">best score per generation, climbing on its own</div>
           </div>
-          <span className={`livechip ${phase}`}>
-            {phase === "playing" ? "● live" : phase === "done" ? "done" : "ready"}
+          <span className={`livechip ${running ? "playing" : phase}`}>
+            {isLive
+              ? L.running
+                ? "● live"
+                : "live run"
+              : phase === "playing"
+                ? "● replay"
+                : phase === "done"
+                  ? "cached replay"
+                  : "ready"}
           </span>
         </div>
-        <FitnessCurve values={CURVE} activeIndex={gen} height={200} />
+        <FitnessCurve values={curve} activeIndex={genIdx} height={200} />
         <div className="metric">
           <span className="big num">{Math.round(pct)}%</span>
           <span className="delta">
-            {gen === 0 ? "generation zero, and it shows" : `+${Math.round((best - 0.375) * 100)} pts, nobody helped`}
+            {genIdx === 0
+              ? "generation zero, and it shows"
+              : `+${Math.round((best - (curve[0] ?? 0)) * 100)} pts, nobody helped`}
           </span>
         </div>
       </section>
@@ -136,7 +181,7 @@ export default function App() {
             <div className="row" key={v.id}>
               <span className="name num">{v.id}</span>
               <span className="bar">
-                <span key={`${v.id}-${gen}`} style={{ width: `${v.fit * 100}%`, animationDelay: `${i * 0.05}s` }} />
+                <span key={`${v.id}-${genIdx}`} style={{ width: `${v.fit * 100}%`, animationDelay: `${i * 0.05}s` }} />
               </span>
               <span className="val num">{Math.round(v.fit * 100)}</span>
             </div>
@@ -165,7 +210,7 @@ export default function App() {
       <section className="tiles">
         <div className="tile">
           <div className="k">Generation</div>
-          <div className="v num">{gen + 1}/6</div>
+          <div className="v num">{genIdx + 1}/{totalGens}</div>
         </div>
         <div className="tile">
           <div className="k">Best score</div>
@@ -181,7 +226,7 @@ export default function App() {
         </div>
       </section>
 
-      <section className={`card hoverable race ${phase === "done" ? "resolved" : ""}`}>
+      <section className={`card hoverable race ${(isLive ? L.finished : phase === "done") ? "resolved" : ""}`}>
         <h3>The race</h3>
         <div className="cap" style={{ marginBottom: 12 }}>
           {MODELS.length} models × {RACE.length} tasks. each cell is a real Braintrust experiment.
@@ -193,7 +238,7 @@ export default function App() {
               <div className="rh" key={m}>{m}</div>
             ))}
             {RACE.map((r) => (
-              <RaceRow key={r.task} row={r} reveal={phase === "done"} />
+              <RaceRow key={r.task} row={r} reveal={isLive ? L.finished : phase === "done"} />
             ))}
           </div>
         </div>

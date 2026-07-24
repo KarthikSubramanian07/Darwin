@@ -1,7 +1,7 @@
 // Composes screens 2-4 for an active/opened run based on run phase. Selection + the "waiting for
 // live" state live here so App stays a thin router.
 
-import { useMemo, useState } from "react";
+import { lazy, Suspense, useMemo, useState } from "react";
 import type { DemoMode } from "../store/useDarwinRun";
 import { raceProgress, type RunState } from "../store/reducer";
 import type { RaceResult } from "../types";
@@ -13,6 +13,16 @@ import { RaceGrid } from "./RaceGrid";
 import { RoutingView } from "./RoutingView";
 import { SourceBadge } from "./SourceBadge";
 import { formatDate } from "../lib/format";
+
+type RaceView = "grid" | "landscape";
+
+// three.js is ~250kB gzipped and only the landscape needs it. Splitting it out keeps the
+// default grid path as light as it was, which matters on venue Wi-Fi; the tab prefetches on
+// hover so the switch still feels instant.
+const importLandscape = () => import("./ScoreLandscape");
+const ScoreLandscape = lazy(() =>
+  importLandscape().then((m) => ({ default: m.ScoreLandscape })),
+);
 
 interface RunViewProps {
   state: RunState;
@@ -30,6 +40,8 @@ export function RunView({
   onFallback,
 }: RunViewProps): JSX.Element {
   const [selected, setSelected] = useState<string | null>(null);
+  // The grid is the default: it is the table view, and every value is readable there.
+  const [raceView, setRaceView] = useState<RaceView>("grid");
   const results = useMemo(() => Object.values(state.cells), [state.cells]);
 
   const selectedResult: RaceResult | null = selected ? (state.cells[selected] ?? null) : null;
@@ -81,13 +93,49 @@ export function RunView({
         <>
           <div className="race-layout">
             <div className="race-main">
-              <RaceGrid
-                tasks={state.tasks}
-                models={state.models}
-                cells={state.cells}
-                selected={selected}
-                onSelect={setSelected}
-              />
+              <div className="race-viewtabs" role="tablist" aria-label="Race view">
+                {(["grid", "landscape"] as const).map((v) => (
+                  <button
+                    key={v}
+                    role="tab"
+                    aria-selected={raceView === v}
+                    className={`viewtab ${raceView === v ? "viewtab-on" : ""}`}
+                    onClick={() => setRaceView(v)}
+                    onPointerEnter={v === "landscape" ? () => void importLandscape() : undefined}
+                    onFocus={v === "landscape" ? () => void importLandscape() : undefined}
+                  >
+                    {v === "grid" ? "Grid" : "Landscape"}
+                  </button>
+                ))}
+              </div>
+
+              {raceView === "grid" ? (
+                <RaceGrid
+                  tasks={state.tasks}
+                  models={state.models}
+                  cells={state.cells}
+                  selected={selected}
+                  onSelect={setSelected}
+                />
+              ) : (
+                <Suspense
+                  fallback={
+                    <div className="ls-canvas-wrap ls-loading" role="status">
+                      <span className="dim">Loading the landscape…</span>
+                    </div>
+                  }
+                >
+                  <ScoreLandscape
+                    tasks={state.tasks}
+                    models={state.models}
+                    cells={state.cells}
+                    results={results}
+                    complete={state.phase === "complete"}
+                    selected={selected}
+                    onSelect={setSelected}
+                  />
+                </Suspense>
+              )}
               <CellDetail
                 result={selectedResult}
                 task={selTask}

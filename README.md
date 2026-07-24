@@ -32,7 +32,7 @@ It is literal natural selection over agents:
 - **Variation.** Mutate the agent's tools, prompt, code, and the model it runs on. Fireworks does the mutating, fast and in parallel.
 - **Selection.** A Braintrust eval is the fitness function. The score decides who lives.
 - **Inheritance.** The fittest seed the next generation.
-- **Containment.** Every variant runs in its own isolated Daytona sandbox, every rewrite is reviewed by CodeRabbit, and a bad mutation is snapshot-rolled-back on sight.
+- **Containment.** Every variant runs in its own isolated Daytona sandbox, and a bad mutation is snapshot-rolled-back on sight.
 
 Generation over generation, the best score climbs. Autonomously. On screen. In real time.
 
@@ -44,19 +44,18 @@ Generation over generation, the best score climbs. Autonomously. On screen. In r
 | **DSPy / prompt optimizers** edit the *words* | rewrites the *tools* and swaps the *model*, a strictly larger search space, run in a real sandbox |
 | **Model leaderboards / routers** rank models on *generic* benchmarks | evolves the best *whole agent and model* on *your* task, and hands back a routing card |
 | **Braintrust / eval tools** *measure* an agent after the fact | uses the eval as *selection pressure*: the score decides which agents survive |
-| **ADAS / meta-agent search** optimizes, unconstrained | optimizes **safely**: sandboxed, immutable grader, code review, rollback, human veto |
+| **ADAS / meta-agent search** optimizes, unconstrained | optimizes **safely**: sandboxed, immutable grader, regression rollback, human veto |
 
 > Prompt optimizers edit the words. Model routers rank models on someone else's tasks. Darwin evolves the best whole agent, prompt, tools, code, and model, on yours. AlphaEvolve is a paper; Darwin runs on your task in three minutes.
 
 ## The safety spine
 
-Five guarantees, enforced as code, not slideware:
+Four guarantees, enforced as code, not slideware:
 
 1. **Sandboxed self-modification.** Every variant executes only inside a Daytona sandbox. Genome code is never imported into the host.
 2. **Immutable fitness function.** The grader lives outside the agent's reach. The mutator is never handed the eval. A test enforces it. The agent cannot cheat its own metric.
-3. **Independent code review.** Darwin is an AI that rewrites its own code, so every rewrite is reviewed by CodeRabbit before it can be promoted. A critical finding (unsafe exec, sandbox escape, an attempt to reach the grader) blocks the champion, even if its task score went up.
-4. **Regression auto-rejection and rollback.** A variant that scores worse than its parent is killed and its sandbox restored from snapshot. Elitism keeps the champion's score monotonic.
-5. **Human veto and a hard compute cap.** No new champion promotes without sign-off, and evolution can't run away.
+3. **Regression auto-rejection and rollback.** A variant that scores worse than its parent is killed and its sandbox restored from snapshot. Elitism keeps the champion's score monotonic.
+4. **Human veto and a hard compute cap.** No new champion promotes without sign-off, and evolution can't run away.
 
 ## Architecture
 
@@ -70,13 +69,11 @@ task / domain ──▶ ┌─────────────────�
                  +code+MODEL,   sandboxes,     immutable     model race,  │
                  mutable)       snapshot/      grader)       parallel)─────┘
                                 rollback)          │
-                                     │        CodeRabbit reviews the self-written
-                                     │        diff before a champion is promoted
                                      ▼
         live dashboard: fitness curve · lineage tree · genome diff · task×model grid · routing card
 ```
 
-Load-bearing sponsors, each used at its frontier: **Fireworks** (fast parallel mutation + the model catalog the `model` gene races), **Braintrust** (fitness function, offline eval), **Daytona** (containment, parallelism, snapshot rollback, real execution scoring), **CodeRabbit** (independent review of the agent's self-written code), **WorkOS** (AuthKit login on the dashboard). Everything else is home-built.
+Load-bearing sponsors, each used at its frontier: **Fireworks** (fast parallel mutation + the model catalog the `model` gene races), **Braintrust** (fitness function, offline eval), **Daytona** (containment, parallelism, snapshot rollback, real execution scoring). Everything else is home-built.
 
 ## Quickstart
 
@@ -104,7 +101,7 @@ Built at the Daytona SF HackSprint:
 - **Lane A** · task decomposition + synthetic data · Shoo
 - **Lane B** · Braintrust eval harness (scorers, experiments, the leaderboard's credibility) · [@KarthikSubramanian07](https://github.com/KarthikSubramanian07)
 - **Lane C** · parallel model race on Fireworks + Daytona sandbox execution · deano
-- **Lane D** · dashboard, WorkOS auth, CodeRabbit, and the demo
+- **Lane D** · dashboard and the demo
 
 ## License
 

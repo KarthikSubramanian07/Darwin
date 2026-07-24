@@ -25,7 +25,6 @@ const KIND_LABEL: Record<string, string> = {
 const GUARDS = [
   "sandboxed self-modification",
   "a grader it can't touch",
-  "reviewed by CodeRabbit",
   "regressions rolled back",
   "a human signs off",
 ];
@@ -92,9 +91,7 @@ export default function App() {
         <div className="links">
           <a className="navlink" href="#run">Overview</a>
           <a className="navlink" href="https://github.com/KarthikSubramanian07/Darwin">GitHub</a>
-          <button className="btn btn-primary btn-sm" onClick={onRun}>
-            {live.connected ? (running ? "Evolving…" : "Run live") : phase === "idle" ? "Watch it evolve" : "Replay"}
-          </button>
+          <a className="btn btn-primary btn-sm" href="/app.html">The Lab ↗</a>
         </div>
       </nav>
 

@@ -66,7 +66,7 @@ def main() -> None:
     args = parser.parse_args()
 
     if args.offline:
-        for var in ("FEATURE_DAYTONA", "FEATURE_BRAINTRUST", "FEATURE_FIREWORKS", "FEATURE_CODERABBIT"):
+        for var in ("FEATURE_DAYTONA", "FEATURE_BRAINTRUST", "FEATURE_FIREWORKS"):
             os.environ[var] = "0"
 
     config = load_config()

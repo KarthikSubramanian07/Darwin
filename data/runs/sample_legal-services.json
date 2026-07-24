@@ -1,0 +1,1972 @@
+{
+  "summary": {
+    "runId": "legal-services-2026-07-24",
+    "industry": "Legal services",
+    "createdAt": "2026-07-24T09:41:00Z",
+    "source": "recorded_demo",
+    "taskCount": 5,
+    "modelCount": 5,
+    "overallScore": 0.93
+  },
+  "models": [
+    {
+      "id": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+      "label": "Llama 3.3 70B",
+      "vendor": "Meta",
+      "costPer1k": 0.9,
+      "p50LatencyMs": 820
+    },
+    {
+      "id": "accounts/fireworks/models/qwen2p5-72b-instruct",
+      "label": "Qwen2.5 72B",
+      "vendor": "Alibaba",
+      "costPer1k": 0.9,
+      "p50LatencyMs": 900
+    },
+    {
+      "id": "accounts/fireworks/models/deepseek-v3",
+      "label": "DeepSeek V3",
+      "vendor": "DeepSeek",
+      "costPer1k": 0.9,
+      "p50LatencyMs": 1100
+    },
+    {
+      "id": "accounts/fireworks/models/kimi-k2-instruct",
+      "label": "Kimi K2",
+      "vendor": "Moonshot",
+      "costPer1k": 0.6,
+      "p50LatencyMs": 1300
+    },
+    {
+      "id": "accounts/fireworks/models/mixtral-8x22b-instruct",
+      "label": "Mixtral 8x22B",
+      "vendor": "Mistral",
+      "costPer1k": 1.2,
+      "p50LatencyMs": 700
+    }
+  ],
+  "tasks": [
+    {
+      "id": "contract_summary",
+      "name": "Contract summarization",
+      "description": "Condense a full agreement into an accurate executive summary with key terms.",
+      "type": "TEXT",
+      "caseCount": 12
+    },
+    {
+      "id": "clause_extraction",
+      "name": "Clause extraction",
+      "description": "Pull indemnity, liability, and termination clauses into a structured schema.",
+      "type": "STRUCTURED",
+      "caseCount": 10
+    },
+    {
+      "id": "citation_verification",
+      "name": "Citation verification",
+      "description": "Check that cited cases and statutes exist and support the stated proposition.",
+      "type": "STRUCTURED",
+      "caseCount": 10
+    },
+    {
+      "id": "risk_classification",
+      "name": "Risk classification",
+      "description": "Label each clause low / medium / high risk against a fixed rubric.",
+      "type": "STRUCTURED",
+      "caseCount": 12
+    },
+    {
+      "id": "sql_reporting",
+      "name": "SQL reporting",
+      "description": "Generate SQL that answers matter-management questions; executed for correctness.",
+      "type": "CODE",
+      "caseCount": 8
+    }
+  ],
+  "results": [
+    {
+      "taskId": "contract_summary",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+      "score": 0.86,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 820,
+      "caseCount": 12,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-contract_summary-llama-3-3-70b",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "contract_summary",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+      "score": 0.83,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 900,
+      "caseCount": 12,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-contract_summary-qwen2-5-72b",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "contract_summary",
+      "modelId": "accounts/fireworks/models/deepseek-v3",
+      "score": 0.88,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 1100,
+      "caseCount": 12,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-contract_summary-deepseek-v3",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "contract_summary",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+      "score": 0.94,
+      "costPer1k": 0.6,
+      "p50LatencyMs": 1300,
+      "caseCount": 12,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-contract_summary-kimi-k2",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "contract_summary",
+      "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct",
+      "score": 0.79,
+      "costPer1k": 1.2,
+      "p50LatencyMs": 700,
+      "caseCount": 12,
+      "braintrustUrl": null,
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "clause_extraction",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+      "score": 0.88,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 820,
+      "caseCount": 10,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-clause_extraction-llama-3-3-70b",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "clause_extraction",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+      "score": 0.95,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 900,
+      "caseCount": 10,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-clause_extraction-qwen2-5-72b",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "clause_extraction",
+      "modelId": "accounts/fireworks/models/deepseek-v3",
+      "score": 0.9,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 1100,
+      "caseCount": 10,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-clause_extraction-deepseek-v3",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "clause_extraction",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+      "score": 0.84,
+      "costPer1k": 0.6,
+      "p50LatencyMs": 1300,
+      "caseCount": 10,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-clause_extraction-kimi-k2",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "clause_extraction",
+      "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct",
+      "score": 0.8,
+      "costPer1k": 1.2,
+      "p50LatencyMs": 700,
+      "caseCount": 10,
+      "braintrustUrl": null,
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "citation_verification",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+      "score": 0.82,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 820,
+      "caseCount": 10,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-citation_verification-llama-3-3-70b",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "citation_verification",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+      "score": 0.85,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 900,
+      "caseCount": 10,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-citation_verification-qwen2-5-72b",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "citation_verification",
+      "modelId": "accounts/fireworks/models/deepseek-v3",
+      "score": 0.93,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 1100,
+      "caseCount": 10,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-citation_verification-deepseek-v3",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "citation_verification",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+      "score": 0.79,
+      "costPer1k": 0.6,
+      "p50LatencyMs": 1300,
+      "caseCount": 10,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-citation_verification-kimi-k2",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "citation_verification",
+      "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct",
+      "score": 0.77,
+      "costPer1k": 1.2,
+      "p50LatencyMs": 700,
+      "caseCount": 10,
+      "braintrustUrl": null,
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "risk_classification",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+      "score": 0.91,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 820,
+      "caseCount": 12,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-risk_classification-llama-3-3-70b",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "risk_classification",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+      "score": 0.87,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 900,
+      "caseCount": 12,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-risk_classification-qwen2-5-72b",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "risk_classification",
+      "modelId": "accounts/fireworks/models/deepseek-v3",
+      "score": 0.85,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 1100,
+      "caseCount": 12,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-risk_classification-deepseek-v3",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "risk_classification",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+      "score": 0.83,
+      "costPer1k": 0.6,
+      "p50LatencyMs": 1300,
+      "caseCount": 12,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-risk_classification-kimi-k2",
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "risk_classification",
+      "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct",
+      "score": 0.84,
+      "costPer1k": 1.2,
+      "p50LatencyMs": 700,
+      "caseCount": 12,
+      "braintrustUrl": null,
+      "sandbox": null,
+      "state": "complete"
+    },
+    {
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+      "score": 0.75,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 820,
+      "caseCount": 8,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-sql_reporting-llama-3-3-70b",
+      "sandbox": {
+        "passed": 5,
+        "total": 8
+      },
+      "state": "complete"
+    },
+    {
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+      "score": 0.8,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 900,
+      "caseCount": 8,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-sql_reporting-qwen2-5-72b",
+      "sandbox": {
+        "passed": 6,
+        "total": 8
+      },
+      "state": "complete"
+    },
+    {
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/deepseek-v3",
+      "score": 0.92,
+      "costPer1k": 0.9,
+      "p50LatencyMs": 1100,
+      "caseCount": 8,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-sql_reporting-deepseek-v3",
+      "sandbox": {
+        "passed": 8,
+        "total": 8
+      },
+      "state": "complete"
+    },
+    {
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+      "score": 0.7,
+      "costPer1k": 0.6,
+      "p50LatencyMs": 1300,
+      "caseCount": 8,
+      "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-sql_reporting-kimi-k2",
+      "sandbox": {
+        "passed": 4,
+        "total": 8
+      },
+      "state": "complete"
+    },
+    {
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct",
+      "score": 0.78,
+      "costPer1k": 1.2,
+      "p50LatencyMs": 700,
+      "caseCount": 8,
+      "braintrustUrl": null,
+      "sandbox": {
+        "passed": 6,
+        "total": 8
+      },
+      "state": "complete"
+    }
+  ],
+  "routingCard": {
+    "industry": "Legal services",
+    "entries": [
+      {
+        "taskId": "contract_summary",
+        "taskName": "Contract summarization",
+        "taskType": "TEXT",
+        "bestModelId": "accounts/fireworks/models/kimi-k2-instruct",
+        "runnerUpModelId": "accounts/fireworks/models/deepseek-v3",
+        "score": 0.94,
+        "scoreDelta": 0.05999999999999994,
+        "p50LatencyMs": 1300,
+        "costPer1k": 0.6,
+        "rationale": "Kimi K2 leads at 94% on real eval cases, 6 pts over the runner-up.",
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-contract_summary-kimi-k2",
+        "sandboxVerified": false
+      },
+      {
+        "taskId": "clause_extraction",
+        "taskName": "Clause extraction",
+        "taskType": "STRUCTURED",
+        "bestModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+        "runnerUpModelId": "accounts/fireworks/models/deepseek-v3",
+        "score": 0.95,
+        "scoreDelta": 0.04999999999999993,
+        "p50LatencyMs": 900,
+        "costPer1k": 0.9,
+        "rationale": "Qwen2.5 72B leads at 95% on real eval cases, 5 pts over the runner-up.",
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-clause_extraction-qwen2-5-72b",
+        "sandboxVerified": false
+      },
+      {
+        "taskId": "citation_verification",
+        "taskName": "Citation verification",
+        "taskType": "STRUCTURED",
+        "bestModelId": "accounts/fireworks/models/deepseek-v3",
+        "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+        "score": 0.93,
+        "scoreDelta": 0.08000000000000007,
+        "p50LatencyMs": 1100,
+        "costPer1k": 0.9,
+        "rationale": "DeepSeek V3 leads at 93% on real eval cases, 8 pts over the runner-up.",
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-citation_verification-deepseek-v3",
+        "sandboxVerified": false
+      },
+      {
+        "taskId": "risk_classification",
+        "taskName": "Risk classification",
+        "taskType": "STRUCTURED",
+        "bestModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+        "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+        "score": 0.91,
+        "scoreDelta": 0.040000000000000036,
+        "p50LatencyMs": 820,
+        "costPer1k": 0.9,
+        "rationale": "Llama 3.3 70B leads at 91% on real eval cases, 4 pts over the runner-up.",
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-risk_classification-llama-3-3-70b",
+        "sandboxVerified": false
+      },
+      {
+        "taskId": "sql_reporting",
+        "taskName": "SQL reporting",
+        "taskType": "CODE",
+        "bestModelId": "accounts/fireworks/models/deepseek-v3",
+        "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+        "score": 0.92,
+        "scoreDelta": 0.12,
+        "p50LatencyMs": 1100,
+        "costPer1k": 0.9,
+        "rationale": "DeepSeek V3 leads at 92% on real eval cases, 12 pts over the runner-up, verified by execution (8/8 tests).",
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-sql_reporting-deepseek-v3",
+        "sandboxVerified": true
+      }
+    ]
+  },
+  "events": [
+    {
+      "type": "run_started",
+      "ts": 0,
+      "run": {
+        "runId": "legal-services-2026-07-24",
+        "industry": "Legal services",
+        "createdAt": "2026-07-24T09:41:00Z",
+        "source": "recorded_demo",
+        "taskCount": 5,
+        "modelCount": 5,
+        "overallScore": 0.93
+      },
+      "models": [
+        {
+          "id": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+          "label": "Llama 3.3 70B",
+          "vendor": "Meta",
+          "costPer1k": 0.9,
+          "p50LatencyMs": 820
+        },
+        {
+          "id": "accounts/fireworks/models/qwen2p5-72b-instruct",
+          "label": "Qwen2.5 72B",
+          "vendor": "Alibaba",
+          "costPer1k": 0.9,
+          "p50LatencyMs": 900
+        },
+        {
+          "id": "accounts/fireworks/models/deepseek-v3",
+          "label": "DeepSeek V3",
+          "vendor": "DeepSeek",
+          "costPer1k": 0.9,
+          "p50LatencyMs": 1100
+        },
+        {
+          "id": "accounts/fireworks/models/kimi-k2-instruct",
+          "label": "Kimi K2",
+          "vendor": "Moonshot",
+          "costPer1k": 0.6,
+          "p50LatencyMs": 1300
+        },
+        {
+          "id": "accounts/fireworks/models/mixtral-8x22b-instruct",
+          "label": "Mixtral 8x22B",
+          "vendor": "Mistral",
+          "costPer1k": 1.2,
+          "p50LatencyMs": 700
+        }
+      ]
+    },
+    {
+      "type": "task_created",
+      "ts": 320,
+      "task": {
+        "id": "contract_summary",
+        "name": "Contract summarization",
+        "description": "Condense a full agreement into an accurate executive summary with key terms.",
+        "type": "TEXT",
+        "caseCount": 12
+      }
+    },
+    {
+      "type": "task_created",
+      "ts": 640,
+      "task": {
+        "id": "clause_extraction",
+        "name": "Clause extraction",
+        "description": "Pull indemnity, liability, and termination clauses into a structured schema.",
+        "type": "STRUCTURED",
+        "caseCount": 10
+      }
+    },
+    {
+      "type": "task_created",
+      "ts": 960,
+      "task": {
+        "id": "citation_verification",
+        "name": "Citation verification",
+        "description": "Check that cited cases and statutes exist and support the stated proposition.",
+        "type": "STRUCTURED",
+        "caseCount": 10
+      }
+    },
+    {
+      "type": "task_created",
+      "ts": 1280,
+      "task": {
+        "id": "risk_classification",
+        "name": "Risk classification",
+        "description": "Label each clause low / medium / high risk against a fixed rubric.",
+        "type": "STRUCTURED",
+        "caseCount": 12
+      }
+    },
+    {
+      "type": "task_created",
+      "ts": 1600,
+      "task": {
+        "id": "sql_reporting",
+        "name": "SQL reporting",
+        "description": "Generate SQL that answers matter-management questions; executed for correctness.",
+        "type": "CODE",
+        "caseCount": 8
+      }
+    },
+    {
+      "type": "decomposition_complete",
+      "ts": 1860
+    },
+    {
+      "type": "race_queued",
+      "ts": 1900,
+      "taskId": "contract_summary",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+      "caseCount": 12
+    },
+    {
+      "type": "race_queued",
+      "ts": 1940,
+      "taskId": "contract_summary",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+      "caseCount": 12
+    },
+    {
+      "type": "race_queued",
+      "ts": 1980,
+      "taskId": "contract_summary",
+      "modelId": "accounts/fireworks/models/deepseek-v3",
+      "caseCount": 12
+    },
+    {
+      "type": "race_queued",
+      "ts": 2020,
+      "taskId": "contract_summary",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+      "caseCount": 12
+    },
+    {
+      "type": "race_queued",
+      "ts": 2060,
+      "taskId": "contract_summary",
+      "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct",
+      "caseCount": 12
+    },
+    {
+      "type": "race_queued",
+      "ts": 2100,
+      "taskId": "clause_extraction",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+      "caseCount": 10
+    },
+    {
+      "type": "race_queued",
+      "ts": 2140,
+      "taskId": "clause_extraction",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+      "caseCount": 10
+    },
+    {
+      "type": "race_queued",
+      "ts": 2180,
+      "taskId": "clause_extraction",
+      "modelId": "accounts/fireworks/models/deepseek-v3",
+      "caseCount": 10
+    },
+    {
+      "type": "race_queued",
+      "ts": 2220,
+      "taskId": "clause_extraction",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+      "caseCount": 10
+    },
+    {
+      "type": "race_queued",
+      "ts": 2260,
+      "taskId": "clause_extraction",
+      "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct",
+      "caseCount": 10
+    },
+    {
+      "type": "race_queued",
+      "ts": 2300,
+      "taskId": "citation_verification",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+      "caseCount": 10
+    },
+    {
+      "type": "race_queued",
+      "ts": 2340,
+      "taskId": "citation_verification",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+      "caseCount": 10
+    },
+    {
+      "type": "race_queued",
+      "ts": 2380,
+      "taskId": "citation_verification",
+      "modelId": "accounts/fireworks/models/deepseek-v3",
+      "caseCount": 10
+    },
+    {
+      "type": "race_queued",
+      "ts": 2420,
+      "taskId": "citation_verification",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+      "caseCount": 10
+    },
+    {
+      "type": "race_queued",
+      "ts": 2460,
+      "taskId": "citation_verification",
+      "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct",
+      "caseCount": 10
+    },
+    {
+      "type": "race_queued",
+      "ts": 2500,
+      "taskId": "risk_classification",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+      "caseCount": 12
+    },
+    {
+      "type": "race_queued",
+      "ts": 2540,
+      "taskId": "risk_classification",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+      "caseCount": 12
+    },
+    {
+      "type": "race_queued",
+      "ts": 2580,
+      "taskId": "risk_classification",
+      "modelId": "accounts/fireworks/models/deepseek-v3",
+      "caseCount": 12
+    },
+    {
+      "type": "race_queued",
+      "ts": 2620,
+      "taskId": "risk_classification",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+      "caseCount": 12
+    },
+    {
+      "type": "race_queued",
+      "ts": 2660,
+      "taskId": "risk_classification",
+      "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct",
+      "caseCount": 12
+    },
+    {
+      "type": "race_queued",
+      "ts": 2700,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+      "caseCount": 8
+    },
+    {
+      "type": "race_queued",
+      "ts": 2740,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+      "caseCount": 8
+    },
+    {
+      "type": "race_queued",
+      "ts": 2780,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/deepseek-v3",
+      "caseCount": 8
+    },
+    {
+      "type": "race_queued",
+      "ts": 2820,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+      "caseCount": 8
+    },
+    {
+      "type": "race_queued",
+      "ts": 2860,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct",
+      "caseCount": 8
+    },
+    {
+      "type": "race_started",
+      "ts": 3080,
+      "taskId": "contract_summary",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 3260,
+      "taskId": "contract_summary",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 3380,
+      "result": {
+        "taskId": "contract_summary",
+        "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+        "score": 0.86,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 820,
+        "caseCount": 12,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-contract_summary-llama-3-3-70b",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 3600,
+      "taskId": "contract_summary",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 3780,
+      "taskId": "contract_summary",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 3900,
+      "result": {
+        "taskId": "contract_summary",
+        "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+        "score": 0.83,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 900,
+        "caseCount": 12,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-contract_summary-qwen2-5-72b",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 4120,
+      "taskId": "contract_summary",
+      "modelId": "accounts/fireworks/models/deepseek-v3"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 4300,
+      "taskId": "contract_summary",
+      "modelId": "accounts/fireworks/models/deepseek-v3"
+    },
+    {
+      "type": "race_scored",
+      "ts": 4420,
+      "result": {
+        "taskId": "contract_summary",
+        "modelId": "accounts/fireworks/models/deepseek-v3",
+        "score": 0.88,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 1100,
+        "caseCount": 12,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-contract_summary-deepseek-v3",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 4640,
+      "taskId": "contract_summary",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 4820,
+      "taskId": "contract_summary",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 4940,
+      "result": {
+        "taskId": "contract_summary",
+        "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+        "score": 0.94,
+        "costPer1k": 0.6,
+        "p50LatencyMs": 1300,
+        "caseCount": 12,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-contract_summary-kimi-k2",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 5160,
+      "taskId": "contract_summary",
+      "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 5340,
+      "taskId": "contract_summary",
+      "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 5460,
+      "result": {
+        "taskId": "contract_summary",
+        "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct",
+        "score": 0.79,
+        "costPer1k": 1.2,
+        "p50LatencyMs": 700,
+        "caseCount": 12,
+        "braintrustUrl": null,
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "routing_updated",
+      "ts": 5540,
+      "card": {
+        "industry": "Legal services",
+        "entries": [
+          {
+            "taskId": "contract_summary",
+            "taskName": "Contract summarization",
+            "taskType": "TEXT",
+            "bestModelId": "accounts/fireworks/models/kimi-k2-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/deepseek-v3",
+            "score": 0.94,
+            "scoreDelta": 0.05999999999999994,
+            "p50LatencyMs": 1300,
+            "costPer1k": 0.6,
+            "rationale": "Kimi K2 leads at 94% on real eval cases, 6 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-contract_summary-kimi-k2",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "clause_extraction",
+            "taskName": "Clause extraction",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/deepseek-v3",
+            "score": 0.95,
+            "scoreDelta": 0.04999999999999993,
+            "p50LatencyMs": 900,
+            "costPer1k": 0.9,
+            "rationale": "Qwen2.5 72B leads at 95% on real eval cases, 5 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-clause_extraction-qwen2-5-72b",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "citation_verification",
+            "taskName": "Citation verification",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/deepseek-v3",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.93,
+            "scoreDelta": 0.08000000000000007,
+            "p50LatencyMs": 1100,
+            "costPer1k": 0.9,
+            "rationale": "DeepSeek V3 leads at 93% on real eval cases, 8 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-citation_verification-deepseek-v3",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "risk_classification",
+            "taskName": "Risk classification",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.91,
+            "scoreDelta": 0.040000000000000036,
+            "p50LatencyMs": 820,
+            "costPer1k": 0.9,
+            "rationale": "Llama 3.3 70B leads at 91% on real eval cases, 4 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-risk_classification-llama-3-3-70b",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "sql_reporting",
+            "taskName": "SQL reporting",
+            "taskType": "CODE",
+            "bestModelId": "accounts/fireworks/models/deepseek-v3",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.92,
+            "scoreDelta": 0.12,
+            "p50LatencyMs": 1100,
+            "costPer1k": 0.9,
+            "rationale": "DeepSeek V3 leads at 92% on real eval cases, 12 pts over the runner-up, verified by execution (8/8 tests).",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-sql_reporting-deepseek-v3",
+            "sandboxVerified": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 5760,
+      "taskId": "clause_extraction",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 5940,
+      "taskId": "clause_extraction",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 6060,
+      "result": {
+        "taskId": "clause_extraction",
+        "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+        "score": 0.88,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 820,
+        "caseCount": 10,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-clause_extraction-llama-3-3-70b",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 6280,
+      "taskId": "clause_extraction",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 6460,
+      "taskId": "clause_extraction",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 6580,
+      "result": {
+        "taskId": "clause_extraction",
+        "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+        "score": 0.95,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 900,
+        "caseCount": 10,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-clause_extraction-qwen2-5-72b",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 6800,
+      "taskId": "clause_extraction",
+      "modelId": "accounts/fireworks/models/deepseek-v3"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 6980,
+      "taskId": "clause_extraction",
+      "modelId": "accounts/fireworks/models/deepseek-v3"
+    },
+    {
+      "type": "race_scored",
+      "ts": 7100,
+      "result": {
+        "taskId": "clause_extraction",
+        "modelId": "accounts/fireworks/models/deepseek-v3",
+        "score": 0.9,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 1100,
+        "caseCount": 10,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-clause_extraction-deepseek-v3",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 7320,
+      "taskId": "clause_extraction",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 7500,
+      "taskId": "clause_extraction",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 7620,
+      "result": {
+        "taskId": "clause_extraction",
+        "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+        "score": 0.84,
+        "costPer1k": 0.6,
+        "p50LatencyMs": 1300,
+        "caseCount": 10,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-clause_extraction-kimi-k2",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 7840,
+      "taskId": "clause_extraction",
+      "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 8020,
+      "taskId": "clause_extraction",
+      "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 8140,
+      "result": {
+        "taskId": "clause_extraction",
+        "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct",
+        "score": 0.8,
+        "costPer1k": 1.2,
+        "p50LatencyMs": 700,
+        "caseCount": 10,
+        "braintrustUrl": null,
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "routing_updated",
+      "ts": 8220,
+      "card": {
+        "industry": "Legal services",
+        "entries": [
+          {
+            "taskId": "contract_summary",
+            "taskName": "Contract summarization",
+            "taskType": "TEXT",
+            "bestModelId": "accounts/fireworks/models/kimi-k2-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/deepseek-v3",
+            "score": 0.94,
+            "scoreDelta": 0.05999999999999994,
+            "p50LatencyMs": 1300,
+            "costPer1k": 0.6,
+            "rationale": "Kimi K2 leads at 94% on real eval cases, 6 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-contract_summary-kimi-k2",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "clause_extraction",
+            "taskName": "Clause extraction",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/deepseek-v3",
+            "score": 0.95,
+            "scoreDelta": 0.04999999999999993,
+            "p50LatencyMs": 900,
+            "costPer1k": 0.9,
+            "rationale": "Qwen2.5 72B leads at 95% on real eval cases, 5 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-clause_extraction-qwen2-5-72b",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "citation_verification",
+            "taskName": "Citation verification",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/deepseek-v3",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.93,
+            "scoreDelta": 0.08000000000000007,
+            "p50LatencyMs": 1100,
+            "costPer1k": 0.9,
+            "rationale": "DeepSeek V3 leads at 93% on real eval cases, 8 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-citation_verification-deepseek-v3",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "risk_classification",
+            "taskName": "Risk classification",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.91,
+            "scoreDelta": 0.040000000000000036,
+            "p50LatencyMs": 820,
+            "costPer1k": 0.9,
+            "rationale": "Llama 3.3 70B leads at 91% on real eval cases, 4 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-risk_classification-llama-3-3-70b",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "sql_reporting",
+            "taskName": "SQL reporting",
+            "taskType": "CODE",
+            "bestModelId": "accounts/fireworks/models/deepseek-v3",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.92,
+            "scoreDelta": 0.12,
+            "p50LatencyMs": 1100,
+            "costPer1k": 0.9,
+            "rationale": "DeepSeek V3 leads at 92% on real eval cases, 12 pts over the runner-up, verified by execution (8/8 tests).",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-sql_reporting-deepseek-v3",
+            "sandboxVerified": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 8440,
+      "taskId": "citation_verification",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 8620,
+      "taskId": "citation_verification",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 8740,
+      "result": {
+        "taskId": "citation_verification",
+        "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+        "score": 0.82,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 820,
+        "caseCount": 10,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-citation_verification-llama-3-3-70b",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 8960,
+      "taskId": "citation_verification",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 9140,
+      "taskId": "citation_verification",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 9260,
+      "result": {
+        "taskId": "citation_verification",
+        "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+        "score": 0.85,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 900,
+        "caseCount": 10,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-citation_verification-qwen2-5-72b",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 9480,
+      "taskId": "citation_verification",
+      "modelId": "accounts/fireworks/models/deepseek-v3"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 9660,
+      "taskId": "citation_verification",
+      "modelId": "accounts/fireworks/models/deepseek-v3"
+    },
+    {
+      "type": "race_scored",
+      "ts": 9780,
+      "result": {
+        "taskId": "citation_verification",
+        "modelId": "accounts/fireworks/models/deepseek-v3",
+        "score": 0.93,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 1100,
+        "caseCount": 10,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-citation_verification-deepseek-v3",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 10000,
+      "taskId": "citation_verification",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 10180,
+      "taskId": "citation_verification",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 10300,
+      "result": {
+        "taskId": "citation_verification",
+        "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+        "score": 0.79,
+        "costPer1k": 0.6,
+        "p50LatencyMs": 1300,
+        "caseCount": 10,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-citation_verification-kimi-k2",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 10520,
+      "taskId": "citation_verification",
+      "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 10700,
+      "taskId": "citation_verification",
+      "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 10820,
+      "result": {
+        "taskId": "citation_verification",
+        "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct",
+        "score": 0.77,
+        "costPer1k": 1.2,
+        "p50LatencyMs": 700,
+        "caseCount": 10,
+        "braintrustUrl": null,
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "routing_updated",
+      "ts": 10900,
+      "card": {
+        "industry": "Legal services",
+        "entries": [
+          {
+            "taskId": "contract_summary",
+            "taskName": "Contract summarization",
+            "taskType": "TEXT",
+            "bestModelId": "accounts/fireworks/models/kimi-k2-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/deepseek-v3",
+            "score": 0.94,
+            "scoreDelta": 0.05999999999999994,
+            "p50LatencyMs": 1300,
+            "costPer1k": 0.6,
+            "rationale": "Kimi K2 leads at 94% on real eval cases, 6 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-contract_summary-kimi-k2",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "clause_extraction",
+            "taskName": "Clause extraction",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/deepseek-v3",
+            "score": 0.95,
+            "scoreDelta": 0.04999999999999993,
+            "p50LatencyMs": 900,
+            "costPer1k": 0.9,
+            "rationale": "Qwen2.5 72B leads at 95% on real eval cases, 5 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-clause_extraction-qwen2-5-72b",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "citation_verification",
+            "taskName": "Citation verification",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/deepseek-v3",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.93,
+            "scoreDelta": 0.08000000000000007,
+            "p50LatencyMs": 1100,
+            "costPer1k": 0.9,
+            "rationale": "DeepSeek V3 leads at 93% on real eval cases, 8 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-citation_verification-deepseek-v3",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "risk_classification",
+            "taskName": "Risk classification",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.91,
+            "scoreDelta": 0.040000000000000036,
+            "p50LatencyMs": 820,
+            "costPer1k": 0.9,
+            "rationale": "Llama 3.3 70B leads at 91% on real eval cases, 4 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-risk_classification-llama-3-3-70b",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "sql_reporting",
+            "taskName": "SQL reporting",
+            "taskType": "CODE",
+            "bestModelId": "accounts/fireworks/models/deepseek-v3",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.92,
+            "scoreDelta": 0.12,
+            "p50LatencyMs": 1100,
+            "costPer1k": 0.9,
+            "rationale": "DeepSeek V3 leads at 92% on real eval cases, 12 pts over the runner-up, verified by execution (8/8 tests).",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-sql_reporting-deepseek-v3",
+            "sandboxVerified": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 11120,
+      "taskId": "risk_classification",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 11300,
+      "taskId": "risk_classification",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 11420,
+      "result": {
+        "taskId": "risk_classification",
+        "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+        "score": 0.91,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 820,
+        "caseCount": 12,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-risk_classification-llama-3-3-70b",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 11640,
+      "taskId": "risk_classification",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 11820,
+      "taskId": "risk_classification",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 11940,
+      "result": {
+        "taskId": "risk_classification",
+        "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+        "score": 0.87,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 900,
+        "caseCount": 12,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-risk_classification-qwen2-5-72b",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 12160,
+      "taskId": "risk_classification",
+      "modelId": "accounts/fireworks/models/deepseek-v3"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 12340,
+      "taskId": "risk_classification",
+      "modelId": "accounts/fireworks/models/deepseek-v3"
+    },
+    {
+      "type": "race_scored",
+      "ts": 12460,
+      "result": {
+        "taskId": "risk_classification",
+        "modelId": "accounts/fireworks/models/deepseek-v3",
+        "score": 0.85,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 1100,
+        "caseCount": 12,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-risk_classification-deepseek-v3",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 12680,
+      "taskId": "risk_classification",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 12860,
+      "taskId": "risk_classification",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 12980,
+      "result": {
+        "taskId": "risk_classification",
+        "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+        "score": 0.83,
+        "costPer1k": 0.6,
+        "p50LatencyMs": 1300,
+        "caseCount": 12,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-risk_classification-kimi-k2",
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 13200,
+      "taskId": "risk_classification",
+      "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 13380,
+      "taskId": "risk_classification",
+      "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct"
+    },
+    {
+      "type": "race_scored",
+      "ts": 13500,
+      "result": {
+        "taskId": "risk_classification",
+        "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct",
+        "score": 0.84,
+        "costPer1k": 1.2,
+        "p50LatencyMs": 700,
+        "caseCount": 12,
+        "braintrustUrl": null,
+        "sandbox": null,
+        "state": "complete"
+      }
+    },
+    {
+      "type": "routing_updated",
+      "ts": 13580,
+      "card": {
+        "industry": "Legal services",
+        "entries": [
+          {
+            "taskId": "contract_summary",
+            "taskName": "Contract summarization",
+            "taskType": "TEXT",
+            "bestModelId": "accounts/fireworks/models/kimi-k2-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/deepseek-v3",
+            "score": 0.94,
+            "scoreDelta": 0.05999999999999994,
+            "p50LatencyMs": 1300,
+            "costPer1k": 0.6,
+            "rationale": "Kimi K2 leads at 94% on real eval cases, 6 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-contract_summary-kimi-k2",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "clause_extraction",
+            "taskName": "Clause extraction",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/deepseek-v3",
+            "score": 0.95,
+            "scoreDelta": 0.04999999999999993,
+            "p50LatencyMs": 900,
+            "costPer1k": 0.9,
+            "rationale": "Qwen2.5 72B leads at 95% on real eval cases, 5 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-clause_extraction-qwen2-5-72b",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "citation_verification",
+            "taskName": "Citation verification",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/deepseek-v3",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.93,
+            "scoreDelta": 0.08000000000000007,
+            "p50LatencyMs": 1100,
+            "costPer1k": 0.9,
+            "rationale": "DeepSeek V3 leads at 93% on real eval cases, 8 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-citation_verification-deepseek-v3",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "risk_classification",
+            "taskName": "Risk classification",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.91,
+            "scoreDelta": 0.040000000000000036,
+            "p50LatencyMs": 820,
+            "costPer1k": 0.9,
+            "rationale": "Llama 3.3 70B leads at 91% on real eval cases, 4 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-risk_classification-llama-3-3-70b",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "sql_reporting",
+            "taskName": "SQL reporting",
+            "taskType": "CODE",
+            "bestModelId": "accounts/fireworks/models/deepseek-v3",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.92,
+            "scoreDelta": 0.12,
+            "p50LatencyMs": 1100,
+            "costPer1k": 0.9,
+            "rationale": "DeepSeek V3 leads at 92% on real eval cases, 12 pts over the runner-up, verified by execution (8/8 tests).",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-sql_reporting-deepseek-v3",
+            "sandboxVerified": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 13800,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 13980,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct"
+    },
+    {
+      "type": "sandbox_started",
+      "ts": 14120,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct"
+    },
+    {
+      "type": "sandbox_result",
+      "ts": 14380,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+      "passed": 5,
+      "total": 8
+    },
+    {
+      "type": "race_scored",
+      "ts": 14500,
+      "result": {
+        "taskId": "sql_reporting",
+        "modelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+        "score": 0.75,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 820,
+        "caseCount": 8,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-sql_reporting-llama-3-3-70b",
+        "sandbox": {
+          "passed": 5,
+          "total": 8
+        },
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 14720,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 14900,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct"
+    },
+    {
+      "type": "sandbox_started",
+      "ts": 15040,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct"
+    },
+    {
+      "type": "sandbox_result",
+      "ts": 15300,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+      "passed": 6,
+      "total": 8
+    },
+    {
+      "type": "race_scored",
+      "ts": 15420,
+      "result": {
+        "taskId": "sql_reporting",
+        "modelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+        "score": 0.8,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 900,
+        "caseCount": 8,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-sql_reporting-qwen2-5-72b",
+        "sandbox": {
+          "passed": 6,
+          "total": 8
+        },
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 15640,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/deepseek-v3"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 15820,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/deepseek-v3"
+    },
+    {
+      "type": "sandbox_started",
+      "ts": 15960,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/deepseek-v3"
+    },
+    {
+      "type": "sandbox_result",
+      "ts": 16220,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/deepseek-v3",
+      "passed": 8,
+      "total": 8
+    },
+    {
+      "type": "race_scored",
+      "ts": 16340,
+      "result": {
+        "taskId": "sql_reporting",
+        "modelId": "accounts/fireworks/models/deepseek-v3",
+        "score": 0.92,
+        "costPer1k": 0.9,
+        "p50LatencyMs": 1100,
+        "caseCount": 8,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-sql_reporting-deepseek-v3",
+        "sandbox": {
+          "passed": 8,
+          "total": 8
+        },
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 16560,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 16740,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct"
+    },
+    {
+      "type": "sandbox_started",
+      "ts": 16880,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct"
+    },
+    {
+      "type": "sandbox_result",
+      "ts": 17140,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+      "passed": 4,
+      "total": 8
+    },
+    {
+      "type": "race_scored",
+      "ts": 17260,
+      "result": {
+        "taskId": "sql_reporting",
+        "modelId": "accounts/fireworks/models/kimi-k2-instruct",
+        "score": 0.7,
+        "costPer1k": 0.6,
+        "p50LatencyMs": 1300,
+        "caseCount": 8,
+        "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-sql_reporting-kimi-k2",
+        "sandbox": {
+          "passed": 4,
+          "total": 8
+        },
+        "state": "complete"
+      }
+    },
+    {
+      "type": "race_started",
+      "ts": 17480,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct"
+    },
+    {
+      "type": "race_scoring",
+      "ts": 17660,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct"
+    },
+    {
+      "type": "sandbox_started",
+      "ts": 17800,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct"
+    },
+    {
+      "type": "sandbox_result",
+      "ts": 18060,
+      "taskId": "sql_reporting",
+      "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct",
+      "passed": 6,
+      "total": 8
+    },
+    {
+      "type": "race_scored",
+      "ts": 18180,
+      "result": {
+        "taskId": "sql_reporting",
+        "modelId": "accounts/fireworks/models/mixtral-8x22b-instruct",
+        "score": 0.78,
+        "costPer1k": 1.2,
+        "p50LatencyMs": 700,
+        "caseCount": 8,
+        "braintrustUrl": null,
+        "sandbox": {
+          "passed": 6,
+          "total": 8
+        },
+        "state": "complete"
+      }
+    },
+    {
+      "type": "routing_updated",
+      "ts": 18260,
+      "card": {
+        "industry": "Legal services",
+        "entries": [
+          {
+            "taskId": "contract_summary",
+            "taskName": "Contract summarization",
+            "taskType": "TEXT",
+            "bestModelId": "accounts/fireworks/models/kimi-k2-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/deepseek-v3",
+            "score": 0.94,
+            "scoreDelta": 0.05999999999999994,
+            "p50LatencyMs": 1300,
+            "costPer1k": 0.6,
+            "rationale": "Kimi K2 leads at 94% on real eval cases, 6 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-contract_summary-kimi-k2",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "clause_extraction",
+            "taskName": "Clause extraction",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/deepseek-v3",
+            "score": 0.95,
+            "scoreDelta": 0.04999999999999993,
+            "p50LatencyMs": 900,
+            "costPer1k": 0.9,
+            "rationale": "Qwen2.5 72B leads at 95% on real eval cases, 5 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-clause_extraction-qwen2-5-72b",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "citation_verification",
+            "taskName": "Citation verification",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/deepseek-v3",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.93,
+            "scoreDelta": 0.08000000000000007,
+            "p50LatencyMs": 1100,
+            "costPer1k": 0.9,
+            "rationale": "DeepSeek V3 leads at 93% on real eval cases, 8 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-citation_verification-deepseek-v3",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "risk_classification",
+            "taskName": "Risk classification",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.91,
+            "scoreDelta": 0.040000000000000036,
+            "p50LatencyMs": 820,
+            "costPer1k": 0.9,
+            "rationale": "Llama 3.3 70B leads at 91% on real eval cases, 4 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-risk_classification-llama-3-3-70b",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "sql_reporting",
+            "taskName": "SQL reporting",
+            "taskType": "CODE",
+            "bestModelId": "accounts/fireworks/models/deepseek-v3",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.92,
+            "scoreDelta": 0.12,
+            "p50LatencyMs": 1100,
+            "costPer1k": 0.9,
+            "rationale": "DeepSeek V3 leads at 92% on real eval cases, 12 pts over the runner-up, verified by execution (8/8 tests).",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-sql_reporting-deepseek-v3",
+            "sandboxVerified": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "run_completed",
+      "ts": 18460,
+      "card": {
+        "industry": "Legal services",
+        "entries": [
+          {
+            "taskId": "contract_summary",
+            "taskName": "Contract summarization",
+            "taskType": "TEXT",
+            "bestModelId": "accounts/fireworks/models/kimi-k2-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/deepseek-v3",
+            "score": 0.94,
+            "scoreDelta": 0.05999999999999994,
+            "p50LatencyMs": 1300,
+            "costPer1k": 0.6,
+            "rationale": "Kimi K2 leads at 94% on real eval cases, 6 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-contract_summary-kimi-k2",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "clause_extraction",
+            "taskName": "Clause extraction",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/deepseek-v3",
+            "score": 0.95,
+            "scoreDelta": 0.04999999999999993,
+            "p50LatencyMs": 900,
+            "costPer1k": 0.9,
+            "rationale": "Qwen2.5 72B leads at 95% on real eval cases, 5 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-clause_extraction-qwen2-5-72b",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "citation_verification",
+            "taskName": "Citation verification",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/deepseek-v3",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.93,
+            "scoreDelta": 0.08000000000000007,
+            "p50LatencyMs": 1100,
+            "costPer1k": 0.9,
+            "rationale": "DeepSeek V3 leads at 93% on real eval cases, 8 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-citation_verification-deepseek-v3",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "risk_classification",
+            "taskName": "Risk classification",
+            "taskType": "STRUCTURED",
+            "bestModelId": "accounts/fireworks/models/llama-v3p3-70b-instruct",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.91,
+            "scoreDelta": 0.040000000000000036,
+            "p50LatencyMs": 820,
+            "costPer1k": 0.9,
+            "rationale": "Llama 3.3 70B leads at 91% on real eval cases, 4 pts over the runner-up.",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-risk_classification-llama-3-3-70b",
+            "sandboxVerified": false
+          },
+          {
+            "taskId": "sql_reporting",
+            "taskName": "SQL reporting",
+            "taskType": "CODE",
+            "bestModelId": "accounts/fireworks/models/deepseek-v3",
+            "runnerUpModelId": "accounts/fireworks/models/qwen2p5-72b-instruct",
+            "score": 0.92,
+            "scoreDelta": 0.12,
+            "p50LatencyMs": 1100,
+            "costPer1k": 0.9,
+            "rationale": "DeepSeek V3 leads at 92% on real eval cases, 12 pts over the runner-up, verified by execution (8/8 tests).",
+            "braintrustUrl": "https://www.braintrust.dev/app/Darwin/experiments/legal-services-sql_reporting-deepseek-v3",
+            "sandboxVerified": true
+          }
+        ]
+      }
+    }
+  ]
+}

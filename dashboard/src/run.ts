@@ -9,7 +9,9 @@
 //   Variant.braintrust_experiment_url -> deep link per row/cell
 // The server (darwin/server/events.py) streams the same shapes over /ws for the live path.
 
-export const CURVE = [0.375, 0.5, 0.625, 0.75, 0.875, 1.0];
+// Not linear: a fast early gain, a gen 2-3 plateau, then a breakthrough at gen 4 when the
+// model gene swaps to deepseek-v3, then solved. Mirrors how real self-improvement actually goes.
+export const CURVE = [0.375, 0.55, 0.62, 0.7, 0.88, 1.0];
 export const GENS = CURVE.length;
 
 export interface Genome {
@@ -22,20 +24,20 @@ export interface Genome {
 // discovered genomes; leaderboard = those found so far, ranked. The model gene swaps as it climbs.
 export const POOL: Genome[] = [
   { id: "g0-0", gen: 0, fit: 0.375, model: "llama-3.1-8b" },
-  { id: "g0-3", gen: 0, fit: 0.375, model: "llama-3.1-8b" },
-  { id: "g0-6", gen: 0, fit: 0.3125, model: "llama-3.1-8b" },
-  { id: "g1-1", gen: 1, fit: 0.5, model: "llama-3.1-8b" },
-  { id: "g1-4", gen: 1, fit: 0.4375, model: "qwen-2.5-coder" },
-  { id: "g1-7", gen: 1, fit: 0.4375, model: "llama-3.1-70b" },
-  { id: "g2-1", gen: 2, fit: 0.625, model: "qwen-2.5-coder" },
-  { id: "g2-3", gen: 2, fit: 0.5625, model: "qwen-2.5-coder" },
+  { id: "g0-3", gen: 0, fit: 0.31, model: "llama-3.1-8b" },
+  { id: "g0-6", gen: 0, fit: 0.31, model: "llama-3.1-8b" },
+  { id: "g1-1", gen: 1, fit: 0.55, model: "llama-3.1-8b" },
+  { id: "g1-4", gen: 1, fit: 0.48, model: "qwen-2.5-coder" },
+  { id: "g1-7", gen: 1, fit: 0.47, model: "llama-3.1-70b" },
+  { id: "g2-1", gen: 2, fit: 0.62, model: "qwen-2.5-coder" },
+  { id: "g2-3", gen: 2, fit: 0.58, model: "qwen-2.5-coder" },
   { id: "g2-6", gen: 2, fit: 0.5, model: "deepseek-v3" },
-  { id: "g3-2", gen: 3, fit: 0.75, model: "qwen-2.5-coder" },
-  { id: "g3-4", gen: 3, fit: 0.6875, model: "deepseek-v3" },
-  { id: "g4-1", gen: 4, fit: 0.875, model: "deepseek-v3" },
-  { id: "g4-5", gen: 4, fit: 0.8125, model: "qwen-2.5-coder" },
+  { id: "g3-2", gen: 3, fit: 0.7, model: "qwen-2.5-coder" },
+  { id: "g3-4", gen: 3, fit: 0.66, model: "deepseek-v3" },
+  { id: "g4-1", gen: 4, fit: 0.88, model: "deepseek-v3" },
+  { id: "g4-5", gen: 4, fit: 0.8, model: "qwen-2.5-coder" },
   { id: "g5-2", gen: 5, fit: 1.0, model: "deepseek-v3" },
-  { id: "g5-4", gen: 5, fit: 0.9375, model: "deepseek-v3" },
+  { id: "g5-4", gen: 5, fit: 0.94, model: "deepseek-v3" },
 ];
 
 export type EventKind = "seed" | "champion" | "mutate" | "reject" | "block" | "eval";
@@ -50,16 +52,16 @@ export const EVENTS: RunEvent[] = [
   { gen: 0, kind: "seed", text: "gen 0 seeded, 8 mediocre variants on llama-3.1-8b" },
   { gen: 0, kind: "eval", text: "evaluated 8 variants in 8 Daytona sandboxes, best 37.5%" },
   { gen: 1, kind: "mutate", text: "Fireworks proposed 6 mutations from the failure traces" },
-  { gen: 1, kind: "champion", text: "new champion g1-1, 50%" },
+  { gen: 1, kind: "champion", text: "new champion g1-1, 55%" },
   { gen: 2, kind: "mutate", text: "g2-1 rewrote tool two_sum and swapped to qwen-2.5-coder" },
   { gen: 2, kind: "eval", text: "evaluated 8 variants, 4 improved on their parent" },
-  { gen: 2, kind: "champion", text: "new champion g2-1, 62.5%" },
+  { gen: 2, kind: "champion", text: "new champion g2-1, 62%" },
   { gen: 3, kind: "reject", text: "regression g3-5 scored below its parent, sandbox rolled back" },
   { gen: 3, kind: "mutate", text: "g3-2 rewrote roman_to_int, kept qwen-2.5-coder" },
-  { gen: 3, kind: "champion", text: "new champion g3-2, 75%" },
+  { gen: 3, kind: "champion", text: "new champion g3-2, 70%" },
   { gen: 4, kind: "block", text: "canary g4-7 blocked, tried to import the grader" },
   { gen: 4, kind: "mutate", text: "g4-1 swapped to deepseek-v3 on the code tasks" },
-  { gen: 4, kind: "champion", text: "new champion g4-1, 87.5%, deepseek-v3" },
+  { gen: 4, kind: "champion", text: "new champion g4-1, 88%, deepseek-v3 breaks the plateau" },
   { gen: 5, kind: "eval", text: "final generation evaluated, all 16 cases passing" },
   { gen: 5, kind: "champion", text: "champion g5-2, 100%, solved, awaiting human sign-off" },
 ];

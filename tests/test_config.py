@@ -4,7 +4,7 @@ from darwin.config import Features, load_config
 
 
 def test_config_loads_with_defaults(monkeypatch):
-    for var in ("FEATURE_DAYTONA", "FEATURE_BRAINTRUST", "FEATURE_FIREWORKS", "FEATURE_CODERABBIT"):
+    for var in ("FEATURE_DAYTONA", "FEATURE_BRAINTRUST", "FEATURE_FIREWORKS"):
         monkeypatch.delenv(var, raising=False)
     cfg = load_config()
     assert cfg.population_size > 0
@@ -14,13 +14,12 @@ def test_config_loads_with_defaults(monkeypatch):
 
 
 def test_feature_flags_toggle_off(monkeypatch):
-    for var in ("FEATURE_DAYTONA", "FEATURE_BRAINTRUST", "FEATURE_FIREWORKS", "FEATURE_CODERABBIT"):
+    for var in ("FEATURE_DAYTONA", "FEATURE_BRAINTRUST", "FEATURE_FIREWORKS"):
         monkeypatch.setenv(var, "0")
     cfg = load_config()
     assert not cfg.features.daytona
     assert not cfg.features.braintrust
     assert not cfg.features.fireworks
-    assert not cfg.features.coderabbit
 
 
 def test_elite_k_not_larger_than_population():

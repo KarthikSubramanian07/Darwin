@@ -48,6 +48,17 @@ class Config:
     coderabbit_api_key: str = field(default_factory=lambda: os.getenv("CODERABBIT_API_KEY", ""))
     github_repo: str = field(default_factory=lambda: os.getenv("GITHUB_REPO", ""))
 
+    # Route model inference (mutation + race) through the Braintrust gateway so every call is
+    # traced and scored in Braintrust. Provider key lives in Braintrust AI-providers settings.
+    use_braintrust_gateway: bool = field(
+        default_factory=lambda: _flag("USE_BRAINTRUST_GATEWAY")
+    )
+    braintrust_gateway_url: str = field(
+        default_factory=lambda: os.getenv(
+            "BRAINTRUST_GATEWAY_URL", "https://gateway.braintrust.dev/v1"
+        )
+    )
+
     # --- feature flags ---
     features: Features = field(default_factory=Features)
 

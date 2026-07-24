@@ -78,8 +78,24 @@ official docs. These SDKs change; training data is stale.
 - Darwin logs one experiment per variant tagged `[task, model, gen<N>]`; numeric truth is also
   computed locally (`darwin/eval/scorers.py`) so offline and online agree on code tasks.
 
+**Braintrust AI gateway (verified 2026-07-24):** route any provider through Braintrust with the
+OpenAI client at `base_url="https://gateway.braintrust.dev/v1"`, `api_key=BRAINTRUST_API_KEY`,
+model `fireworks/<slug>`. Provider key is stored in Braintrust AI-providers settings, not locally.
+`darwin/llm.py` uses this when `USE_BRAINTRUST_GATEWAY=1`, so the model race + mutation calls are
+traced and scored in Braintrust. Experiment chaining for the climb: `BaseExperiment()` /
+`base_experiment` + comparative scorers (`autoevals.Battle`/`Summary`), or
+`summarize(comparison_experiment_id=...)`.
+
 **Fireworks / CodeRabbit / WorkOS:** record verified surfaces + pinned versions here as those
 lanes implement them.
+
+### D11 - Braintrust is core on three surfaces (RESOLVED)
+**What:** fitness function (scorers + per-variant experiments), the inference gateway (model race
++ mutation routed through Braintrust), and the climb as experiment comparison. See SPEC 2a.
+**Why:** "ensure it's core" - Braintrust drives selection, carries the inference, and hosts the
+climb as auditable objects, not a passive log.
+**Caveat:** the gateway needs the Fireworks key configured in Braintrust settings; default off in
+`.env` for the local Lane B test, on for the live model race.
 
 ### D6 - CodeRabbit is a load-bearing safety component, not a lint pass
 **What:** Darwin is an AI that rewrites its own code, so CodeRabbit reviews every self-written

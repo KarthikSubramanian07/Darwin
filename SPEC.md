@@ -47,6 +47,27 @@ construction.
 | **WorkOS** | AuthKit login gating the dashboard: enterprise-ready from hour one. About 30 to 60 minutes to integrate. |
 | _(stretch)_ | ElevenLabs narrator announcing new champions; CopilotKit copilot to drive the demo in plain language. Both feature-flagged, each its own Best-Use prize. |
 
+## 2a. Braintrust is core (three surfaces, not a logger)
+
+Braintrust is load-bearing on three surfaces:
+
+1. **Fitness function (Lane B).** Every variant is a Braintrust experiment tagged by task,
+   model, and generation; scorers are per `task_type` (autoevals ExactMatch/Levenshtein for
+   code/structured, LLM-as-a-judge for text). The score is the selection pressure.
+2. **The inference gateway (Lane B + C).** The Fireworks model race and the mutation calls route
+   through the Braintrust AI gateway (`https://gateway.braintrust.dev/v1`, authenticated with the
+   Braintrust key, model `fireworks/<slug>`), so every model call in the whole population is
+   traced, cost-attributed, and scorable in Braintrust, and the provider key lives in Braintrust
+   settings rather than locally. See `darwin/llm.py`. One-time setup: add the Fireworks key under
+   Braintrust -> Settings -> AI providers.
+3. **The climb as experiment comparison (Lane B).** Generations chain as experiments so Braintrust
+   shows improvement/regression across the run (`base_experiment` / `summarize(comparison_
+   experiment_id=...)`), and a held-out slice proves the winner generalizes. For open-ended tasks,
+   comparative scorers (autoevals `Battle`/`Summary`) enable hill-climbing without ground truth.
+
+This is why an eval-engineer judge cares: the leaderboard, the inference, and the climb are all
+auditable Braintrust objects, not screenshots.
+
 ## 3. Scope decisions (agree at kickoff)
 
 - **Two demo modes, one engine.** (a) Self-improve: point Darwin at one task, watch it climb from

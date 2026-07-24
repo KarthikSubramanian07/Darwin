@@ -36,12 +36,17 @@ and CodeRabbit reviews the code the agent wrote about itself.
 predefined improvement ladder (broken -> correct), guaranteeing a monotonic climb with all
 flags off. See `darwin/eval/task.py` and `darwin/core/mutate.py`.
 
-### D7 - Signature identity: "phosphor lab" (RESOLVED)
-**What:** near-black `#0A0B0F`, primary spring-green `#4EF5A3` (the climb glows), electric
-violet `#A970FF` for mutation events, coral `#FF6B6B` for regressions/rollback. Condensed
-display face + geometric sans, tabular-num readouts, count-up flash on champion improvement.
-**Why:** keeps the reference project's dark, high-contrast, punchy-motion personality while
-being visually distinct and on-theme (living-organism telemetry).
+### D7 - Signature identity: follow the t3.codes design system (RESOLVED, supersedes earlier)
+**What:** the dashboard follows t3.codes to a tee: zinc-950 `#09090b` canvas, near-white
+`#fafafa` text, muted zinc grays, one indigo/violet accent `oklch(0.68 0.17 250)`, DM Sans +
+JetBrains Mono, a subtle fractal-noise texture, 12px radii. Clean, minimal, developer-tool. No
+emoji; a small circular animated mark (a ring with an orbiting node) is the logo.
+**Why:** the owner chose the t3.codes aesthetic as the reference. Earlier "phosphor lab" and a
+Syne display font were tried and rejected for drifting from that look; DM Sans throughout is the
+rule. Copy carries personality; the type stays clean.
+**Status:** built + deployed to https://trydarwin.pages.dev with a playable evolution replay
+(the fitness curve climbs generation by generation, the log streams champions + a rolled-back
+regression + a blocked reward-hacking canary, the model race resolves into the routing card).
 
 ### D8 - Scope: swing big, keep the core reliable (RESOLVED)
 **What:** ship the three stretch beats (reward-hacking canary, live phylogenetic lineage tree,
@@ -78,8 +83,24 @@ official docs. These SDKs change; training data is stale.
 - Darwin logs one experiment per variant tagged `[task, model, gen<N>]`; numeric truth is also
   computed locally (`darwin/eval/scorers.py`) so offline and online agree on code tasks.
 
+**Braintrust AI gateway (verified 2026-07-24):** route any provider through Braintrust with the
+OpenAI client at `base_url="https://gateway.braintrust.dev/v1"`, `api_key=BRAINTRUST_API_KEY`,
+model `fireworks/<slug>`. Provider key is stored in Braintrust AI-providers settings, not locally.
+`darwin/llm.py` uses this when `USE_BRAINTRUST_GATEWAY=1`, so the model race + mutation calls are
+traced and scored in Braintrust. Experiment chaining for the climb: `BaseExperiment()` /
+`base_experiment` + comparative scorers (`autoevals.Battle`/`Summary`), or
+`summarize(comparison_experiment_id=...)`.
+
 **Fireworks / CodeRabbit / WorkOS:** record verified surfaces + pinned versions here as those
 lanes implement them.
+
+### D11 - Braintrust is core on three surfaces (RESOLVED)
+**What:** fitness function (scorers + per-variant experiments), the inference gateway (model race
++ mutation routed through Braintrust), and the climb as experiment comparison. See SPEC 2a.
+**Why:** "ensure it's core" - Braintrust drives selection, carries the inference, and hosts the
+climb as auditable objects, not a passive log.
+**Caveat:** the gateway needs the Fireworks key configured in Braintrust settings; default off in
+`.env` for the local Lane B test, on for the live model race.
 
 ### D6 - CodeRabbit is a load-bearing safety component, not a lint pass
 **What:** Darwin is an AI that rewrites its own code, so CodeRabbit reviews every self-written

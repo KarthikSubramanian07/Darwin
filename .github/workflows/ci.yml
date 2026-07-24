@@ -10,6 +10,15 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+# The whole suite runs with every sponsor flag OFF, so CI exercises the demo floor:
+# the offline path (local sandbox + local scorer + canned mutations) must always be green.
+env:
+  FEATURE_DAYTONA: "0"
+  FEATURE_BRAINTRUST: "0"
+  FEATURE_FIREWORKS: "0"
+  FEATURE_CODERABBIT: "0"
+  USE_BRAINTRUST_GATEWAY: "0"
+
 jobs:
   python:
     name: lint + test (py${{ matrix.python-version }})
@@ -30,13 +39,47 @@ jobs:
           pip install -r requirements.txt
       - name: Lint
         run: ruff check .
-      - name: Test (offline: all sponsor flags off)
-        env:
-          FEATURE_DAYTONA: "0"
-          FEATURE_BRAINTRUST: "0"
-          FEATURE_FIREWORKS: "0"
-          FEATURE_CODERABBIT: "0"
-        run: pytest --cov=darwin --cov-report=term-missing
+      - name: Benchmark dataset is regenerable (no drift)
+        run: |
+          python scripts/build_task.py
+          git diff --exit-code data/task/coding_bench.json \
+            || (echo "::error::data/task/coding_bench.json is stale; re-run scripts/build_task.py" && exit 1)
+      - name: Test (offline path, all sponsor flags off)
+        run: pytest --cov=darwin --cov-report=term-missing --cov-report=xml
+      - name: Upload coverage
+        if: matrix.python-version == '3.12'
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-xml
+          path: coverage.xml
+          if-no-files-found: ignore
+
+  climb-smoke:
+    name: offline climb smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Evolution climbs offline (end to end)
+        run: |
+          python -m darwin.main --offline | tee run.out
+          python - <<'PY'
+          import re, sys
+          text = open("run.out").read()
+          m = re.search(r"fitness curve: (\[[^\]]*\])", text)
+          assert m, "no fitness curve in output"
+          curve = eval(m.group(1))
+          assert curve == sorted(curve), f"climb not monotonic: {curve}"
+          assert curve[-1] >= 0.9, f"final fitness too low: {curve[-1]}"
+          print("OK climb:", curve)
+          PY
 
   dashboard:
     name: dashboard build

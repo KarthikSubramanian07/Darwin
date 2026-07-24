@@ -181,12 +181,37 @@
   border-radius: 9px;
 }
 
-/* ---------- hero ---------- */
+/* ---------- hero (full-width, startup landing) ---------- */
 .hero {
   position: relative;
   z-index: 1;
-  padding: 76px 0 40px;
-  max-width: 760px;
+  padding: 84px 0 36px;
+  text-align: center;
+}
+.hero .eyebrow {
+  margin: 0 auto;
+}
+.hero .lede {
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero .cta {
+  justify-content: center;
+}
+.hero .config {
+  text-align: center;
+}
+@media (max-width: 768px) {
+  .hero {
+    padding: 52px 0 28px;
+  }
+}
+
+/* ---------- fitness showcase (full width, below the hero) ---------- */
+.showcase {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 20px;
 }
 .eyebrow {
   display: inline-flex;
@@ -578,10 +603,15 @@ h1.title .accent {
 }
 
 /* ---------- race grid ---------- */
+.racescroll {
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
 .racegrid {
   display: grid;
   gap: 6px;
   align-items: center;
+  min-width: 460px;
 }
 .race .rh {
   font-size: 10.5px;
@@ -634,4 +664,53 @@ h1.title .accent {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 8px;
+}
+
+/* ---------- responsive (mobile + tablet) ---------- */
+@media (max-width: 768px) {
+  .app {
+    padding: 0 16px 72px;
+  }
+  .nav {
+    height: 58px;
+  }
+  .nav .links {
+    gap: 14px;
+  }
+  .navlink {
+    display: none; /* keep the nav clean on phones; the CTA stays */
+  }
+  h1.title {
+    letter-spacing: -0.02em;
+  }
+  .metric .big {
+    font-size: 44px;
+  }
+  .footer {
+    flex-direction: column;
+    gap: 6px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* iPad: keep two columns but tighten */
+  .herowrap {
+    gap: 24px;
+  }
+  .tiles {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .cta .btn {
+    justify-content: center;
+  }
+  .tiles {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

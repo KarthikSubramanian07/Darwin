@@ -47,10 +47,10 @@ export default function App() {
 
   const statusText =
     phase === "playing"
-      ? `evolving · gen ${gen + 1} of 6`
+      ? `generation ${gen + 1} of 6`
       : phase === "done"
-        ? "solved · gen 6 of 6 · zero humans"
-        : "press play, watch it get smart";
+        ? "done, it solved itself"
+        : "ready when you are";
 
   return (
     <div className="app">
@@ -62,39 +62,42 @@ export default function App() {
           <span className="wordmark">Darwin</span>
         </div>
         <div className="links">
-          <a href="#run">Overview</a>
-          <a href="https://github.com/KarthikSubramanian07/Darwin">GitHub</a>
+          <a className="navlink" href="#run">Overview</a>
+          <a className="navlink" href="https://github.com/KarthikSubramanian07/Darwin">GitHub</a>
           <button className="btn btn-primary btn-sm" onClick={run}>
             {phase === "idle" ? "Watch it evolve" : "Replay"}
           </button>
         </div>
       </nav>
 
-      <header className="hero">
-        <span className="eyebrow reveal">
-          <span className={`dot ${phase}`} /> {statusText}
-        </span>
-        <h1 className="title reveal" style={{ animationDelay: "0.06s" }}>
-          Agents that <span className="accent">breed better agents.</span>
-        </h1>
-        <p className="lede reveal" style={{ animationDelay: "0.12s" }}>
-          You hand Darwin a task it's frankly mediocre at. It spawns a population of itself,
-          rewrites its own tools, prompt, and even the model it runs on, and keeps whatever
-          scores higher. Nobody helps it. It never escapes the sandbox. It just gets better.
-        </p>
-        <div className="cta reveal" style={{ animationDelay: "0.18s" }}>
-          <button className="btn btn-primary" onClick={run}>
-            {phase === "playing" ? "Evolving…" : phase === "done" ? "Run it again" : "Run the evolution"}
-          </button>
-          <a className="btn btn-ghost" href="https://github.com/KarthikSubramanian07/Darwin">
-            Steal our code (it's MIT)
-          </a>
+      <section className="hero">
+        <div className="herotext">
+          <span className="eyebrow reveal">
+            <span className={`dot ${phase}`} /> {statusText}
+          </span>
+          <h1 className="title reveal" style={{ animationDelay: "0.06s" }}>
+            Agents that <span className="accent">breed better agents.</span>
+          </h1>
+          <p className="lede reveal" style={{ animationDelay: "0.12s" }}>
+            Point Darwin at a task. Its first attempt is deliberately mediocre. Then it breeds a
+            population of variants, rewrites their tools, prompt, and even the model they run on,
+            and keeps whatever scores higher. Nobody helps it. It never escapes the sandbox. It
+            just gets better.
+          </p>
+          <div className="cta reveal" style={{ animationDelay: "0.18s" }}>
+            <button className="btn btn-primary" onClick={run}>
+              {phase === "playing" ? "Evolving…" : phase === "done" ? "Run it again" : "Run the evolution"}
+            </button>
+            <a className="btn btn-ghost" href="https://github.com/KarthikSubramanian07/Darwin">
+              Steal our code (it's MIT)
+            </a>
+          </div>
+          <div className="config reveal" style={{ animationDelay: "0.24s" }}>
+            8 variants · 6 generations · {MODELS.length} models in the race · sandboxed by
+            <b> Daytona</b> · scored by <b>Braintrust</b> · mutated by <b>Fireworks</b>
+          </div>
         </div>
-        <div className="config reveal" style={{ animationDelay: "0.24s" }}>
-          8 variants · 6 generations · {MODELS.length} models in the race · sandboxed by
-          <b> Daytona</b> · scored by <b>Braintrust</b> · mutated by <b>Fireworks</b>
-        </div>
-      </header>
+      </section>
 
       <div className="marquee">
         <div className="track">
@@ -106,26 +109,26 @@ export default function App() {
         </div>
       </div>
 
-      <section id="run" className="grid">
-        <div className="card hoverable">
-          <div className="cardhead">
-            <div>
-              <h3>Fitness</h3>
-              <div className="cap">best score per generation, climbing on its own</div>
-            </div>
-            <span className={`livechip ${phase}`}>
-              {phase === "playing" ? "● live" : phase === "done" ? "done" : "ready"}
-            </span>
+      <section id="run" className="card hoverable showcase">
+        <div className="cardhead">
+          <div>
+            <h3>Fitness</h3>
+            <div className="cap">best score per generation, climbing on its own</div>
           </div>
-          <FitnessCurve values={CURVE.slice(0, gen + 1)} />
-          <div className="metric">
-            <span className="big num">{Math.round(pct)}%</span>
-            <span className="delta">
-              {gen === 0 ? "generation zero, and it shows" : `+${Math.round((best - 0.375) * 100)} pts, nobody helped`}
-            </span>
-          </div>
+          <span className={`livechip ${phase}`}>
+            {phase === "playing" ? "● live" : phase === "done" ? "done" : "ready"}
+          </span>
         </div>
+        <FitnessCurve values={CURVE.slice(0, gen + 1)} height={200} />
+        <div className="metric">
+          <span className="big num">{Math.round(pct)}%</span>
+          <span className="delta">
+            {gen === 0 ? "generation zero, and it shows" : `+${Math.round((best - 0.375) * 100)} pts, nobody helped`}
+          </span>
+        </div>
+      </section>
 
+      <section className="grid2">
         <div className="card hoverable">
           <h3>Population</h3>
           <div className="cap" style={{ marginBottom: 6 }}>ranked by fitness. the fittest breed.</div>
@@ -133,16 +136,28 @@ export default function App() {
             <div className="row" key={v.id}>
               <span className="name num">{v.id}</span>
               <span className="bar">
-                <span
-                  key={`${v.id}-${gen}`}
-                  style={{ width: `${v.fit * 100}%`, animationDelay: `${i * 0.05}s` }}
-                />
+                <span key={`${v.id}-${gen}`} style={{ width: `${v.fit * 100}%`, animationDelay: `${i * 0.05}s` }} />
               </span>
               <span className="val num">{Math.round(v.fit * 100)}</span>
             </div>
           ))}
           <div className="modeltag">
             top model: <b>{leaderboard[0]?.model}</b>
+          </div>
+        </div>
+
+        <div className="card hoverable">
+          <h3>Evolution log</h3>
+          <div className="cap" style={{ marginBottom: 8 }}>what happened, generation by generation</div>
+          <div className="feed">
+            {log.length === 0 && <div className="feeditem muted">waiting for the first generation…</div>}
+            {log.map((e, i) => (
+              <div className={`feeditem ${e.kind}`} key={`${e.gen}-${e.text}`} style={{ animationDelay: `${Math.min(i, 3) * 0.04}s` }}>
+                <span className="edot" />
+                <span className="etag">{KIND_LABEL[e.kind]}</span>
+                <span className="etext">{e.text}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -166,28 +181,13 @@ export default function App() {
         </div>
       </section>
 
-      <section className="grid2">
-        <div className="card hoverable">
-          <h3>Evolution log</h3>
-          <div className="cap" style={{ marginBottom: 8 }}>what happened, generation by generation</div>
-          <div className="feed">
-            {log.length === 0 && <div className="feeditem muted">waiting for the first generation…</div>}
-            {log.map((e, i) => (
-              <div className={`feeditem ${e.kind}`} key={`${e.gen}-${e.text}`} style={{ animationDelay: `${Math.min(i, 3) * 0.04}s` }}>
-                <span className="edot" />
-                <span className="etag">{KIND_LABEL[e.kind]}</span>
-                <span className="etext">{e.text}</span>
-              </div>
-            ))}
-          </div>
+      <section className={`card hoverable race ${phase === "done" ? "resolved" : ""}`}>
+        <h3>The race</h3>
+        <div className="cap" style={{ marginBottom: 12 }}>
+          {MODELS.length} models × {RACE.length} tasks. each cell is a real Braintrust experiment.
         </div>
-
-        <div className={`card hoverable race ${phase === "done" ? "resolved" : ""}`}>
-          <h3>The race</h3>
-          <div className="cap" style={{ marginBottom: 10 }}>
-            {MODELS.length} models × {RACE.length} tasks. each cell is a real Braintrust experiment.
-          </div>
-          <div className="racegrid" style={{ gridTemplateColumns: `88px repeat(${MODELS.length}, 1fr)` }}>
+        <div className="racescroll">
+          <div className="racegrid" style={{ gridTemplateColumns: `120px repeat(${MODELS.length}, minmax(64px, 1fr))` }}>
             <div className="rh" />
             {MODELS.map((m) => (
               <div className="rh" key={m}>{m}</div>

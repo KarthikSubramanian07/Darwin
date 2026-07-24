@@ -1,0 +1,81 @@
+{
+  "task_id": "support_refund_policy",
+  "description": "Determines refund eligibility based on objective policy rules extracted from the message content, ignoring emotional appeals or customer demands.",
+  "industry": "support",
+  "problems": [
+    {
+      "case_id": "support_refund_policy",
+      "entrypoint": "solve",
+      "prompt": "Based on the customer message, classify refund eligibility using standard e-commerce policy rules. If the message lacks required facts (e.g., purchase date, item condition), classify as needs_review.\n\nCategories:\n- eligible_full: Within return window, item unused or defective, proof of purchase mentioned or implied.\n- eligible_partial: Item used or opened, partial damage, or outside standard window but within grace period.\n- ineligible: Outside all return windows, non-returnable category (e.g., digital goods, final sale), or excessive wear.\n- needs_review: Missing critical information (date, condition, category) to apply rules objectively.\n\nMessage: {message}\n\nOutput only the exact eligibility label.",
+      "cases": [
+        {
+          "args": [
+            "I bought this sweater 5 days ago and it arrived with a hole in the sleeve. I have the receipt and the tags are still attached. Order #12345."
+          ],
+          "expected": "eligible_full"
+        },
+        {
+          "args": [
+            "This phone charger I ordered 8 days ago doesn't work at all. It's still sealed in the original packaging and I can send you the invoice."
+          ],
+          "expected": "eligible_full"
+        },
+        {
+          "args": [
+            "I opened the laptop box and used the laptop for two days but decided I want a different model. I bought it 12 days ago and have the receipt."
+          ],
+          "expected": "eligible_partial"
+        },
+        {
+          "args": [
+            "I received this jacket 40 days ago and only wore it once. It's in perfect condition. I know the 30-day window passed but I hope I can still return it."
+          ],
+          "expected": "eligible_partial"
+        },
+        {
+          "args": [
+            "I bought these running shoes 120 days ago and the soles are completely worn out. I want my money back."
+          ],
+          "expected": "ineligible"
+        },
+        {
+          "args": [
+            "I downloaded this software yesterday and realized I don't need it. Please refund me."
+          ],
+          "expected": "ineligible"
+        },
+        {
+          "args": [
+            "This dress was marked final sale when I purchased it 45 days ago. I removed the tags and wore it to a wedding. It has a wine stain."
+          ],
+          "expected": "ineligible"
+        },
+        {
+          "args": [
+            "The headphones I received are completely broken and won't turn on. I have the order number but need this refunded."
+          ],
+          "expected": "needs_review"
+        },
+        {
+          "args": [
+            "I bought this coffee maker 10 days ago. I want to return it."
+          ],
+          "expected": "needs_review"
+        },
+        {
+          "args": [
+            "I demand a refund immediately. This is the worst experience ever and you must make this right!"
+          ],
+          "expected": "needs_review"
+        }
+      ],
+      "ladder": [],
+      "task_type": "structured",
+      "scorer_config": {
+        "method": "exact_match",
+        "task_source": "fireworks",
+        "case_source": "fireworks"
+      }
+    }
+  ]
+}

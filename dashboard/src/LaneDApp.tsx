@@ -36,7 +36,6 @@ export default function App(): JSX.Element {
     <div className="app">
       <TopNav
         mode={mode}
-        onHome={goHome}
         onOpenLibrary={() => setView("library")}
         onOpenDemoControls={() => setDemoOpen((v) => !v)}
       />
@@ -72,7 +71,8 @@ export default function App(): JSX.Element {
 
         <footer className="app-foot">
           <span className="dim">
-            Stop asking which LLM is best. Ask which LLM is best at each task.
+            Darwin doesn't just pick a model. It evolves the whole agent, prompt, tools, and
+            model, for each task, safely.
           </span>
         </footer>
     </div>

@@ -53,7 +53,7 @@ class Config:
 
     # --- run params (demo-tuned defaults) ---
     population_size: int = field(default_factory=lambda: _int("POPULATION_SIZE", 8))
-    generations: int = field(default_factory=lambda: _int("GENERATIONS", 5))
+    generations: int = field(default_factory=lambda: _int("GENERATIONS", 6))
     elite_k: int = field(default_factory=lambda: _int("ELITE_K", 2))
     max_total_sandboxes: int = field(default_factory=lambda: _int("MAX_TOTAL_SANDBOXES", 48))
     max_wall_clock_s: int = field(default_factory=lambda: _int("MAX_WALL_CLOCK_S", 180))

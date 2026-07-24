@@ -27,6 +27,10 @@ class Variant(BaseModel):
     genome: Genome
     fitness: float = 0.0  # 0..1 from the Braintrust eval
     per_case: list[PerCase] = Field(default_factory=list)
+    raw_outputs: dict = Field(default_factory=dict)  # problem_id -> [{got, error}]
+    cost_est: float = 0.0  # $ estimate for this variant's eval (Fireworks)
+    p50_latency_ms: int = 0  # median model-call latency (Fireworks)
+    braintrust_experiment_url: str = ""  # link to the experiment (Braintrust)
     sandbox_id: str = ""
     snapshot_id: str | None = None
     status: VariantStatus = "evaluated"
@@ -55,10 +59,25 @@ class RunRecord(BaseModel):
 
 
 # ---------------------------------------------------------------------- #
-# TODO(Lane A): selection helpers.
+# Selection
 # ---------------------------------------------------------------------- #
 
 
+def rank(variants: list[Variant]) -> list[Variant]:
+    """Variants sorted by fitness, highest first. Ties broken by faster runtime, then id
+    (so ordering is deterministic for a fixed run)."""
+    return sorted(
+        variants,
+        key=lambda v: (-v.fitness, v.duration_ms, v.genome.genome_id),
+    )
+
+
 def select(variants: list[Variant], elite_k: int) -> list[Variant]:
-    """Return the top `elite_k` variants by fitness (the elite that inherit)."""
-    raise NotImplementedError
+    """Return the top `elite_k` eligible variants by fitness (the elite that inherit).
+
+    Only variants that were actually evaluated can be elite; rejected / rolled-back / failed
+    variants are never carried forward. Elitism over this set is what keeps best_fitness
+    monotonic across generations.
+    """
+    eligible = [v for v in variants if v.status == "evaluated"]
+    return rank(eligible)[: max(1, elite_k)]

@@ -48,10 +48,9 @@ rule. Copy carries personality; the type stays clean.
 regression + a blocked reward-hacking canary, the model race resolves into the routing card).
 
 ### D8 - Scope: swing big, keep the core reliable (RESOLVED)
-**What:** ship the three stretch beats (reward-hacking canary, live phylogenetic lineage tree,
-ElevenLabs champion narrator) AND keep the core climb boringly reliable (5+ clean dry-runs).
-ElevenLabs becomes a 5th, feature-flagged sponsor integration (Best Use of ElevenLabs).
-**Why:** the user asked for big swings; each beat maps to a prize, and none is allowed to
+**What:** ship the stretch beats (reward-hacking canary, live phylogenetic lineage tree) AND
+keep the core climb boringly reliable (5+ clean dry-runs).
+**Why:** the user asked for big swings; each beat lands on screen, and none is allowed to
 destabilize the sacred path (all are isolatable + flag-off-able).
 
 ### D5 - Sponsor SDK surfaces are VERIFIED, not assumed
@@ -98,23 +97,6 @@ lanes implement them.
 climb as auditable objects, not a passive log.
 **Caveat:** the gateway needs the Fireworks key configured in Braintrust settings; default off in
 `.env` for the local Lane B test, on for the live model race.
-
-change in three roles: (1) a promotion gate (a champion PR is reviewed before merge; a critical
-finding blocks promotion), (2) a code-quality fitness penalty (multi-objective selection so the
-agent evolves code a human would merge), and (3) mutation feedback (findings feed the next
-Fireworks mutation, so the agent learns from review across generations).
-**Why:** it turns "human veto" into a concrete, reviewed PR and adds a second anti-reward-hacking
-layer on top of the immutable grader.
-**Caveat:** offline fallback is a local static-analysis stub (flags exec/eval/network/grader
-
-### D9 - CopilotKit: natural-language control of the demo (RESOLVED)
-**What:** a CopilotKit copilot in the dashboard lets anyone drive Darwin in plain language:
-"run another generation", "explain why gen 3 won", "show me the tool it rewrote", "veto this
-champion". It reads the live run state and can trigger engine actions through the event server.
-**Why:** turns the dashboard from a passive readout into an interactive agent surface (Best Use
-of CopilotKit), and makes the human-veto pillar something a judge performs by voice/text.
-**Setup:** `npx copilotkit@latest license` needs interactive sign-in (owner runs it once).
-Feature-flagged; dashboard renders fine without it.
 
 ### D10 - Deploy via Wrangler to darwin.pages.dev (RESOLVED)
 **What:** deploy the dashboard (landing + interactive replay of a real persisted run) to

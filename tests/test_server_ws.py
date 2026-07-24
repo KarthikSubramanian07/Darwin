@@ -15,7 +15,7 @@ from fastapi.testclient import TestClient
 
 @pytest.fixture
 def offline_env(monkeypatch):
-    for var in ("FEATURE_DAYTONA", "FEATURE_BRAINTRUST", "FEATURE_FIREWORKS", "FEATURE_CODERABBIT"):
+    for var in ("FEATURE_DAYTONA", "FEATURE_BRAINTRUST", "FEATURE_FIREWORKS"):
         monkeypatch.setenv(var, "0")
     monkeypatch.setenv("POPULATION_SIZE", "4")
     monkeypatch.setenv("GENERATIONS", "2")

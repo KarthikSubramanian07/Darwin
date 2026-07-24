@@ -43,7 +43,6 @@ construction.
 | **Fireworks** | The mutation engine and the model catalog. Evolving a population is inference-heavy (mutate + evaluate every variant, every generation), and the `model` gene races the open catalog (Llama, Qwen, DeepSeek, Kimi, ...) through one OpenAI-compatible API (`https://api.fireworks.ai/inference/v1`). It is why the loop converges fast enough to climb live and why per-task model comparison is possible. |
 | **Braintrust** | The fitness function. Every variant is a Braintrust experiment tagged by genome, generation, task, and model. The climbing score IS Braintrust experiment data, and the eval is not a report you read after, it is the selection pressure. Plus the immutable-grader property: the agent cannot edit its own eval. |
 | **Daytona** | Containment + parallelism + rollback. Self-written, untrusted variant code runs only in isolated sandboxes; the whole population is evaluated in parallel across a sandbox pool; snapshots roll back broken or regressive mutations, live. Code-type tasks (generate SQL / Python) are executed in the sandbox and scored on real execution, not an opinion. |
-| _(stretch)_ | ElevenLabs narrator announcing new champions; CopilotKit copilot to drive the demo in plain language. Both feature-flagged, each its own Best-Use prize. |
 
 ## 2a. Braintrust is core (three surfaces, not a logger)
 
@@ -380,8 +379,7 @@ feature-flagged.
 ### Server + dashboard (`server/events.py`, `dashboard/`) - LANE D
 `EventChannel.emit(type, payload)` is done and synchronous. Phase 4: a FastAPI `/ws` endpoint
 subscribes each client and forwards events; run the engine in a background thread and stream.
-Dashboard reads events and renders the panels (16). A CopilotKit
-copilot calls back into engine actions via the server.
+Dashboard reads events and renders the panels (16).
 
 ## 12. The benchmark task (offline ground truth)
 
@@ -395,10 +393,9 @@ and re-run it.
 
 ## 13. Config + feature flags
 
-`.env` (see `.env.example`). Flags: `FEATURE_DAYTONA/BRAINTRUST/FIREWORKS` (add
-`FEATURE_ELEVENLABS`, `FEATURE_COPILOTKIT` as those land). With all off, the
-loop uses the local sandbox + local scorer + canned mutations + static-analysis review and still
-climbs. Run params: `POPULATION_SIZE=8, GENERATIONS=5, ELITE_K=2, MAX_TOTAL_SANDBOXES=48,
+`.env` (see `.env.example`). Flags: `FEATURE_DAYTONA/BRAINTRUST/FIREWORKS`. With all off, the
+loop uses the local sandbox + local scorer + canned mutations and still
+climbs. Run params: `POPULATION_SIZE=8, GENERATIONS=6, ELITE_K=2, MAX_TOTAL_SANDBOXES=48,
 MAX_WALL_CLOCK_S=180, RANDOM_SEED=1337, AUTO_APPROVE=1`. Every integration must degrade to a
 clean no-op; test the flag-off path in CI.
 

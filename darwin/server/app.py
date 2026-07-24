@@ -59,7 +59,7 @@ def _run_engine(task_id: str, offline: bool) -> None:
 
         config = load_config()
         if offline:
-            config = replace(config, features=Features(False, False, False, False))
+            config = replace(config, features=Features(False, False, False))
         task = Task.load(task_id)
         engine, sandboxes, _events = build_engine(config, task, events=channel)
         try:

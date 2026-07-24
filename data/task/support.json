@@ -1,0 +1,82 @@
+{
+  "task_id": "support",
+  "description": "Customer-support ticket triage tasks.",
+  "industry": "support",
+  "problems": [
+    {
+      "case_id": "classify_priority",
+      "entrypoint": "classify_priority",
+      "prompt": "Return 'high' if the ticket is urgent (urgent/asap/immediately), else 'low'.",
+      "cases": [
+        {
+          "args": [
+            "Need this fixed ASAP, site is down!"
+          ],
+          "expected": "high"
+        },
+        {
+          "args": [
+            "Just a small question about billing."
+          ],
+          "expected": "low"
+        }
+      ],
+      "ladder": [
+        "def classify_priority(text):\n    return 'low'\n",
+        "def classify_priority(text):\n    t = text.lower()\n    return 'high' if ('urgent' in t or 'asap' in t or 'immediately' in t) else 'low'\n"
+      ],
+      "task_type": "structured",
+      "scorer_config": {}
+    },
+    {
+      "case_id": "extract_order_id",
+      "entrypoint": "extract_order_id",
+      "prompt": "Extract the order id (the digits after '#') from the ticket, else ''.",
+      "cases": [
+        {
+          "args": [
+            "Where is order #48213?"
+          ],
+          "expected": "48213"
+        },
+        {
+          "args": [
+            "I have a general question."
+          ],
+          "expected": ""
+        }
+      ],
+      "ladder": [
+        "def extract_order_id(text):\n    return ''\n",
+        "import re\ndef extract_order_id(text):\n    m = re.search(r'#(\\d{4,})', text)\n    return m.group(1) if m else ''\n"
+      ],
+      "task_type": "structured",
+      "scorer_config": {}
+    },
+    {
+      "case_id": "is_refund_request",
+      "entrypoint": "is_refund_request",
+      "prompt": "Return True if the ticket is asking for a refund / money back.",
+      "cases": [
+        {
+          "args": [
+            "I want a refund for this order."
+          ],
+          "expected": true
+        },
+        {
+          "args": [
+            "How do I change my password?"
+          ],
+          "expected": false
+        }
+      ],
+      "ladder": [
+        "def is_refund_request(text):\n    return False\n",
+        "def is_refund_request(text):\n    return 'refund' in text.lower() or 'money back' in text.lower()\n"
+      ],
+      "task_type": "structured",
+      "scorer_config": {}
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "task_id": "legal",
+  "description": "Contract and legal-document processing tasks.",
+  "industry": "legal",
+  "problems": [
+    {
+      "case_id": "redact_emails",
+      "entrypoint": "redact_emails",
+      "prompt": "Redact every email address in the text, replacing it with '[REDACTED]'.",
+      "cases": [
+        {
+          "args": [
+            "Contact jane@acme.com for terms."
+          ],
+          "expected": "Contact [REDACTED] for terms."
+        },
+        {
+          "args": [
+            "No email here."
+          ],
+          "expected": "No email here."
+        }
+      ],
+      "ladder": [
+        "def redact_emails(text):\n    return text\n",
+        "import re\ndef redact_emails(text):\n    return re.sub(r'[\\w.+-]+@[\\w-]+\\.[\\w.-]+', '[REDACTED]', text)\n"
+      ],
+      "task_type": "text",
+      "scorer_config": {}
+    },
+    {
+      "case_id": "extract_amounts",
+      "entrypoint": "extract_amounts",
+      "prompt": "Return every dollar amount in the text as a list of ints (no commas, no $).",
+      "cases": [
+        {
+          "args": [
+            "Fee is $1,200 plus $300 filing."
+          ],
+          "expected": [
+            1200,
+            300
+          ]
+        },
+        {
+          "args": [
+            "No fees apply."
+          ],
+          "expected": []
+        }
+      ],
+      "ladder": [
+        "def extract_amounts(text):\n    return []\n",
+        "import re\ndef extract_amounts(text):\n    return [int(x.replace(',', '')) for x in re.findall(r'\\$([0-9,]+)', text)]\n"
+      ],
+      "task_type": "structured",
+      "scorer_config": {}
+    },
+    {
+      "case_id": "count_sections",
+      "entrypoint": "count_sections",
+      "prompt": "Count how many 'Section N' headings appear in the text.",
+      "cases": [
+        {
+          "args": [
+            "Section 1 ... Section 2 ... Section 3"
+          ],
+          "expected": 3
+        },
+        {
+          "args": [
+            "No headings."
+          ],
+          "expected": 0
+        }
+      ],
+      "ladder": [
+        "def count_sections(text):\n    return 0\n",
+        "import re\ndef count_sections(text):\n    return len(re.findall(r'Section\\s+\\d+', text))\n"
+      ],
+      "task_type": "structured",
+      "scorer_config": {}
+    }
+  ]
+}

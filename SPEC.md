@@ -254,7 +254,7 @@ The offline spine is built and climbs with all sponsor flags off. Status per mod
 | `darwin/review/coderabbit.py` | stub | **Phase 4: gate + fitness term + feedback.** |
 | `darwin/server/events.py` | done (in-memory) | `EventChannel.emit`. **WS fan-out = Phase 4.** |
 | `darwin/main.py` | partial | Wire `build_engine` (Phase 0 finish). |
-| `pipeline/decompose.py`, `synth.py` | not created | **Lane A: industry -> tasks -> synth cases.** |
+| `pipeline/*` | done | `decompose.py` + `synth.py` + `build.py` + curated `industries.py`. `python -m pipeline.build <industry>` writes `data/task/<industry>.json`; Fireworks JSON-mode live path with an offline library (legal, support) that climbs. |
 | `dashboard/` | built + deployed | Vite + React, t3.codes aesthetic, playable evolution replay, live at trydarwin.pages.dev. Wire to a real `RunRecord` + WS next. |
 
 ## 10. Data shapes (exact fields)

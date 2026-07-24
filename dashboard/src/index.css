@@ -1,0 +1,52 @@
+/* Placeholder styles. Lane D: dark, calm, high-contrast, monospaced telemetry, motion that
+   mirrors the climb. Avoid the AI-default look. The fitness curve is the hero, not a big
+   number tile. Full design system lands with the panels. */
+
+:root {
+  color-scheme: dark;
+  --bg: #08090c;
+  --fg: #e8ecf1;
+  --dim: #7a8291;
+  --accent: #46e0a8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+.shell {
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+header {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.mark {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.tag {
+  color: var(--dim);
+  font-size: 0.85rem;
+}
+
+.placeholder {
+  margin-top: 4rem;
+  color: var(--dim);
+}
+
+.hint {
+  color: var(--accent);
+}

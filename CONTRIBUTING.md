@@ -9,10 +9,10 @@ clean no-op, so the core loop always runs offline.
 
 | Lane | Person | Scope | Owns (files) |
 |------|--------|-------|--------------|
-| **A** | person 1 | industry → task decomposition + synthetic data generation | `pipeline/decompose.py`, `pipeline/synth.py`, `darwin/eval/task.py`, `scripts/build_task.py`, `data/task/` |
-| **B** | person 2 | the Braintrust eval harness: scorers, experiments, the leaderboard's credibility | `darwin/eval/fitness.py`, scorer configs, `tests/test_immutable_grader.py` |
-| **C** | person 3 | the parallel model race on Fireworks + Daytona sandbox execution + pre-computing the extra industries | `darwin/core/engine.py`, `darwin/core/mutate.py`, `darwin/sandbox/*`, `darwin/safety/guards.py`, `data/runs/` (precomputed library) |
-| **D** | person 4 | dashboard, WorkOS login, CodeRabbit, Devpost, and driving the demo | `dashboard/`, `darwin/server/events.py`, `darwin/review/coderabbit.py`, `.coderabbit.yaml`, Devpost |
+| **A** | person 1 | evolution engine + mutation (sacred path): the model gene, the climbing loop, the decompose/synth pipeline | `darwin/core/engine.py`, `darwin/core/genome.py`, `darwin/core/population.py`, `darwin/core/mutate.py`, `pipeline/decompose.py`, `pipeline/synth.py` |
+| **B** | person 2 | Daytona sandbox pool + safety: parallel execution, snapshot rollback, the four guard pillars | `darwin/sandbox/daytona.py`, `darwin/sandbox/runner.py`, `darwin/safety/guards.py` |
+| **C** | person 3 | Braintrust fitness + eval: scorers, experiments, the leaderboard's credibility | `darwin/eval/fitness.py`, `darwin/eval/task.py`, scorer configs, `tests/test_immutable_grader.py` |
+| **D** | person 4 | dashboard, WorkOS login, CodeRabbit, Devpost, driving the demo | `dashboard/`, `darwin/server/events.py`, `darwin/review/coderabbit.py`, `.coderabbit.yaml`, Devpost |
 
 **Shared, frozen contract (coordinate before editing):** `darwin/core/genome.py` and
 `darwin/core/population.py` hold the data shapes every lane depends on (`Genome`, `Variant`,

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <style>
+    /* ring is the opposite of the browser theme: off-black on light, off-white on dark */
+    .ring { stroke: #18181b; }
+    @media (prefers-color-scheme: dark) {
+      .ring { stroke: #ededed; }
+    }
+  </style>
+  <circle class="ring" cx="16" cy="16" r="10.5" fill="none" stroke-width="2.6" />
+  <circle cx="16" cy="16" r="4.2" fill="#4f7bff" />
+</svg>

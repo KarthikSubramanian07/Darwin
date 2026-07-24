@@ -5,7 +5,11 @@ This is the map for everything Lane D owns and the exact seams where the other l
 ## Files owned
 
 ```
-dashboard/                         React + Vite + TypeScript dashboard (all of it)
+dashboard/                         React + Vite + TypeScript dashboard
+  app.html                         Lane D's Vite entry (the run dashboard)
+  src/mainLaneD.tsx                Lane D entry module (AuthProvider + LaneDApp + lane-d.css)
+  src/LaneDApp.tsx                 Lane D root: landing / run / library router
+  src/lane-d.css                   Lane D's design system (scoped to the app.html bundle)
   src/types.ts                     the ONE normalized frontend event/data contract
   src/lib/routing.ts               winner selection, single-model baseline, comparison, export
   src/lib/format.ts                display formatters
@@ -27,6 +31,27 @@ docs/DEVPOST.md, DEMO_RUNBOOK.md, docs/CODERABBIT.md, docs/LANE_D.md
 ```
 
 Lane D does **not** edit `darwin/core/*`, `darwin/eval/*`, `darwin/sandbox/*`, `pipeline/*`.
+
+## How Lane D coexists with the landing app (two Vite entries)
+
+`main` already ships a landing / evolution-replay app (`index.html` → `src/main.tsx` →
+`src/App.tsx` + `src/app.css`). Lane D's dashboard carries an independent design system, and the
+two collide by name: both define a `.app` class and both define `--bg`, `--fg`, `--warn`,
+`--radius`, `--font-sans`, `--font-mono` on `:root`. In a single bundle whichever stylesheet loads
+last silently restyles the other.
+
+So the two ship as **separate Vite entries** (`build.rollupOptions.input`), which keeps their CSS
+in separate chunks:
+
+| Entry | URL | Owner | Bundle |
+|---|---|---|---|
+| `index.html` | `/` | landing / evolution replay (untouched by Lane D) | `main-*.js` + `main-*.css` |
+| `app.html` | `/app.html` | Lane D run dashboard | `app-*.js` + `app-*.css` |
+
+Lane D changed **no** file belonging to the landing app: `index.html`, `src/App.tsx`,
+`src/main.tsx`, `src/index.css`, and `src/app.css` are byte-identical to `main`.
+
+**The demo runs at `/app.html`, not `/`.**
 
 ## Architecture
 

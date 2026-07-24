@@ -4,13 +4,16 @@ The goal: land one idea — **the best model is per-task, and here's the evidenc
 minutes, with zero chance of a dead air moment. The demo floor is the **recorded run**; live is a
 bonus, not a dependency.
 
+> **Open `/app.html`, not `/`.** The dashboard ships as its own Vite entry so it does not collide
+> with the landing app's stylesheet; `/` is the landing / evolution replay. See docs/LANE_D.md.
+
 ## Pre-demo checklist (T-10 min)
 
 - [ ] `cd dashboard && npm install` done; `npm run build` is green.
 - [ ] `dashboard/.env` set. For the safest floor: `VITE_DEMO_MODE=recorded`.
 - [ ] Decide auth: dev identity (default, zero friction) or real WorkOS (`VITE_WORKOS_ENABLED=true`
       + client id). If unsure, leave WorkOS off.
-- [ ] `npm run dev` running; open `http://localhost:5173` and confirm the landing screen.
+- [ ] `npm run dev` running; open `http://localhost:5173/app.html` and confirm the landing screen.
 - [ ] Open a recorded run once to warm it, then return to the landing screen.
 - [ ] Screen zoom / display scaling set so grid cells read from the back of the room.
 - [ ] Silence notifications; full-screen the browser.
@@ -26,13 +29,13 @@ bonus, not a dependency.
 
 ### Services to start
 
-- **Dashboard:** `cd dashboard && npm run dev` → `http://localhost:5173`
+- **Dashboard:** `cd dashboard && npm run dev` → `http://localhost:5173/app.html`
 - **(Live mode only)** the Python event server on `:8000` with a race emitter (see docs/LANE_D.md).
   Not required for the recorded demo.
 
 ### Browser tabs to preload
 
-1. Dashboard — landing screen (`localhost:5173`).
+1. Dashboard — landing screen (`localhost:5173/app.html`).
 2. Braintrust project page (the experiments backing the scores).
 3. A Daytona sandbox / execution view (the code-task proof), if available.
 4. (Optional) WorkOS dashboard showing the AuthKit app.

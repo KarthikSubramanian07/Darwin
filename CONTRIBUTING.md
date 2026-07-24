@@ -22,9 +22,10 @@ clean no-op, so the core loop always runs offline.
 ## One product, not two
 
 Model selection is core, not an add-on: the `model` is a first-class gene on the genome. So the
-"parallel model race" (Lane C) and "self-improvement" are the same loop viewed at different zoom
-levels. **A** produces the tasks + data, **B** scores every variant/model, **C** runs the race
-and evolution in sandboxes, **D** visualizes it as the task×model grid and the routing card.
+"parallel model race" and "self-improvement" are the same loop viewed at different zoom levels.
+**A** runs the evolutionary loop and produces the tasks + data, **B** executes every variant in
+isolated sandboxes, **C** scores every variant/model via Braintrust, **D** visualizes it as the
+task×model grid and the routing card.
 
 ## Rules
 

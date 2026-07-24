@@ -11,6 +11,8 @@ dashboard/                         React + Vite + TypeScript dashboard
   src/lane-d.css                   Lane D's design system (scoped to the app.html bundle)
   src/types.ts                     the ONE normalized frontend event/data contract
   src/lib/routing.ts               winner selection, single-model baseline, comparison, export
+  src/lib/landscape.ts             axis seriation + column geometry for the score landscape
+  src/components/ScoreLandscape.tsx  the 3D task x model skyline (lazy-loaded three.js)
   src/lib/format.ts                display formatters
   src/store/reducer.ts             pure run-state reducer (the only place events are applied)
   src/store/useDarwinRun.ts        run lifecycle: owns the reducer + active source + demo mode
@@ -47,6 +49,36 @@ Lane D changed **no** file belonging to the landing app: `index.html`, `src/App.
 `src/main.tsx`, `src/index.css`, and `src/app.css` are byte-identical to `main`.
 
 **The demo runs at `/app.html`, not `/`.**
+
+## The score landscape (Grid / Landscape tab)
+
+The race screen has two views of the same data. **Grid is the default** — it is the table view,
+it is screen-reader navigable, and every value is readable there. **Landscape** is the hero: the
+same task × model scores as an extruded 3D skyline.
+
+Deliberate constraints, because this data does not support a free-form surface:
+
+- **Stepped, never a smooth mesh.** Both axes are nominal and a run carries only 16–25 measured
+  cells. Interpolating between them would invent the overwhelming majority of the geometry, and
+  the peaks would move if the fixtures were reordered.
+- **Axes seriated by marginal mean score**, so the relief means something instead of echoing the
+  fixture order. Seriation applies **only once the run completes** — reordering mid-race would
+  make columns jump as results land.
+- **Height is score, anchored at zero.** No truncated baseline.
+- **Colour is emphasis, not magnitude.** The row winner takes the accent; everything else
+  recedes. A score→colour ramp would re-encode what height already shows. Winners carry a direct
+  `%` label; identity is never colour-alone (see the legend).
+- **The translucent plane is the best single model's mean score.** Columns above it beat "just
+  pick one model" — the product argument, visible at a glance.
+
+Winners use the design system's own `--primary` (`#4f7bff`), so a winner reads identically in the
+landscape and in the grid. Validated with the dataviz validator against the dashboard surface
+(`#111113`): `#4f7bff` and failed `#d03b3b` pass the lightness band, chroma floor, CVD separation
+(all-pairs protanopia ΔE 29.5), normal-vision floor (33.8) and 3:1 contrast.
+
+three.js is **lazy-loaded** (`React.lazy` on the tab, prefetched on hover), so the default grid
+path stays ~58 kB and the ~230 kB gz 3D chunk only downloads if someone opens the tab. Browsers
+without WebGL get an honest fallback pointing at the grid.
 
 ## Architecture
 

@@ -23,6 +23,16 @@ def test_feature_flags_toggle_off(monkeypatch):
     assert not cfg.features.coderabbit
 
 
+def test_fireworks_model_configuration(monkeypatch):
+    monkeypatch.setenv("FIREWORKS_MUTATOR_MODEL", "model-a")
+    monkeypatch.setenv("FIREWORKS_MODEL_CATALOG", "model-a, model-b")
+
+    cfg = load_config()
+
+    assert cfg.fireworks_mutator_model == "model-a"
+    assert cfg.fireworks_model_catalog == ("model-a", "model-b")
+
+
 def test_elite_k_not_larger_than_population():
     cfg = load_config()
     assert cfg.elite_k <= cfg.population_size

@@ -1,0 +1,81 @@
+{
+  "task_id": "legal_governing_law",
+  "description": "Extract the governing jurisdiction.",
+  "industry": "legal",
+  "problems": [
+    {
+      "case_id": "legal_governing_law",
+      "entrypoint": "solve",
+      "prompt": "Extract governing law.",
+      "cases": [
+        {
+          "args": [
+            "This Agreement shall be governed by the laws of the State of California."
+          ],
+          "expected": "California"
+        },
+        {
+          "args": [
+            "The laws of New York govern this contract."
+          ],
+          "expected": "New York"
+        },
+        {
+          "args": [
+            "This agreement is governed by Delaware law."
+          ],
+          "expected": "Delaware"
+        },
+        {
+          "args": [
+            "The laws of England and Wales apply."
+          ],
+          "expected": "England and Wales"
+        },
+        {
+          "args": [
+            "This Agreement is subject to the laws of Texas."
+          ],
+          "expected": "Texas"
+        },
+        {
+          "args": [
+            "Washington law governs the interpretation of this Agreement."
+          ],
+          "expected": "Washington"
+        },
+        {
+          "args": [
+            "The laws of Massachusetts shall control."
+          ],
+          "expected": "Massachusetts"
+        },
+        {
+          "args": [
+            "This contract is governed by the laws of Illinois."
+          ],
+          "expected": "Illinois"
+        },
+        {
+          "args": [
+            "Florida law applies to this Agreement."
+          ],
+          "expected": "Florida"
+        },
+        {
+          "args": [
+            "The Province of Ontario's laws shall govern."
+          ],
+          "expected": "Ontario"
+        }
+      ],
+      "ladder": [],
+      "task_type": "structured",
+      "scorer_config": {
+        "method": "exact_match",
+        "task_source": "canned",
+        "case_source": "canned"
+      }
+    }
+  ]
+}

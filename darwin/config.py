@@ -26,6 +26,11 @@ def _int(name: str, default: int) -> int:
         return default
 
 
+def _csv(name: str, default: tuple[str, ...]) -> tuple[str, ...]:
+    values = tuple(value.strip() for value in os.getenv(name, "").split(",") if value.strip())
+    return values or default
+
+
 @dataclass(frozen=True)
 class Features:
     daytona: bool = field(default_factory=lambda: _flag("FEATURE_DAYTONA"))
@@ -43,6 +48,20 @@ class Config:
     fireworks_base_url: str = field(
         default_factory=lambda: os.getenv(
             "FIREWORKS_BASE_URL", "https://api.fireworks.ai/inference/v1"
+        )
+    )
+    fireworks_mutator_model: str = field(
+        default_factory=lambda: os.getenv(
+            "FIREWORKS_MUTATOR_MODEL", "accounts/fireworks/models/kimi-k2p6"
+        )
+    )
+    fireworks_model_catalog: tuple[str, ...] = field(
+        default_factory=lambda: _csv(
+            "FIREWORKS_MODEL_CATALOG",
+            (
+                "accounts/fireworks/models/kimi-k2p6",
+                "accounts/fireworks/models/glm-5p1",
+            ),
         )
     )
     coderabbit_api_key: str = field(default_factory=lambda: os.getenv("CODERABBIT_API_KEY", ""))

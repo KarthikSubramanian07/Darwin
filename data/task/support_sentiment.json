@@ -1,0 +1,79 @@
+{
+  "task_id": "support_sentiment",
+  "description": "Classify customer sentiment.",
+  "industry": "support",
+  "problems": [
+    {
+      "case_id": "support_sentiment",
+      "entrypoint": "solve",
+      "prompt": "Classify ticket sentiment.",
+      "cases": [
+        {
+          "args": [
+            "Thank you, the new feature is fantastic!"
+          ],
+          "expected": "positive"
+        },
+        {
+          "args": [
+            "This is the third time the app has failed me."
+          ],
+          "expected": "negative"
+        },
+        {
+          "args": [
+            "Where can I view my plan details?"
+          ],
+          "expected": "neutral"
+        },
+        {
+          "args": [
+            "I am extremely disappointed with this service."
+          ],
+          "expected": "negative"
+        },
+        {
+          "args": [
+            "Everything is working well now."
+          ],
+          "expected": "positive"
+        },
+        {
+          "args": [
+            "Please send me the tracking number."
+          ],
+          "expected": "neutral"
+        },
+        {
+          "args": [
+            "Your support team solved this quickly, thanks!"
+          ],
+          "expected": "positive"
+        },
+        {
+          "args": [
+            "This outage is unacceptable."
+          ],
+          "expected": "negative"
+        },
+        {
+          "args": [
+            "Can I change my billing address?"
+          ],
+          "expected": "neutral"
+        },
+        {
+          "args": [
+            "I love how easy the update was."
+          ],
+          "expected": "positive"
+        }
+      ],
+      "ladder": [],
+      "task_type": "structured",
+      "scorer_config": {
+        "method": "exact_match"
+      }
+    }
+  ]
+}

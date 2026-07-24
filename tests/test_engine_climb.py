@@ -20,6 +20,9 @@ from darwin.server.events import EventChannel
 def offline_env(monkeypatch):
     for var in ("FEATURE_DAYTONA", "FEATURE_BRAINTRUST", "FEATURE_FIREWORKS", "FEATURE_CODERABBIT"):
         monkeypatch.setenv(var, "0")
+    # Keep the acceptance test independent of a developer's local .env and verify the
+    # documented five-generation offline demo configuration.
+    monkeypatch.setenv("GENERATIONS", "5")
 
 
 def _run():

@@ -1,0 +1,79 @@
+{
+  "task_id": "support_order_status",
+  "description": "Extract the requested order-status action.",
+  "industry": "support",
+  "problems": [
+    {
+      "case_id": "support_order_status",
+      "entrypoint": "solve",
+      "prompt": "Classify order-status request.",
+      "cases": [
+        {
+          "args": [
+            "Where is order 12345?"
+          ],
+          "expected": "track_order"
+        },
+        {
+          "args": [
+            "My package says delivered but I cannot find it."
+          ],
+          "expected": "missing_delivery"
+        },
+        {
+          "args": [
+            "Can I change the shipping address before it ships?"
+          ],
+          "expected": "change_address"
+        },
+        {
+          "args": [
+            "Please cancel order 7788 before it is dispatched."
+          ],
+          "expected": "cancel_order"
+        },
+        {
+          "args": [
+            "The tracking link is not updating."
+          ],
+          "expected": "track_order"
+        },
+        {
+          "args": [
+            "My parcel was delivered to the wrong location."
+          ],
+          "expected": "missing_delivery"
+        },
+        {
+          "args": [
+            "Update the recipient address for my pending order."
+          ],
+          "expected": "change_address"
+        },
+        {
+          "args": [
+            "I no longer need the order I placed this morning."
+          ],
+          "expected": "cancel_order"
+        },
+        {
+          "args": [
+            "Has my order left the warehouse?"
+          ],
+          "expected": "track_order"
+        },
+        {
+          "args": [
+            "The courier marked it delivered, but it is absent."
+          ],
+          "expected": "missing_delivery"
+        }
+      ],
+      "ladder": [],
+      "task_type": "structured",
+      "scorer_config": {
+        "method": "exact_match"
+      }
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "task_id": "support_priority",
+  "description": "Assign a support priority from customer impact.",
+  "industry": "support",
+  "problems": [
+    {
+      "case_id": "support_priority",
+      "entrypoint": "solve",
+      "prompt": "Classify support priority.",
+      "cases": [
+        {
+          "args": [
+            "Our entire production team cannot log in."
+          ],
+          "expected": "urgent"
+        },
+        {
+          "args": [
+            "The checkout page is broken for all customers."
+          ],
+          "expected": "urgent"
+        },
+        {
+          "args": [
+            "I cannot find a setting in the dashboard."
+          ],
+          "expected": "low"
+        },
+        {
+          "args": [
+            "One user sees an intermittent error."
+          ],
+          "expected": "normal"
+        },
+        {
+          "args": [
+            "A security incident may have exposed customer data."
+          ],
+          "expected": "urgent"
+        },
+        {
+          "args": [
+            "Please add a dark mode option."
+          ],
+          "expected": "low"
+        },
+        {
+          "args": [
+            "Our monthly invoice appears incorrect."
+          ],
+          "expected": "normal"
+        },
+        {
+          "args": [
+            "The API is down across our account."
+          ],
+          "expected": "urgent"
+        },
+        {
+          "args": [
+            "How can I update my profile photo?"
+          ],
+          "expected": "low"
+        },
+        {
+          "args": [
+            "A payment was declined for one order."
+          ],
+          "expected": "normal"
+        }
+      ],
+      "ladder": [],
+      "task_type": "structured",
+      "scorer_config": {
+        "method": "exact_match"
+      }
+    }
+  ]
+}

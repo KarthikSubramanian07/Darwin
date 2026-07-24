@@ -320,7 +320,7 @@ of `run()`. Stops early on `best_fitness >= 1.0` or when `guards.within_caps` is
 
 ### Mutation (`core/mutate.py`) - LANE A
 `Mutator(config, task).mutate_offspring(elite, all_variants, n, generation) -> list[Genome]`.
-Offline: advance the worst improvable problem one ladder rung (deterministic climb). Phase 3
+Offline: advance up to two worst improvable problems one ladder rung (deterministic climb). Phase 3
 (Fireworks): for each offspring, one function-calling request returning
 `{target: "prompt"|"tool:<name>"|"params"|"model", new_content, lineage_note}`, informed by the
 parent's failure traces (`Variant.per_case`) and, when available, CodeRabbit findings. The

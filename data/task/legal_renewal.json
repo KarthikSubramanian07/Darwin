@@ -1,0 +1,81 @@
+{
+  "task_id": "legal_renewal",
+  "description": "Detect contract renewal behavior.",
+  "industry": "legal",
+  "problems": [
+    {
+      "case_id": "legal_renewal",
+      "entrypoint": "solve",
+      "prompt": "Classify renewal behavior.",
+      "cases": [
+        {
+          "args": [
+            "The term renews automatically for one year unless either party gives notice."
+          ],
+          "expected": "auto_renewal"
+        },
+        {
+          "args": [
+            "This agreement expires on December 31 with no renewal."
+          ],
+          "expected": "fixed_expiry"
+        },
+        {
+          "args": [
+            "The parties may renew by mutual written agreement."
+          ],
+          "expected": "mutual_renewal"
+        },
+        {
+          "args": [
+            "The subscription automatically renews monthly."
+          ],
+          "expected": "auto_renewal"
+        },
+        {
+          "args": [
+            "The initial term ends after 12 months."
+          ],
+          "expected": "fixed_expiry"
+        },
+        {
+          "args": [
+            "Renewal requires a signed extension from both parties."
+          ],
+          "expected": "mutual_renewal"
+        },
+        {
+          "args": [
+            "Unless cancelled 60 days prior, the term renews for successive years."
+          ],
+          "expected": "auto_renewal"
+        },
+        {
+          "args": [
+            "No party is obligated to extend this agreement."
+          ],
+          "expected": "fixed_expiry"
+        },
+        {
+          "args": [
+            "The parties will negotiate a renewal in good faith."
+          ],
+          "expected": "mutual_renewal"
+        },
+        {
+          "args": [
+            "The contract rolls over automatically each quarter."
+          ],
+          "expected": "auto_renewal"
+        }
+      ],
+      "ladder": [],
+      "task_type": "structured",
+      "scorer_config": {
+        "method": "exact_match",
+        "task_source": "canned",
+        "case_source": "canned"
+      }
+    }
+  ]
+}

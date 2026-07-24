@@ -1,0 +1,79 @@
+{
+  "task_id": "support_refund_policy",
+  "description": "Determine the refund-policy outcome.",
+  "industry": "support",
+  "problems": [
+    {
+      "case_id": "support_refund_policy",
+      "entrypoint": "solve",
+      "prompt": "Classify refund eligibility.",
+      "cases": [
+        {
+          "args": [
+            "I bought this yesterday and have not used it."
+          ],
+          "expected": "eligible"
+        },
+        {
+          "args": [
+            "My annual plan renewed 90 days ago."
+          ],
+          "expected": "ineligible"
+        },
+        {
+          "args": [
+            "The product arrived damaged today."
+          ],
+          "expected": "eligible"
+        },
+        {
+          "args": [
+            "I used the downloadable software for six months."
+          ],
+          "expected": "ineligible"
+        },
+        {
+          "args": [
+            "I was billed twice this morning."
+          ],
+          "expected": "eligible"
+        },
+        {
+          "args": [
+            "My order was delivered a year ago."
+          ],
+          "expected": "ineligible"
+        },
+        {
+          "args": [
+            "I cancelled within the 14-day trial period."
+          ],
+          "expected": "eligible"
+        },
+        {
+          "args": [
+            "The service was fully consumed last quarter."
+          ],
+          "expected": "ineligible"
+        },
+        {
+          "args": [
+            "The item was never delivered."
+          ],
+          "expected": "eligible"
+        },
+        {
+          "args": [
+            "I am requesting a refund after 120 days."
+          ],
+          "expected": "ineligible"
+        }
+      ],
+      "ladder": [],
+      "task_type": "structured",
+      "scorer_config": {
+        "method": "exact_match"
+      }
+    }
+  ]
+}

@@ -58,6 +58,26 @@ class RunRecord(BaseModel):
     config: dict = Field(default_factory=dict)
 
 
+class RoutingEntry(BaseModel):
+    """The champion evidence for one task in an industry routing decision."""
+
+    task_id: str
+    best_model: str
+    prompt: str
+    runner_up: str = ""
+    score: float = 0.0
+    cost: float = 0.0
+    latency: int = 0
+    rationale: str = ""
+
+
+class RoutingCard(BaseModel):
+    """A per-industry model-routing result, built only from completed run records."""
+
+    industry: str
+    entries: list[RoutingEntry] = Field(default_factory=list)
+
+
 # ---------------------------------------------------------------------- #
 # Selection
 # ---------------------------------------------------------------------- #
@@ -81,3 +101,55 @@ def select(variants: list[Variant], elite_k: int) -> list[Variant]:
     """
     eligible = [v for v in variants if v.status == "evaluated"]
     return rank(eligible)[: max(1, elite_k)]
+
+
+def build_routing_card(industry: str, records: list[RunRecord]) -> RoutingCard:
+    """Fold completed task runs into an auditable, deterministically ordered routing card.
+
+    A runner-up must use a different model from the champion. This avoids presenting two prompt
+    variants of the same model as a model-routing choice. Empty cost and latency values are
+    preserved as zero until Fireworks evaluation accounting is wired in.
+    """
+    entries: list[RoutingEntry] = []
+    for record in records:
+        champion = record.final_champion
+        if champion is None:
+            continue
+        variants = [
+            variant
+            for generation in record.generations
+            for variant in generation.variants
+            if variant.status == "evaluated"
+        ]
+        champion_results = [
+            variant for variant in variants if variant.genome.genome_id == champion.genome_id
+        ]
+        if champion_results:
+            champion_result = rank(champion_results)[0]
+        else:
+            champion_result = Variant(genome=champion)
+        alternatives = [
+            variant for variant in variants if variant.genome.model != champion.model
+        ]
+        runner_up = rank(alternatives)[0] if alternatives else None
+        rationale = f"Champion score {champion_result.fitness:.3f} on {record.task_id}."
+        if runner_up is not None:
+            rationale += (
+                f" Best distinct-model alternative was {runner_up.genome.model} "
+                f"at {runner_up.fitness:.3f}."
+            )
+        else:
+            rationale += " No distinct-model alternative was evaluated."
+        entries.append(
+            RoutingEntry(
+                task_id=record.task_id,
+                best_model=champion.model,
+                prompt=champion.system_prompt,
+                runner_up=runner_up.genome.model if runner_up is not None else "",
+                score=champion_result.fitness,
+                cost=champion_result.cost_est,
+                latency=champion_result.p50_latency_ms,
+                rationale=rationale,
+            )
+        )
+    return RoutingCard(industry=industry, entries=sorted(entries, key=lambda entry: entry.task_id))

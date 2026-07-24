@@ -1,0 +1,81 @@
+{
+  "task_id": "legal_clause_type",
+  "description": "Classify a contract clause by purpose.",
+  "industry": "legal",
+  "problems": [
+    {
+      "case_id": "legal_clause_type",
+      "entrypoint": "solve",
+      "prompt": "Classify the clause type.",
+      "cases": [
+        {
+          "args": [
+            "Either party may terminate this Agreement with 30 days written notice."
+          ],
+          "expected": "termination"
+        },
+        {
+          "args": [
+            "Recipient shall not disclose Confidential Information to third parties."
+          ],
+          "expected": "confidentiality"
+        },
+        {
+          "args": [
+            "Customer will pay invoices within 30 days of receipt."
+          ],
+          "expected": "payment"
+        },
+        {
+          "args": [
+            "This Agreement is governed by the laws of California."
+          ],
+          "expected": "governing_law"
+        },
+        {
+          "args": [
+            "Provider warrants the services will conform to the documentation."
+          ],
+          "expected": "warranty"
+        },
+        {
+          "args": [
+            "Neither party will be liable for indirect or consequential damages."
+          ],
+          "expected": "limitation_of_liability"
+        },
+        {
+          "args": [
+            "Customer owns all right, title, and interest in Customer Data."
+          ],
+          "expected": "ownership"
+        },
+        {
+          "args": [
+            "Vendor shall comply with all applicable privacy laws."
+          ],
+          "expected": "compliance"
+        },
+        {
+          "args": [
+            "The parties are independent contractors and not partners."
+          ],
+          "expected": "relationship"
+        },
+        {
+          "args": [
+            "Any dispute shall be resolved by binding arbitration."
+          ],
+          "expected": "dispute_resolution"
+        }
+      ],
+      "ladder": [],
+      "task_type": "structured",
+      "scorer_config": {
+        "method": "exact_match",
+        "task_source": "canned",
+        "case_source": "canned"
+      }
+    }
+  ]
+}

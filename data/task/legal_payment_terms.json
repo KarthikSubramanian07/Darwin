@@ -1,0 +1,111 @@
+{
+  "task_id": "legal_payment_terms",
+  "description": "Extract payment terms into a structured record.",
+  "industry": "legal",
+  "problems": [
+    {
+      "case_id": "legal_payment_terms",
+      "entrypoint": "solve",
+      "prompt": "Extract payment terms.",
+      "cases": [
+        {
+          "args": [
+            "Invoices are due net 30 from receipt."
+          ],
+          "expected": {
+            "days": 30,
+            "prepaid": false
+          }
+        },
+        {
+          "args": [
+            "Customer must prepay annual fees before service begins."
+          ],
+          "expected": {
+            "days": 0,
+            "prepaid": true
+          }
+        },
+        {
+          "args": [
+            "Payment is due within 15 days after invoice date."
+          ],
+          "expected": {
+            "days": 15,
+            "prepaid": false
+          }
+        },
+        {
+          "args": [
+            "All monthly charges are payable in advance."
+          ],
+          "expected": {
+            "days": 0,
+            "prepaid": true
+          }
+        },
+        {
+          "args": [
+            "Amounts are due net 45."
+          ],
+          "expected": {
+            "days": 45,
+            "prepaid": false
+          }
+        },
+        {
+          "args": [
+            "Pay the setup fee immediately upon execution."
+          ],
+          "expected": {
+            "days": 0,
+            "prepaid": true
+          }
+        },
+        {
+          "args": [
+            "Invoices must be paid within 60 calendar days."
+          ],
+          "expected": {
+            "days": 60,
+            "prepaid": false
+          }
+        },
+        {
+          "args": [
+            "Subscription fees are billed and paid annually in advance."
+          ],
+          "expected": {
+            "days": 0,
+            "prepaid": true
+          }
+        },
+        {
+          "args": [
+            "Customer shall remit payment no later than 10 days after receipt."
+          ],
+          "expected": {
+            "days": 10,
+            "prepaid": false
+          }
+        },
+        {
+          "args": [
+            "Fees are payable upfront each quarter."
+          ],
+          "expected": {
+            "days": 0,
+            "prepaid": true
+          }
+        }
+      ],
+      "ladder": [],
+      "task_type": "structured",
+      "scorer_config": {
+        "method": "exact_match",
+        "task_source": "canned",
+        "case_source": "canned"
+      }
+    }
+  ]
+}

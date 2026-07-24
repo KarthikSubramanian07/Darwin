@@ -1,0 +1,79 @@
+{
+  "task_id": "support_intent",
+  "description": "Route a customer message to its primary intent.",
+  "industry": "support",
+  "problems": [
+    {
+      "case_id": "support_intent",
+      "entrypoint": "solve",
+      "prompt": "Classify ticket intent.",
+      "cases": [
+        {
+          "args": [
+            "I was charged twice for my subscription."
+          ],
+          "expected": "billing_issue"
+        },
+        {
+          "args": [
+            "Please cancel my account."
+          ],
+          "expected": "cancellation"
+        },
+        {
+          "args": [
+            "How do I reset my password?"
+          ],
+          "expected": "account_access"
+        },
+        {
+          "args": [
+            "My package has not arrived yet."
+          ],
+          "expected": "shipping_status"
+        },
+        {
+          "args": [
+            "I want a refund for this purchase."
+          ],
+          "expected": "refund_request"
+        },
+        {
+          "args": [
+            "The app crashes when I upload a file."
+          ],
+          "expected": "technical_issue"
+        },
+        {
+          "args": [
+            "Where can I download my invoices?"
+          ],
+          "expected": "billing_issue"
+        },
+        {
+          "args": [
+            "Change the email on my account."
+          ],
+          "expected": "account_access"
+        },
+        {
+          "args": [
+            "Can I return an unopened item?"
+          ],
+          "expected": "refund_request"
+        },
+        {
+          "args": [
+            "Tracking has not updated in three days."
+          ],
+          "expected": "shipping_status"
+        }
+      ],
+      "ladder": [],
+      "task_type": "structured",
+      "scorer_config": {
+        "method": "exact_match"
+      }
+    }
+  ]
+}

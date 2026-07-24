@@ -1,0 +1,81 @@
+{
+  "task_id": "legal_confidentiality",
+  "description": "Identify confidentiality obligations.",
+  "industry": "legal",
+  "problems": [
+    {
+      "case_id": "legal_confidentiality",
+      "entrypoint": "solve",
+      "prompt": "Classify confidentiality scope.",
+      "cases": [
+        {
+          "args": [
+            "Recipient may use confidential information only to perform this agreement."
+          ],
+          "expected": "restricted_use"
+        },
+        {
+          "args": [
+            "Information already public is not confidential."
+          ],
+          "expected": "public_information_exception"
+        },
+        {
+          "args": [
+            "Recipient must return or destroy confidential materials on request."
+          ],
+          "expected": "return_or_destroy"
+        },
+        {
+          "args": [
+            "Disclosure is permitted when required by law."
+          ],
+          "expected": "legal_disclosure_exception"
+        },
+        {
+          "args": [
+            "Confidentiality obligations survive for three years."
+          ],
+          "expected": "survival_period"
+        },
+        {
+          "args": [
+            "Employees with a need to know may access the information."
+          ],
+          "expected": "need_to_know_access"
+        },
+        {
+          "args": [
+            "Recipient shall protect the information using reasonable care."
+          ],
+          "expected": "security_standard"
+        },
+        {
+          "args": [
+            "Independently developed information is excluded."
+          ],
+          "expected": "independent_development_exception"
+        },
+        {
+          "args": [
+            "The receiving party must promptly notify the discloser of compelled disclosure."
+          ],
+          "expected": "notice_requirement"
+        },
+        {
+          "args": [
+            "Trade secrets remain protected for as long as they qualify as trade secrets."
+          ],
+          "expected": "trade_secret_survival"
+        }
+      ],
+      "ladder": [],
+      "task_type": "structured",
+      "scorer_config": {
+        "method": "exact_match",
+        "task_source": "canned",
+        "case_source": "canned"
+      }
+    }
+  ]
+}

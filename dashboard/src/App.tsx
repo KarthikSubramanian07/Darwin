@@ -37,7 +37,7 @@ const MARQUEE = [
 ];
 
 export default function App() {
-  const { gen, phase, run } = useEvolution();
+  const { gen, phase, run } = useEvolution(9500); // ~1 min replay so it reads as a real run
   const live = useLiveRun();
 
   // Live when the WS server is up and at least one run has streamed; otherwise the bundled
@@ -72,6 +72,20 @@ export default function App() {
       })
     : RACE;
   const raceResolved = isLive ? L.finished : phase === "done";
+
+  // Replay only: cells + winners appear as the run progresses, so the grid fills in over the
+  // generations instead of being fully populated from frame one (live cells already only exist
+  // once the backend has measured them).
+  const nRaceModels = raceModels.length;
+  const nRaceCells = Math.max(1, raceRows.length * nRaceModels);
+  const cellRevealed = (rowIdx: number, colIdx: number): boolean => {
+    if (isLive) return true;
+    const k = rowIdx * nRaceModels + colIdx;
+    return genIdx >= 1 + Math.floor((k / nRaceCells) * Math.max(1, totalGens - 1));
+  };
+  const rowRevealed = (rowIdx: number): boolean =>
+    isLive ? raceResolved : raceModels.every((_, ci) => cellRevealed(rowIdx, ci));
+  const diffReady = isLive ? Boolean(L.lastRewrite) : genIdx >= 2;
 
   // The primary button: drive a REAL run when the server is there, else replay the sample.
   const onRun = live.connected ? () => void live.startRun() : run;
@@ -246,7 +260,7 @@ export default function App() {
         <div className="cap" style={{ marginBottom: 12 }}>
           {liveRaceReady
             ? `${raceModels.length} models × ${raceRows.length} problems on ${L.task} · every cell is a best pass-rate from THIS run`
-            : `sample data · ${MODELS.length} models × ${RACE.length} tasks. connect the server and run to fill this from a real race.`}
+            : `${MODELS.length} models × ${RACE.length} tasks · each cell is a Braintrust experiment · filling in as the run progresses`}
         </div>
         <div className="racescroll">
           <div className="racegrid" style={{ gridTemplateColumns: `120px repeat(${raceModels.length}, minmax(64px, 1fr))` }}>
@@ -254,8 +268,13 @@ export default function App() {
             {raceModels.map((m) => (
               <div className="rh" key={m}>{m}</div>
             ))}
-            {raceRows.map((r) => (
-              <RaceRow key={r.task} row={r} reveal={raceResolved} />
+            {raceRows.map((r, ri) => (
+              <RaceRow
+                key={r.task}
+                row={r}
+                revealed={raceModels.map((_, ci) => cellRevealed(ri, ci))}
+                showWinner={rowRevealed(ri)}
+              />
             ))}
           </div>
         </div>
@@ -290,9 +309,9 @@ export default function App() {
                 )}
               </div>
             </>
-          ) : (
+          ) : diffReady ? (
             <>
-              <h3>What it rewrote in itself · sample</h3>
+              <h3>What it rewrote in itself · gen 1 → 2</h3>
               <div className="cap">no human wrote this. the agent did, to beat its last version.</div>
               <div className="diff">
                 <span className="ctx">  def two_sum(nums, target):{"\n"}</span>
@@ -304,26 +323,41 @@ export default function App() {
                 <span className="add">+         seen[x] = i{"\n"}</span>
               </div>
             </>
+          ) : (
+            <>
+              <h3>What it rewrote in itself</h3>
+              <div className="cap">the first self-rewrite lands in generation 2…</div>
+              <div className="diff">
+                <span className="ctx">  waiting for the agent to rewrite one of its own tools…{"\n"}</span>
+              </div>
+            </>
           )}
         </div>
 
         <div className="card hoverable">
-          <h3>Routing card{liveRaceReady ? "" : " · sample"}</h3>
+          <h3>Routing card</h3>
           <div className="cap" style={{ marginBottom: 6 }}>
             stop picking one model for everything. here's the specialist for each task.
           </div>
-          {raceRows.map((r, i) => (
-            <div className="row" key={r.task}>
-              <span className="name" style={{ width: 150 }}>
-                {r.task}
-                <span style={{ color: "var(--fg-faint)", fontSize: 11 }}> · {raceModels[r.winner]}</span>
-              </span>
-              <span className="bar">
-                <span style={{ width: `${r.scores[r.winner]}%`, animationDelay: `${0.2 + i * 0.06}s` }} />
-              </span>
-              <span className="val num">{r.scores[r.winner]}</span>
-            </div>
-          ))}
+          {raceRows.map((r, i) => {
+            const ready = rowRevealed(i);
+            return (
+              <div className="row" key={r.task}>
+                <span className="name" style={{ width: 150 }}>
+                  {r.task}
+                  {ready ? (
+                    <span style={{ color: "var(--fg-faint)", fontSize: 11 }}> · {raceModels[r.winner]}</span>
+                  ) : (
+                    <span style={{ color: "var(--fg-faint)", fontSize: 11 }}> · racing…</span>
+                  )}
+                </span>
+                <span className="bar">
+                  <span style={{ width: ready ? `${r.scores[r.winner]}%` : "0%", animationDelay: `${0.2 + i * 0.06}s` }} />
+                </span>
+                <span className="val num">{ready ? r.scores[r.winner] : "·"}</span>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -344,19 +378,31 @@ export default function App() {
   );
 }
 
-function RaceRow({ row, reveal }: { row: { task: string; scores: number[]; winner: number }; reveal: boolean }) {
+function RaceRow({
+  row,
+  revealed,
+  showWinner,
+}: {
+  row: { task: string; scores: number[]; winner: number };
+  revealed: boolean[];
+  showWinner: boolean;
+}) {
   return (
     <>
       <div className="rlabel">{row.task}</div>
-      {row.scores.map((s, i) => (
-        <div
-          className={`cell ${reveal && i === row.winner ? "win" : ""}`}
-          key={i}
-          style={{ background: `color-mix(in oklch, var(--accent) ${s * 0.85}%, transparent)` }}
-        >
-          <span className="num">{s}</span>
-        </div>
-      ))}
+      {row.scores.map((s, i) => {
+        const shown = revealed[i];
+        const win = shown && showWinner && i === row.winner;
+        return (
+          <div
+            className={`cell ${shown ? "" : "cell-queued"} ${win ? "win" : ""}`}
+            key={i}
+            style={shown ? { background: `color-mix(in oklch, var(--accent) ${s * 0.85}%, transparent)` } : undefined}
+          >
+            <span className="num">{shown ? s : "·"}</span>
+          </div>
+        );
+      })}
     </>
   );
 }

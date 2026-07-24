@@ -84,13 +84,18 @@ Load-bearing sponsors, each used at its frontier: **Fireworks** (fast parallel m
 git clone https://github.com/KarthikSubramanian07/darwin.git && cd darwin
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env        # add keys, or leave blank to run fully offline
+cp .env.example .env         # add keys, or leave blank to run fully offline
 
-python -m darwin.main       # start an evolution run
-# dashboard: cd dashboard && npm install && npm run dev
+python -m darwin.main        # evolve on the built-in coding benchmark
+
+# point it at a whole domain: decompose an industry, then evolve a specialist per task
+python -m pipeline.build legal
+python -m darwin.main --task legal
+
+# dashboard: cd dashboard && npm install && npm run dev   (live at trydarwin.pages.dev)
 ```
 
-**No keys? It still climbs.** With every feature flag off, Darwin falls back to a local subprocess sandbox, a local scorer, canned mutations, and a local static-analysis reviewer, and the fitness curve still climbs on a canned task. That offline path is the demo floor.
+**No keys? It still climbs.** With every feature flag off, Darwin falls back to a local subprocess sandbox, a local scorer, canned mutations, and a local static-analysis reviewer, and the fitness curve still climbs. That offline path is the demo floor. With keys on, variants run in real **Daytona** sandboxes, mutate and race across the live **Fireworks** catalog, and every variant is logged as a **Braintrust** experiment.
 
 ## Team
 

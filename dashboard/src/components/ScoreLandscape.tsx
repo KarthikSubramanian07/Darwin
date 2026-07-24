@@ -315,7 +315,8 @@ export function ScoreLandscape({
           />
           <OrbitControls
             enablePan={false}
-            minPolarAngle={0.18}
+            // Clamped: near-top-down hides column height, which is the whole encoding.
+            minPolarAngle={0.6}
             maxPolarAngle={Math.PI / 2.25}
             minDistance={7}
             maxDistance={20}

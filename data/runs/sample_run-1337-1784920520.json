@@ -1,0 +1,6476 @@
+{
+  "run_id": "run-1337-1784920520",
+  "task_id": "coding_bench",
+  "seed": 1337,
+  "generations": [
+    {
+      "index": 0,
+      "variants": [
+        {
+          "genome": {
+            "genome_id": "g0-0",
+            "generation": 0,
+            "parent_ids": [],
+            "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+            "tools": {
+              "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+              "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+              "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+              "two_sum": "def two_sum(nums, target):\n    return []\n",
+              "roman_to_int": "def roman_to_int(s):\n    return 0\n",
+              "flatten": "def flatten(nested):\n    return nested\n",
+              "count_vowels": "def count_vowels(s):\n    return 0\n",
+              "fibonacci": "def fibonacci(n):\n    return n\n"
+            },
+            "params": {
+              "temperature": 0.7,
+              "max_steps": 1.0
+            },
+            "model": "accounts/fireworks/models/gpt-oss-120b",
+            "lineage_note": "seed (racing gpt-oss-120b)"
+          },
+          "fitness": 0.375,
+          "per_case": [
+            {
+              "case_id": "is_palindrome#0",
+              "score": 1.0,
+              "output": true,
+              "error": null
+            },
+            {
+              "case_id": "is_palindrome#1",
+              "score": 1.0,
+              "output": false,
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#0",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#1",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#0",
+              "score": 1.0,
+              "output": "cba",
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#1",
+              "score": 1.0,
+              "output": "olleh",
+              "error": null
+            },
+            {
+              "case_id": "two_sum#0",
+              "score": 0.0,
+              "output": [],
+              "error": "expected [0, 1], got []"
+            },
+            {
+              "case_id": "two_sum#1",
+              "score": 0.0,
+              "output": [],
+              "error": "expected [1, 2], got []"
+            },
+            {
+              "case_id": "roman_to_int#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 3, got 0"
+            },
+            {
+              "case_id": "roman_to_int#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 1994, got 0"
+            },
+            {
+              "case_id": "flatten#0",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  3
+                ]
+              ],
+              "error": "expected [1, 2, 3], got [1, [2, 3]]"
+            },
+            {
+              "case_id": "flatten#1",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  [
+                    3,
+                    4
+                  ]
+                ]
+              ],
+              "error": "expected [1, 2, 3, 4], got [1, [2, [3, 4]]]"
+            },
+            {
+              "case_id": "count_vowels#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 2, got 0"
+            },
+            {
+              "case_id": "count_vowels#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 5, got 0"
+            },
+            {
+              "case_id": "fibonacci#0",
+              "score": 0.0,
+              "output": 7,
+              "error": "expected 13, got 7"
+            },
+            {
+              "case_id": "fibonacci#1",
+              "score": 0.0,
+              "output": 10,
+              "error": "expected 55, got 10"
+            }
+          ],
+          "raw_outputs": {
+            "is_palindrome": [
+              {
+                "got": true,
+                "error": null
+              },
+              {
+                "got": false,
+                "error": null
+              }
+            ],
+            "fizzbuzz": [
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz"
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz",
+                  "4",
+                  "Buzz"
+                ],
+                "error": null
+              }
+            ],
+            "reverse_string": [
+              {
+                "got": "cba",
+                "error": null
+              },
+              {
+                "got": "olleh",
+                "error": null
+              }
+            ],
+            "two_sum": [
+              {
+                "got": [],
+                "error": null
+              },
+              {
+                "got": [],
+                "error": null
+              }
+            ],
+            "roman_to_int": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "flatten": [
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    3
+                  ]
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    [
+                      3,
+                      4
+                    ]
+                  ]
+                ],
+                "error": null
+              }
+            ],
+            "count_vowels": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "fibonacci": [
+              {
+                "got": 7,
+                "error": null
+              },
+              {
+                "got": 10,
+                "error": null
+              }
+            ]
+          },
+          "cost_est": 0.0,
+          "p50_latency_ms": 0,
+          "braintrust_experiment_url": "https://www.braintrust.dev/app/Karthik/p/Darwin/experiments/coding_bench%2Fgen0%2Fg0-0-4121dc35",
+          "sandbox_id": "1180db8b-f0f1-420c-bb62-8041c8b02227",
+          "snapshot_id": "1180db8b-f0f1-420c-bb62-8041c8b02227-snap-1",
+          "status": "evaluated",
+          "duration_ms": 11807
+        },
+        {
+          "genome": {
+            "genome_id": "g0-1",
+            "generation": 0,
+            "parent_ids": [],
+            "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+            "tools": {
+              "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+              "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+              "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+              "two_sum": "def two_sum(nums, target):\n    return []\n",
+              "roman_to_int": "def roman_to_int(s):\n    return 0\n",
+              "flatten": "def flatten(nested):\n    return nested\n",
+              "count_vowels": "def count_vowels(s):\n    return 0\n",
+              "fibonacci": "def fibonacci(n):\n    return n\n"
+            },
+            "params": {
+              "temperature": 0.7,
+              "max_steps": 1.0
+            },
+            "model": "accounts/fireworks/models/kimi-k2p6",
+            "lineage_note": "seed (racing kimi-k2p6)"
+          },
+          "fitness": 0.375,
+          "per_case": [
+            {
+              "case_id": "is_palindrome#0",
+              "score": 1.0,
+              "output": true,
+              "error": null
+            },
+            {
+              "case_id": "is_palindrome#1",
+              "score": 1.0,
+              "output": false,
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#0",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#1",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#0",
+              "score": 1.0,
+              "output": "cba",
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#1",
+              "score": 1.0,
+              "output": "olleh",
+              "error": null
+            },
+            {
+              "case_id": "two_sum#0",
+              "score": 0.0,
+              "output": [],
+              "error": "expected [0, 1], got []"
+            },
+            {
+              "case_id": "two_sum#1",
+              "score": 0.0,
+              "output": [],
+              "error": "expected [1, 2], got []"
+            },
+            {
+              "case_id": "roman_to_int#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 3, got 0"
+            },
+            {
+              "case_id": "roman_to_int#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 1994, got 0"
+            },
+            {
+              "case_id": "flatten#0",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  3
+                ]
+              ],
+              "error": "expected [1, 2, 3], got [1, [2, 3]]"
+            },
+            {
+              "case_id": "flatten#1",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  [
+                    3,
+                    4
+                  ]
+                ]
+              ],
+              "error": "expected [1, 2, 3, 4], got [1, [2, [3, 4]]]"
+            },
+            {
+              "case_id": "count_vowels#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 2, got 0"
+            },
+            {
+              "case_id": "count_vowels#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 5, got 0"
+            },
+            {
+              "case_id": "fibonacci#0",
+              "score": 0.0,
+              "output": 7,
+              "error": "expected 13, got 7"
+            },
+            {
+              "case_id": "fibonacci#1",
+              "score": 0.0,
+              "output": 10,
+              "error": "expected 55, got 10"
+            }
+          ],
+          "raw_outputs": {
+            "is_palindrome": [
+              {
+                "got": true,
+                "error": null
+              },
+              {
+                "got": false,
+                "error": null
+              }
+            ],
+            "fizzbuzz": [
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz"
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz",
+                  "4",
+                  "Buzz"
+                ],
+                "error": null
+              }
+            ],
+            "reverse_string": [
+              {
+                "got": "cba",
+                "error": null
+              },
+              {
+                "got": "olleh",
+                "error": null
+              }
+            ],
+            "two_sum": [
+              {
+                "got": [],
+                "error": null
+              },
+              {
+                "got": [],
+                "error": null
+              }
+            ],
+            "roman_to_int": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "flatten": [
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    3
+                  ]
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    [
+                      3,
+                      4
+                    ]
+                  ]
+                ],
+                "error": null
+              }
+            ],
+            "count_vowels": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "fibonacci": [
+              {
+                "got": 7,
+                "error": null
+              },
+              {
+                "got": 10,
+                "error": null
+              }
+            ]
+          },
+          "cost_est": 0.0,
+          "p50_latency_ms": 0,
+          "braintrust_experiment_url": "https://www.braintrust.dev/app/Karthik/p/Darwin/experiments/coding_bench%2Fgen0%2Fg0-1-734efcac",
+          "sandbox_id": "8c399afa-3290-4fd9-b09e-6a9705cdf970",
+          "snapshot_id": "8c399afa-3290-4fd9-b09e-6a9705cdf970-snap-2",
+          "status": "evaluated",
+          "duration_ms": 11106
+        },
+        {
+          "genome": {
+            "genome_id": "g0-2",
+            "generation": 0,
+            "parent_ids": [],
+            "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+            "tools": {
+              "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+              "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+              "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+              "two_sum": "def two_sum(nums, target):\n    return []\n",
+              "roman_to_int": "def roman_to_int(s):\n    return 0\n",
+              "flatten": "def flatten(nested):\n    return nested\n",
+              "count_vowels": "def count_vowels(s):\n    return 0\n",
+              "fibonacci": "def fibonacci(n):\n    return n\n"
+            },
+            "params": {
+              "temperature": 0.7,
+              "max_steps": 1.0
+            },
+            "model": "accounts/fireworks/models/glm-5p1",
+            "lineage_note": "seed (racing glm-5p1)"
+          },
+          "fitness": 0.375,
+          "per_case": [
+            {
+              "case_id": "is_palindrome#0",
+              "score": 1.0,
+              "output": true,
+              "error": null
+            },
+            {
+              "case_id": "is_palindrome#1",
+              "score": 1.0,
+              "output": false,
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#0",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#1",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#0",
+              "score": 1.0,
+              "output": "cba",
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#1",
+              "score": 1.0,
+              "output": "olleh",
+              "error": null
+            },
+            {
+              "case_id": "two_sum#0",
+              "score": 0.0,
+              "output": [],
+              "error": "expected [0, 1], got []"
+            },
+            {
+              "case_id": "two_sum#1",
+              "score": 0.0,
+              "output": [],
+              "error": "expected [1, 2], got []"
+            },
+            {
+              "case_id": "roman_to_int#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 3, got 0"
+            },
+            {
+              "case_id": "roman_to_int#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 1994, got 0"
+            },
+            {
+              "case_id": "flatten#0",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  3
+                ]
+              ],
+              "error": "expected [1, 2, 3], got [1, [2, 3]]"
+            },
+            {
+              "case_id": "flatten#1",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  [
+                    3,
+                    4
+                  ]
+                ]
+              ],
+              "error": "expected [1, 2, 3, 4], got [1, [2, [3, 4]]]"
+            },
+            {
+              "case_id": "count_vowels#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 2, got 0"
+            },
+            {
+              "case_id": "count_vowels#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 5, got 0"
+            },
+            {
+              "case_id": "fibonacci#0",
+              "score": 0.0,
+              "output": 7,
+              "error": "expected 13, got 7"
+            },
+            {
+              "case_id": "fibonacci#1",
+              "score": 0.0,
+              "output": 10,
+              "error": "expected 55, got 10"
+            }
+          ],
+          "raw_outputs": {
+            "is_palindrome": [
+              {
+                "got": true,
+                "error": null
+              },
+              {
+                "got": false,
+                "error": null
+              }
+            ],
+            "fizzbuzz": [
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz"
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz",
+                  "4",
+                  "Buzz"
+                ],
+                "error": null
+              }
+            ],
+            "reverse_string": [
+              {
+                "got": "cba",
+                "error": null
+              },
+              {
+                "got": "olleh",
+                "error": null
+              }
+            ],
+            "two_sum": [
+              {
+                "got": [],
+                "error": null
+              },
+              {
+                "got": [],
+                "error": null
+              }
+            ],
+            "roman_to_int": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "flatten": [
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    3
+                  ]
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    [
+                      3,
+                      4
+                    ]
+                  ]
+                ],
+                "error": null
+              }
+            ],
+            "count_vowels": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "fibonacci": [
+              {
+                "got": 7,
+                "error": null
+              },
+              {
+                "got": 10,
+                "error": null
+              }
+            ]
+          },
+          "cost_est": 0.0,
+          "p50_latency_ms": 0,
+          "braintrust_experiment_url": "https://www.braintrust.dev/app/Karthik/p/Darwin/experiments/coding_bench%2Fgen0%2Fg0-2-bcf89e95",
+          "sandbox_id": "69fc0c46-3c8f-4e46-97be-028ecbf31f1d",
+          "snapshot_id": "69fc0c46-3c8f-4e46-97be-028ecbf31f1d-snap-3",
+          "status": "evaluated",
+          "duration_ms": 11192
+        },
+        {
+          "genome": {
+            "genome_id": "g0-3",
+            "generation": 0,
+            "parent_ids": [],
+            "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+            "tools": {
+              "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+              "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+              "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+              "two_sum": "def two_sum(nums, target):\n    return []\n",
+              "roman_to_int": "def roman_to_int(s):\n    return 0\n",
+              "flatten": "def flatten(nested):\n    return nested\n",
+              "count_vowels": "def count_vowels(s):\n    return 0\n",
+              "fibonacci": "def fibonacci(n):\n    return n\n"
+            },
+            "params": {
+              "temperature": 0.7,
+              "max_steps": 1.0
+            },
+            "model": "accounts/fireworks/models/glm-5p2",
+            "lineage_note": "seed (racing glm-5p2)"
+          },
+          "fitness": 0.375,
+          "per_case": [
+            {
+              "case_id": "is_palindrome#0",
+              "score": 1.0,
+              "output": true,
+              "error": null
+            },
+            {
+              "case_id": "is_palindrome#1",
+              "score": 1.0,
+              "output": false,
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#0",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#1",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#0",
+              "score": 1.0,
+              "output": "cba",
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#1",
+              "score": 1.0,
+              "output": "olleh",
+              "error": null
+            },
+            {
+              "case_id": "two_sum#0",
+              "score": 0.0,
+              "output": [],
+              "error": "expected [0, 1], got []"
+            },
+            {
+              "case_id": "two_sum#1",
+              "score": 0.0,
+              "output": [],
+              "error": "expected [1, 2], got []"
+            },
+            {
+              "case_id": "roman_to_int#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 3, got 0"
+            },
+            {
+              "case_id": "roman_to_int#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 1994, got 0"
+            },
+            {
+              "case_id": "flatten#0",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  3
+                ]
+              ],
+              "error": "expected [1, 2, 3], got [1, [2, 3]]"
+            },
+            {
+              "case_id": "flatten#1",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  [
+                    3,
+                    4
+                  ]
+                ]
+              ],
+              "error": "expected [1, 2, 3, 4], got [1, [2, [3, 4]]]"
+            },
+            {
+              "case_id": "count_vowels#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 2, got 0"
+            },
+            {
+              "case_id": "count_vowels#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 5, got 0"
+            },
+            {
+              "case_id": "fibonacci#0",
+              "score": 0.0,
+              "output": 7,
+              "error": "expected 13, got 7"
+            },
+            {
+              "case_id": "fibonacci#1",
+              "score": 0.0,
+              "output": 10,
+              "error": "expected 55, got 10"
+            }
+          ],
+          "raw_outputs": {
+            "is_palindrome": [
+              {
+                "got": true,
+                "error": null
+              },
+              {
+                "got": false,
+                "error": null
+              }
+            ],
+            "fizzbuzz": [
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz"
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz",
+                  "4",
+                  "Buzz"
+                ],
+                "error": null
+              }
+            ],
+            "reverse_string": [
+              {
+                "got": "cba",
+                "error": null
+              },
+              {
+                "got": "olleh",
+                "error": null
+              }
+            ],
+            "two_sum": [
+              {
+                "got": [],
+                "error": null
+              },
+              {
+                "got": [],
+                "error": null
+              }
+            ],
+            "roman_to_int": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "flatten": [
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    3
+                  ]
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    [
+                      3,
+                      4
+                    ]
+                  ]
+                ],
+                "error": null
+              }
+            ],
+            "count_vowels": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "fibonacci": [
+              {
+                "got": 7,
+                "error": null
+              },
+              {
+                "got": 10,
+                "error": null
+              }
+            ]
+          },
+          "cost_est": 0.0,
+          "p50_latency_ms": 0,
+          "braintrust_experiment_url": "https://www.braintrust.dev/app/Karthik/p/Darwin/experiments/coding_bench%2Fgen0%2Fg0-3",
+          "sandbox_id": "ff45be26-c943-4f10-9edc-b27eab25808c",
+          "snapshot_id": "ff45be26-c943-4f10-9edc-b27eab25808c-snap-4",
+          "status": "evaluated",
+          "duration_ms": 11105
+        },
+        {
+          "genome": {
+            "genome_id": "g0-4",
+            "generation": 0,
+            "parent_ids": [],
+            "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+            "tools": {
+              "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+              "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+              "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+              "two_sum": "def two_sum(nums, target):\n    return []\n",
+              "roman_to_int": "def roman_to_int(s):\n    return 0\n",
+              "flatten": "def flatten(nested):\n    return nested\n",
+              "count_vowels": "def count_vowels(s):\n    return 0\n",
+              "fibonacci": "def fibonacci(n):\n    return n\n"
+            },
+            "params": {
+              "temperature": 0.7,
+              "max_steps": 1.0
+            },
+            "model": "accounts/fireworks/models/deepseek-v4-pro",
+            "lineage_note": "seed (racing deepseek-v4-pro)"
+          },
+          "fitness": 0.375,
+          "per_case": [
+            {
+              "case_id": "is_palindrome#0",
+              "score": 1.0,
+              "output": true,
+              "error": null
+            },
+            {
+              "case_id": "is_palindrome#1",
+              "score": 1.0,
+              "output": false,
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#0",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#1",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#0",
+              "score": 1.0,
+              "output": "cba",
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#1",
+              "score": 1.0,
+              "output": "olleh",
+              "error": null
+            },
+            {
+              "case_id": "two_sum#0",
+              "score": 0.0,
+              "output": [],
+              "error": "expected [0, 1], got []"
+            },
+            {
+              "case_id": "two_sum#1",
+              "score": 0.0,
+              "output": [],
+              "error": "expected [1, 2], got []"
+            },
+            {
+              "case_id": "roman_to_int#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 3, got 0"
+            },
+            {
+              "case_id": "roman_to_int#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 1994, got 0"
+            },
+            {
+              "case_id": "flatten#0",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  3
+                ]
+              ],
+              "error": "expected [1, 2, 3], got [1, [2, 3]]"
+            },
+            {
+              "case_id": "flatten#1",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  [
+                    3,
+                    4
+                  ]
+                ]
+              ],
+              "error": "expected [1, 2, 3, 4], got [1, [2, [3, 4]]]"
+            },
+            {
+              "case_id": "count_vowels#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 2, got 0"
+            },
+            {
+              "case_id": "count_vowels#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 5, got 0"
+            },
+            {
+              "case_id": "fibonacci#0",
+              "score": 0.0,
+              "output": 7,
+              "error": "expected 13, got 7"
+            },
+            {
+              "case_id": "fibonacci#1",
+              "score": 0.0,
+              "output": 10,
+              "error": "expected 55, got 10"
+            }
+          ],
+          "raw_outputs": {
+            "is_palindrome": [
+              {
+                "got": true,
+                "error": null
+              },
+              {
+                "got": false,
+                "error": null
+              }
+            ],
+            "fizzbuzz": [
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz"
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz",
+                  "4",
+                  "Buzz"
+                ],
+                "error": null
+              }
+            ],
+            "reverse_string": [
+              {
+                "got": "cba",
+                "error": null
+              },
+              {
+                "got": "olleh",
+                "error": null
+              }
+            ],
+            "two_sum": [
+              {
+                "got": [],
+                "error": null
+              },
+              {
+                "got": [],
+                "error": null
+              }
+            ],
+            "roman_to_int": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "flatten": [
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    3
+                  ]
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    [
+                      3,
+                      4
+                    ]
+                  ]
+                ],
+                "error": null
+              }
+            ],
+            "count_vowels": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "fibonacci": [
+              {
+                "got": 7,
+                "error": null
+              },
+              {
+                "got": 10,
+                "error": null
+              }
+            ]
+          },
+          "cost_est": 0.0,
+          "p50_latency_ms": 0,
+          "braintrust_experiment_url": "https://www.braintrust.dev/app/Karthik/p/Darwin/experiments/coding_bench%2Fgen0%2Fg0-4",
+          "sandbox_id": "dc9351b0-d2fe-4346-9853-f024c363005a",
+          "snapshot_id": "dc9351b0-d2fe-4346-9853-f024c363005a-snap-5",
+          "status": "evaluated",
+          "duration_ms": 11719
+        },
+        {
+          "genome": {
+            "genome_id": "g0-5",
+            "generation": 0,
+            "parent_ids": [],
+            "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+            "tools": {
+              "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+              "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+              "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+              "two_sum": "def two_sum(nums, target):\n    return []\n",
+              "roman_to_int": "def roman_to_int(s):\n    return 0\n",
+              "flatten": "def flatten(nested):\n    return nested\n",
+              "count_vowels": "def count_vowels(s):\n    return 0\n",
+              "fibonacci": "def fibonacci(n):\n    return n\n"
+            },
+            "params": {
+              "temperature": 0.7,
+              "max_steps": 1.0
+            },
+            "model": "accounts/fireworks/models/gpt-oss-120b",
+            "lineage_note": "seed (racing gpt-oss-120b)"
+          },
+          "fitness": 0.375,
+          "per_case": [
+            {
+              "case_id": "is_palindrome#0",
+              "score": 1.0,
+              "output": true,
+              "error": null
+            },
+            {
+              "case_id": "is_palindrome#1",
+              "score": 1.0,
+              "output": false,
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#0",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#1",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#0",
+              "score": 1.0,
+              "output": "cba",
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#1",
+              "score": 1.0,
+              "output": "olleh",
+              "error": null
+            },
+            {
+              "case_id": "two_sum#0",
+              "score": 0.0,
+              "output": [],
+              "error": "expected [0, 1], got []"
+            },
+            {
+              "case_id": "two_sum#1",
+              "score": 0.0,
+              "output": [],
+              "error": "expected [1, 2], got []"
+            },
+            {
+              "case_id": "roman_to_int#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 3, got 0"
+            },
+            {
+              "case_id": "roman_to_int#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 1994, got 0"
+            },
+            {
+              "case_id": "flatten#0",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  3
+                ]
+              ],
+              "error": "expected [1, 2, 3], got [1, [2, 3]]"
+            },
+            {
+              "case_id": "flatten#1",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  [
+                    3,
+                    4
+                  ]
+                ]
+              ],
+              "error": "expected [1, 2, 3, 4], got [1, [2, [3, 4]]]"
+            },
+            {
+              "case_id": "count_vowels#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 2, got 0"
+            },
+            {
+              "case_id": "count_vowels#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 5, got 0"
+            },
+            {
+              "case_id": "fibonacci#0",
+              "score": 0.0,
+              "output": 7,
+              "error": "expected 13, got 7"
+            },
+            {
+              "case_id": "fibonacci#1",
+              "score": 0.0,
+              "output": 10,
+              "error": "expected 55, got 10"
+            }
+          ],
+          "raw_outputs": {
+            "is_palindrome": [
+              {
+                "got": true,
+                "error": null
+              },
+              {
+                "got": false,
+                "error": null
+              }
+            ],
+            "fizzbuzz": [
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz"
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz",
+                  "4",
+                  "Buzz"
+                ],
+                "error": null
+              }
+            ],
+            "reverse_string": [
+              {
+                "got": "cba",
+                "error": null
+              },
+              {
+                "got": "olleh",
+                "error": null
+              }
+            ],
+            "two_sum": [
+              {
+                "got": [],
+                "error": null
+              },
+              {
+                "got": [],
+                "error": null
+              }
+            ],
+            "roman_to_int": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "flatten": [
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    3
+                  ]
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    [
+                      3,
+                      4
+                    ]
+                  ]
+                ],
+                "error": null
+              }
+            ],
+            "count_vowels": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "fibonacci": [
+              {
+                "got": 7,
+                "error": null
+              },
+              {
+                "got": 10,
+                "error": null
+              }
+            ]
+          },
+          "cost_est": 0.0,
+          "p50_latency_ms": 0,
+          "braintrust_experiment_url": "https://www.braintrust.dev/app/Karthik/p/Darwin/experiments/coding_bench%2Fgen0%2Fg0-5",
+          "sandbox_id": "6e5728f6-5bb5-43d5-a089-89ae8bb10a65",
+          "snapshot_id": "6e5728f6-5bb5-43d5-a089-89ae8bb10a65-snap-6",
+          "status": "evaluated",
+          "duration_ms": 11714
+        },
+        {
+          "genome": {
+            "genome_id": "g0-6",
+            "generation": 0,
+            "parent_ids": [],
+            "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+            "tools": {
+              "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+              "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+              "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+              "two_sum": "def two_sum(nums, target):\n    return []\n",
+              "roman_to_int": "def roman_to_int(s):\n    return 0\n",
+              "flatten": "def flatten(nested):\n    return nested\n",
+              "count_vowels": "def count_vowels(s):\n    return 0\n",
+              "fibonacci": "def fibonacci(n):\n    return n\n"
+            },
+            "params": {
+              "temperature": 0.7,
+              "max_steps": 1.0
+            },
+            "model": "accounts/fireworks/models/kimi-k2p6",
+            "lineage_note": "seed (racing kimi-k2p6)"
+          },
+          "fitness": 0.375,
+          "per_case": [
+            {
+              "case_id": "is_palindrome#0",
+              "score": 1.0,
+              "output": true,
+              "error": null
+            },
+            {
+              "case_id": "is_palindrome#1",
+              "score": 1.0,
+              "output": false,
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#0",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#1",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#0",
+              "score": 1.0,
+              "output": "cba",
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#1",
+              "score": 1.0,
+              "output": "olleh",
+              "error": null
+            },
+            {
+              "case_id": "two_sum#0",
+              "score": 0.0,
+              "output": [],
+              "error": "expected [0, 1], got []"
+            },
+            {
+              "case_id": "two_sum#1",
+              "score": 0.0,
+              "output": [],
+              "error": "expected [1, 2], got []"
+            },
+            {
+              "case_id": "roman_to_int#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 3, got 0"
+            },
+            {
+              "case_id": "roman_to_int#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 1994, got 0"
+            },
+            {
+              "case_id": "flatten#0",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  3
+                ]
+              ],
+              "error": "expected [1, 2, 3], got [1, [2, 3]]"
+            },
+            {
+              "case_id": "flatten#1",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  [
+                    3,
+                    4
+                  ]
+                ]
+              ],
+              "error": "expected [1, 2, 3, 4], got [1, [2, [3, 4]]]"
+            },
+            {
+              "case_id": "count_vowels#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 2, got 0"
+            },
+            {
+              "case_id": "count_vowels#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 5, got 0"
+            },
+            {
+              "case_id": "fibonacci#0",
+              "score": 0.0,
+              "output": 7,
+              "error": "expected 13, got 7"
+            },
+            {
+              "case_id": "fibonacci#1",
+              "score": 0.0,
+              "output": 10,
+              "error": "expected 55, got 10"
+            }
+          ],
+          "raw_outputs": {
+            "is_palindrome": [
+              {
+                "got": true,
+                "error": null
+              },
+              {
+                "got": false,
+                "error": null
+              }
+            ],
+            "fizzbuzz": [
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz"
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz",
+                  "4",
+                  "Buzz"
+                ],
+                "error": null
+              }
+            ],
+            "reverse_string": [
+              {
+                "got": "cba",
+                "error": null
+              },
+              {
+                "got": "olleh",
+                "error": null
+              }
+            ],
+            "two_sum": [
+              {
+                "got": [],
+                "error": null
+              },
+              {
+                "got": [],
+                "error": null
+              }
+            ],
+            "roman_to_int": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "flatten": [
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    3
+                  ]
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    [
+                      3,
+                      4
+                    ]
+                  ]
+                ],
+                "error": null
+              }
+            ],
+            "count_vowels": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "fibonacci": [
+              {
+                "got": 7,
+                "error": null
+              },
+              {
+                "got": 10,
+                "error": null
+              }
+            ]
+          },
+          "cost_est": 0.0,
+          "p50_latency_ms": 0,
+          "braintrust_experiment_url": "https://www.braintrust.dev/app/Karthik/p/Darwin/experiments/coding_bench%2Fgen0%2Fg0-6",
+          "sandbox_id": "b6618d4f-54dd-4f98-917b-bf97a5f5fd7a",
+          "snapshot_id": "b6618d4f-54dd-4f98-917b-bf97a5f5fd7a-snap-7",
+          "status": "evaluated",
+          "duration_ms": 11903
+        },
+        {
+          "genome": {
+            "genome_id": "g0-7",
+            "generation": 0,
+            "parent_ids": [],
+            "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+            "tools": {
+              "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+              "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+              "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+              "two_sum": "def two_sum(nums, target):\n    return []\n",
+              "roman_to_int": "def roman_to_int(s):\n    return 0\n",
+              "flatten": "def flatten(nested):\n    return nested\n",
+              "count_vowels": "def count_vowels(s):\n    return 0\n",
+              "fibonacci": "def fibonacci(n):\n    return n\n"
+            },
+            "params": {
+              "temperature": 0.7,
+              "max_steps": 1.0
+            },
+            "model": "accounts/fireworks/models/glm-5p1",
+            "lineage_note": "seed (racing glm-5p1)"
+          },
+          "fitness": 0.375,
+          "per_case": [
+            {
+              "case_id": "is_palindrome#0",
+              "score": 1.0,
+              "output": true,
+              "error": null
+            },
+            {
+              "case_id": "is_palindrome#1",
+              "score": 1.0,
+              "output": false,
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#0",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#1",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#0",
+              "score": 1.0,
+              "output": "cba",
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#1",
+              "score": 1.0,
+              "output": "olleh",
+              "error": null
+            },
+            {
+              "case_id": "two_sum#0",
+              "score": 0.0,
+              "output": [],
+              "error": "expected [0, 1], got []"
+            },
+            {
+              "case_id": "two_sum#1",
+              "score": 0.0,
+              "output": [],
+              "error": "expected [1, 2], got []"
+            },
+            {
+              "case_id": "roman_to_int#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 3, got 0"
+            },
+            {
+              "case_id": "roman_to_int#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 1994, got 0"
+            },
+            {
+              "case_id": "flatten#0",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  3
+                ]
+              ],
+              "error": "expected [1, 2, 3], got [1, [2, 3]]"
+            },
+            {
+              "case_id": "flatten#1",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  [
+                    3,
+                    4
+                  ]
+                ]
+              ],
+              "error": "expected [1, 2, 3, 4], got [1, [2, [3, 4]]]"
+            },
+            {
+              "case_id": "count_vowels#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 2, got 0"
+            },
+            {
+              "case_id": "count_vowels#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 5, got 0"
+            },
+            {
+              "case_id": "fibonacci#0",
+              "score": 0.0,
+              "output": 7,
+              "error": "expected 13, got 7"
+            },
+            {
+              "case_id": "fibonacci#1",
+              "score": 0.0,
+              "output": 10,
+              "error": "expected 55, got 10"
+            }
+          ],
+          "raw_outputs": {
+            "is_palindrome": [
+              {
+                "got": true,
+                "error": null
+              },
+              {
+                "got": false,
+                "error": null
+              }
+            ],
+            "fizzbuzz": [
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz"
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz",
+                  "4",
+                  "Buzz"
+                ],
+                "error": null
+              }
+            ],
+            "reverse_string": [
+              {
+                "got": "cba",
+                "error": null
+              },
+              {
+                "got": "olleh",
+                "error": null
+              }
+            ],
+            "two_sum": [
+              {
+                "got": [],
+                "error": null
+              },
+              {
+                "got": [],
+                "error": null
+              }
+            ],
+            "roman_to_int": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "flatten": [
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    3
+                  ]
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    [
+                      3,
+                      4
+                    ]
+                  ]
+                ],
+                "error": null
+              }
+            ],
+            "count_vowels": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "fibonacci": [
+              {
+                "got": 7,
+                "error": null
+              },
+              {
+                "got": 10,
+                "error": null
+              }
+            ]
+          },
+          "cost_est": 0.0,
+          "p50_latency_ms": 0,
+          "braintrust_experiment_url": "https://www.braintrust.dev/app/Karthik/p/Darwin/experiments/coding_bench%2Fgen0%2Fg0-7",
+          "sandbox_id": "badbd14c-dc9d-42e5-a293-74a205bb967a",
+          "snapshot_id": "badbd14c-dc9d-42e5-a293-74a205bb967a-snap-8",
+          "status": "evaluated",
+          "duration_ms": 11858
+        }
+      ],
+      "best_fitness": 0.375,
+      "champion_id": "g0-3",
+      "started_at": 1784920520.0872278,
+      "ended_at": 1784920534.017453
+    },
+    {
+      "index": 1,
+      "variants": [
+        {
+          "genome": {
+            "genome_id": "g0-3",
+            "generation": 0,
+            "parent_ids": [],
+            "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+            "tools": {
+              "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+              "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+              "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+              "two_sum": "def two_sum(nums, target):\n    return []\n",
+              "roman_to_int": "def roman_to_int(s):\n    return 0\n",
+              "flatten": "def flatten(nested):\n    return nested\n",
+              "count_vowels": "def count_vowels(s):\n    return 0\n",
+              "fibonacci": "def fibonacci(n):\n    return n\n"
+            },
+            "params": {
+              "temperature": 0.7,
+              "max_steps": 1.0
+            },
+            "model": "accounts/fireworks/models/glm-5p2",
+            "lineage_note": "seed (racing glm-5p2)"
+          },
+          "fitness": 0.375,
+          "per_case": [
+            {
+              "case_id": "is_palindrome#0",
+              "score": 1.0,
+              "output": true,
+              "error": null
+            },
+            {
+              "case_id": "is_palindrome#1",
+              "score": 1.0,
+              "output": false,
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#0",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#1",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#0",
+              "score": 1.0,
+              "output": "cba",
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#1",
+              "score": 1.0,
+              "output": "olleh",
+              "error": null
+            },
+            {
+              "case_id": "two_sum#0",
+              "score": 0.0,
+              "output": [],
+              "error": "expected [0, 1], got []"
+            },
+            {
+              "case_id": "two_sum#1",
+              "score": 0.0,
+              "output": [],
+              "error": "expected [1, 2], got []"
+            },
+            {
+              "case_id": "roman_to_int#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 3, got 0"
+            },
+            {
+              "case_id": "roman_to_int#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 1994, got 0"
+            },
+            {
+              "case_id": "flatten#0",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  3
+                ]
+              ],
+              "error": "expected [1, 2, 3], got [1, [2, 3]]"
+            },
+            {
+              "case_id": "flatten#1",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  [
+                    3,
+                    4
+                  ]
+                ]
+              ],
+              "error": "expected [1, 2, 3, 4], got [1, [2, [3, 4]]]"
+            },
+            {
+              "case_id": "count_vowels#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 2, got 0"
+            },
+            {
+              "case_id": "count_vowels#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 5, got 0"
+            },
+            {
+              "case_id": "fibonacci#0",
+              "score": 0.0,
+              "output": 7,
+              "error": "expected 13, got 7"
+            },
+            {
+              "case_id": "fibonacci#1",
+              "score": 0.0,
+              "output": 10,
+              "error": "expected 55, got 10"
+            }
+          ],
+          "raw_outputs": {
+            "is_palindrome": [
+              {
+                "got": true,
+                "error": null
+              },
+              {
+                "got": false,
+                "error": null
+              }
+            ],
+            "fizzbuzz": [
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz"
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz",
+                  "4",
+                  "Buzz"
+                ],
+                "error": null
+              }
+            ],
+            "reverse_string": [
+              {
+                "got": "cba",
+                "error": null
+              },
+              {
+                "got": "olleh",
+                "error": null
+              }
+            ],
+            "two_sum": [
+              {
+                "got": [],
+                "error": null
+              },
+              {
+                "got": [],
+                "error": null
+              }
+            ],
+            "roman_to_int": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "flatten": [
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    3
+                  ]
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    [
+                      3,
+                      4
+                    ]
+                  ]
+                ],
+                "error": null
+              }
+            ],
+            "count_vowels": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "fibonacci": [
+              {
+                "got": 7,
+                "error": null
+              },
+              {
+                "got": 10,
+                "error": null
+              }
+            ]
+          },
+          "cost_est": 0.0,
+          "p50_latency_ms": 0,
+          "braintrust_experiment_url": "https://www.braintrust.dev/app/Karthik/p/Darwin/experiments/coding_bench%2Fgen1%2Fg0-3",
+          "sandbox_id": "1180db8b-f0f1-420c-bb62-8041c8b02227",
+          "snapshot_id": "1180db8b-f0f1-420c-bb62-8041c8b02227-snap-9",
+          "status": "evaluated",
+          "duration_ms": 10023
+        },
+        {
+          "genome": {
+            "genome_id": "g0-1",
+            "generation": 0,
+            "parent_ids": [],
+            "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+            "tools": {
+              "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+              "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+              "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+              "two_sum": "def two_sum(nums, target):\n    return []\n",
+              "roman_to_int": "def roman_to_int(s):\n    return 0\n",
+              "flatten": "def flatten(nested):\n    return nested\n",
+              "count_vowels": "def count_vowels(s):\n    return 0\n",
+              "fibonacci": "def fibonacci(n):\n    return n\n"
+            },
+            "params": {
+              "temperature": 0.7,
+              "max_steps": 1.0
+            },
+            "model": "accounts/fireworks/models/kimi-k2p6",
+            "lineage_note": "seed (racing kimi-k2p6)"
+          },
+          "fitness": 0.375,
+          "per_case": [
+            {
+              "case_id": "is_palindrome#0",
+              "score": 1.0,
+              "output": true,
+              "error": null
+            },
+            {
+              "case_id": "is_palindrome#1",
+              "score": 1.0,
+              "output": false,
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#0",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#1",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#0",
+              "score": 1.0,
+              "output": "cba",
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#1",
+              "score": 1.0,
+              "output": "olleh",
+              "error": null
+            },
+            {
+              "case_id": "two_sum#0",
+              "score": 0.0,
+              "output": [],
+              "error": "expected [0, 1], got []"
+            },
+            {
+              "case_id": "two_sum#1",
+              "score": 0.0,
+              "output": [],
+              "error": "expected [1, 2], got []"
+            },
+            {
+              "case_id": "roman_to_int#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 3, got 0"
+            },
+            {
+              "case_id": "roman_to_int#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 1994, got 0"
+            },
+            {
+              "case_id": "flatten#0",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  3
+                ]
+              ],
+              "error": "expected [1, 2, 3], got [1, [2, 3]]"
+            },
+            {
+              "case_id": "flatten#1",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  [
+                    3,
+                    4
+                  ]
+                ]
+              ],
+              "error": "expected [1, 2, 3, 4], got [1, [2, [3, 4]]]"
+            },
+            {
+              "case_id": "count_vowels#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 2, got 0"
+            },
+            {
+              "case_id": "count_vowels#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 5, got 0"
+            },
+            {
+              "case_id": "fibonacci#0",
+              "score": 0.0,
+              "output": 7,
+              "error": "expected 13, got 7"
+            },
+            {
+              "case_id": "fibonacci#1",
+              "score": 0.0,
+              "output": 10,
+              "error": "expected 55, got 10"
+            }
+          ],
+          "raw_outputs": {
+            "is_palindrome": [
+              {
+                "got": true,
+                "error": null
+              },
+              {
+                "got": false,
+                "error": null
+              }
+            ],
+            "fizzbuzz": [
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz"
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz",
+                  "4",
+                  "Buzz"
+                ],
+                "error": null
+              }
+            ],
+            "reverse_string": [
+              {
+                "got": "cba",
+                "error": null
+              },
+              {
+                "got": "olleh",
+                "error": null
+              }
+            ],
+            "two_sum": [
+              {
+                "got": [],
+                "error": null
+              },
+              {
+                "got": [],
+                "error": null
+              }
+            ],
+            "roman_to_int": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "flatten": [
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    3
+                  ]
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    [
+                      3,
+                      4
+                    ]
+                  ]
+                ],
+                "error": null
+              }
+            ],
+            "count_vowels": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "fibonacci": [
+              {
+                "got": 7,
+                "error": null
+              },
+              {
+                "got": 10,
+                "error": null
+              }
+            ]
+          },
+          "cost_est": 0.0,
+          "p50_latency_ms": 0,
+          "braintrust_experiment_url": "https://www.braintrust.dev/app/Karthik/p/Darwin/experiments/coding_bench%2Fgen1%2Fg0-1-c0c3c343",
+          "sandbox_id": "8c399afa-3290-4fd9-b09e-6a9705cdf970",
+          "snapshot_id": "8c399afa-3290-4fd9-b09e-6a9705cdf970-snap-10",
+          "status": "evaluated",
+          "duration_ms": 11725
+        },
+        {
+          "genome": {
+            "genome_id": "g1-1",
+            "generation": 1,
+            "parent_ids": [
+              "g0-3"
+            ],
+            "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+            "tools": {
+              "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+              "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+              "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+              "two_sum": "def two_sum(nums, target):\n    seen = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in seen:\n            return [seen[complement], i]\n        seen[num] = i\n    return []\n",
+              "roman_to_int": "def roman_to_int(s):\n    return 0\n",
+              "flatten": "def flatten(nested):\n    return nested\n",
+              "count_vowels": "def count_vowels(s):\n    return 0\n",
+              "fibonacci": "def fibonacci(n):\n    return n\n"
+            },
+            "params": {
+              "temperature": 0.7,
+              "max_steps": 1.0
+            },
+            "model": "accounts/fireworks/models/glm-5p2",
+            "lineage_note": "Implemented two_sum using a hash map for O(n) complement lookup; replaces empty stub that returned []."
+          },
+          "fitness": 0.5,
+          "per_case": [
+            {
+              "case_id": "is_palindrome#0",
+              "score": 1.0,
+              "output": true,
+              "error": null
+            },
+            {
+              "case_id": "is_palindrome#1",
+              "score": 1.0,
+              "output": false,
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#0",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#1",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#0",
+              "score": 1.0,
+              "output": "cba",
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#1",
+              "score": 1.0,
+              "output": "olleh",
+              "error": null
+            },
+            {
+              "case_id": "two_sum#0",
+              "score": 1.0,
+              "output": [
+                0,
+                1
+              ],
+              "error": null
+            },
+            {
+              "case_id": "two_sum#1",
+              "score": 1.0,
+              "output": [
+                1,
+                2
+              ],
+              "error": null
+            },
+            {
+              "case_id": "roman_to_int#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 3, got 0"
+            },
+            {
+              "case_id": "roman_to_int#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 1994, got 0"
+            },
+            {
+              "case_id": "flatten#0",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  3
+                ]
+              ],
+              "error": "expected [1, 2, 3], got [1, [2, 3]]"
+            },
+            {
+              "case_id": "flatten#1",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  [
+                    3,
+                    4
+                  ]
+                ]
+              ],
+              "error": "expected [1, 2, 3, 4], got [1, [2, [3, 4]]]"
+            },
+            {
+              "case_id": "count_vowels#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 2, got 0"
+            },
+            {
+              "case_id": "count_vowels#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 5, got 0"
+            },
+            {
+              "case_id": "fibonacci#0",
+              "score": 0.0,
+              "output": 7,
+              "error": "expected 13, got 7"
+            },
+            {
+              "case_id": "fibonacci#1",
+              "score": 0.0,
+              "output": 10,
+              "error": "expected 55, got 10"
+            }
+          ],
+          "raw_outputs": {
+            "is_palindrome": [
+              {
+                "got": true,
+                "error": null
+              },
+              {
+                "got": false,
+                "error": null
+              }
+            ],
+            "fizzbuzz": [
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz"
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz",
+                  "4",
+                  "Buzz"
+                ],
+                "error": null
+              }
+            ],
+            "reverse_string": [
+              {
+                "got": "cba",
+                "error": null
+              },
+              {
+                "got": "olleh",
+                "error": null
+              }
+            ],
+            "two_sum": [
+              {
+                "got": [
+                  0,
+                  1
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  2
+                ],
+                "error": null
+              }
+            ],
+            "roman_to_int": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "flatten": [
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    3
+                  ]
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    [
+                      3,
+                      4
+                    ]
+                  ]
+                ],
+                "error": null
+              }
+            ],
+            "count_vowels": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "fibonacci": [
+              {
+                "got": 7,
+                "error": null
+              },
+              {
+                "got": 10,
+                "error": null
+              }
+            ]
+          },
+          "cost_est": 0.002956,
+          "p50_latency_ms": 15895,
+          "braintrust_experiment_url": "https://www.braintrust.dev/app/Karthik/p/Darwin/experiments/coding_bench%2Fgen1%2Fg1-1-dd990ba9",
+          "sandbox_id": "69fc0c46-3c8f-4e46-97be-028ecbf31f1d",
+          "snapshot_id": "69fc0c46-3c8f-4e46-97be-028ecbf31f1d-snap-11",
+          "status": "evaluated",
+          "duration_ms": 11196
+        },
+        {
+          "genome": {
+            "genome_id": "g1-2",
+            "generation": 1,
+            "parent_ids": [
+              "g0-1"
+            ],
+            "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+            "tools": {
+              "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+              "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+              "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+              "two_sum": "def two_sum(nums, target):\n    return []\n",
+              "roman_to_int": "def roman_to_int(s):\n    return 0\n",
+              "flatten": "def flatten(nested):\n    result = []\n    for item in nested:\n        if isinstance(item, list):\n            result.extend(flatten(item))\n        else:\n            result.append(item)\n    return result",
+              "count_vowels": "def count_vowels(s):\n    return 0\n",
+              "fibonacci": "def fibonacci(n):\n    return n\n"
+            },
+            "params": {
+              "temperature": 0.7,
+              "max_steps": 1.0
+            },
+            "model": "accounts/fireworks/models/kimi-k2p6",
+            "lineage_note": "Implemented recursive deep-flatten to fix nested list failures."
+          },
+          "fitness": 0.5,
+          "per_case": [
+            {
+              "case_id": "is_palindrome#0",
+              "score": 1.0,
+              "output": true,
+              "error": null
+            },
+            {
+              "case_id": "is_palindrome#1",
+              "score": 1.0,
+              "output": false,
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#0",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#1",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#0",
+              "score": 1.0,
+              "output": "cba",
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#1",
+              "score": 1.0,
+              "output": "olleh",
+              "error": null
+            },
+            {
+              "case_id": "two_sum#0",
+              "score": 0.0,
+              "output": [],
+              "error": "expected [0, 1], got []"
+            },
+            {
+              "case_id": "two_sum#1",
+              "score": 0.0,
+              "output": [],
+              "error": "expected [1, 2], got []"
+            },
+            {
+              "case_id": "roman_to_int#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 3, got 0"
+            },
+            {
+              "case_id": "roman_to_int#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 1994, got 0"
+            },
+            {
+              "case_id": "flatten#0",
+              "score": 1.0,
+              "output": [
+                1,
+                2,
+                3
+              ],
+              "error": null
+            },
+            {
+              "case_id": "flatten#1",
+              "score": 1.0,
+              "output": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "error": null
+            },
+            {
+              "case_id": "count_vowels#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 2, got 0"
+            },
+            {
+              "case_id": "count_vowels#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 5, got 0"
+            },
+            {
+              "case_id": "fibonacci#0",
+              "score": 0.0,
+              "output": 7,
+              "error": "expected 13, got 7"
+            },
+            {
+              "case_id": "fibonacci#1",
+              "score": 0.0,
+              "output": 10,
+              "error": "expected 55, got 10"
+            }
+          ],
+          "raw_outputs": {
+            "is_palindrome": [
+              {
+                "got": true,
+                "error": null
+              },
+              {
+                "got": false,
+                "error": null
+              }
+            ],
+            "fizzbuzz": [
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz"
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz",
+                  "4",
+                  "Buzz"
+                ],
+                "error": null
+              }
+            ],
+            "reverse_string": [
+              {
+                "got": "cba",
+                "error": null
+              },
+              {
+                "got": "olleh",
+                "error": null
+              }
+            ],
+            "two_sum": [
+              {
+                "got": [],
+                "error": null
+              },
+              {
+                "got": [],
+                "error": null
+              }
+            ],
+            "roman_to_int": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "flatten": [
+              {
+                "got": [
+                  1,
+                  2,
+                  3
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "error": null
+              }
+            ],
+            "count_vowels": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "fibonacci": [
+              {
+                "got": 7,
+                "error": null
+              },
+              {
+                "got": 10,
+                "error": null
+              }
+            ]
+          },
+          "cost_est": 0.004252,
+          "p50_latency_ms": 16778,
+          "braintrust_experiment_url": "https://www.braintrust.dev/app/Karthik/p/Darwin/experiments/coding_bench%2Fgen1%2Fg1-2",
+          "sandbox_id": "ff45be26-c943-4f10-9edc-b27eab25808c",
+          "snapshot_id": "ff45be26-c943-4f10-9edc-b27eab25808c-snap-12",
+          "status": "evaluated",
+          "duration_ms": 10132
+        },
+        {
+          "genome": {
+            "genome_id": "g1-3",
+            "generation": 1,
+            "parent_ids": [
+              "g0-3"
+            ],
+            "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+            "tools": {
+              "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+              "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+              "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+              "two_sum": "def two_sum(nums, target):\n    seen = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in seen:\n            return [seen[complement], i]\n        seen[num] = i\n    return []\n",
+              "roman_to_int": "def roman_to_int(s):\n    return 0\n",
+              "flatten": "def flatten(nested):\n    return nested\n",
+              "count_vowels": "def count_vowels(s):\n    return 0\n",
+              "fibonacci": "def fibonacci(n):\n    return n\n"
+            },
+            "params": {
+              "temperature": 0.7,
+              "max_steps": 1.0
+            },
+            "model": "accounts/fireworks/models/glm-5p2",
+            "lineage_note": "Implemented two_sum with a hash-map single-pass lookup so it returns the correct pair of indices."
+          },
+          "fitness": 0.5,
+          "per_case": [
+            {
+              "case_id": "is_palindrome#0",
+              "score": 1.0,
+              "output": true,
+              "error": null
+            },
+            {
+              "case_id": "is_palindrome#1",
+              "score": 1.0,
+              "output": false,
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#0",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#1",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#0",
+              "score": 1.0,
+              "output": "cba",
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#1",
+              "score": 1.0,
+              "output": "olleh",
+              "error": null
+            },
+            {
+              "case_id": "two_sum#0",
+              "score": 1.0,
+              "output": [
+                0,
+                1
+              ],
+              "error": null
+            },
+            {
+              "case_id": "two_sum#1",
+              "score": 1.0,
+              "output": [
+                1,
+                2
+              ],
+              "error": null
+            },
+            {
+              "case_id": "roman_to_int#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 3, got 0"
+            },
+            {
+              "case_id": "roman_to_int#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 1994, got 0"
+            },
+            {
+              "case_id": "flatten#0",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  3
+                ]
+              ],
+              "error": "expected [1, 2, 3], got [1, [2, 3]]"
+            },
+            {
+              "case_id": "flatten#1",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  [
+                    3,
+                    4
+                  ]
+                ]
+              ],
+              "error": "expected [1, 2, 3, 4], got [1, [2, [3, 4]]]"
+            },
+            {
+              "case_id": "count_vowels#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 2, got 0"
+            },
+            {
+              "case_id": "count_vowels#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 5, got 0"
+            },
+            {
+              "case_id": "fibonacci#0",
+              "score": 0.0,
+              "output": 7,
+              "error": "expected 13, got 7"
+            },
+            {
+              "case_id": "fibonacci#1",
+              "score": 0.0,
+              "output": 10,
+              "error": "expected 55, got 10"
+            }
+          ],
+          "raw_outputs": {
+            "is_palindrome": [
+              {
+                "got": true,
+                "error": null
+              },
+              {
+                "got": false,
+                "error": null
+              }
+            ],
+            "fizzbuzz": [
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz"
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz",
+                  "4",
+                  "Buzz"
+                ],
+                "error": null
+              }
+            ],
+            "reverse_string": [
+              {
+                "got": "cba",
+                "error": null
+              },
+              {
+                "got": "olleh",
+                "error": null
+              }
+            ],
+            "two_sum": [
+              {
+                "got": [
+                  0,
+                  1
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  2
+                ],
+                "error": null
+              }
+            ],
+            "roman_to_int": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "flatten": [
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    3
+                  ]
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    [
+                      3,
+                      4
+                    ]
+                  ]
+                ],
+                "error": null
+              }
+            ],
+            "count_vowels": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "fibonacci": [
+              {
+                "got": 7,
+                "error": null
+              },
+              {
+                "got": 10,
+                "error": null
+              }
+            ]
+          },
+          "cost_est": 0.003422,
+          "p50_latency_ms": 11117,
+          "braintrust_experiment_url": "https://www.braintrust.dev/app/Karthik/p/Darwin/experiments/coding_bench%2Fgen1%2Fg1-3",
+          "sandbox_id": "dc9351b0-d2fe-4346-9853-f024c363005a",
+          "snapshot_id": "dc9351b0-d2fe-4346-9853-f024c363005a-snap-13",
+          "status": "evaluated",
+          "duration_ms": 15465
+        },
+        {
+          "genome": {
+            "genome_id": "g1-4",
+            "generation": 1,
+            "parent_ids": [
+              "g0-1"
+            ],
+            "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+            "tools": {
+              "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+              "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+              "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+              "two_sum": "def two_sum(nums, target):\n    seen = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in seen:\n            return [seen[complement], i]\n        seen[num] = i\n    return []",
+              "roman_to_int": "def roman_to_int(s):\n    return 0\n",
+              "flatten": "def flatten(nested):\n    return nested\n",
+              "count_vowels": "def count_vowels(s):\n    return 0\n",
+              "fibonacci": "def fibonacci(n):\n    return n\n"
+            },
+            "params": {
+              "temperature": 0.7,
+              "max_steps": 1.0
+            },
+            "model": "accounts/fireworks/models/kimi-k2p6",
+            "lineage_note": "Implemented hash-map two-sum to pass the failing index-pair tests."
+          },
+          "fitness": 0.5,
+          "per_case": [
+            {
+              "case_id": "is_palindrome#0",
+              "score": 1.0,
+              "output": true,
+              "error": null
+            },
+            {
+              "case_id": "is_palindrome#1",
+              "score": 1.0,
+              "output": false,
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#0",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#1",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#0",
+              "score": 1.0,
+              "output": "cba",
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#1",
+              "score": 1.0,
+              "output": "olleh",
+              "error": null
+            },
+            {
+              "case_id": "two_sum#0",
+              "score": 1.0,
+              "output": [
+                0,
+                1
+              ],
+              "error": null
+            },
+            {
+              "case_id": "two_sum#1",
+              "score": 1.0,
+              "output": [
+                1,
+                2
+              ],
+              "error": null
+            },
+            {
+              "case_id": "roman_to_int#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 3, got 0"
+            },
+            {
+              "case_id": "roman_to_int#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 1994, got 0"
+            },
+            {
+              "case_id": "flatten#0",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  3
+                ]
+              ],
+              "error": "expected [1, 2, 3], got [1, [2, 3]]"
+            },
+            {
+              "case_id": "flatten#1",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  [
+                    3,
+                    4
+                  ]
+                ]
+              ],
+              "error": "expected [1, 2, 3, 4], got [1, [2, [3, 4]]]"
+            },
+            {
+              "case_id": "count_vowels#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 2, got 0"
+            },
+            {
+              "case_id": "count_vowels#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 5, got 0"
+            },
+            {
+              "case_id": "fibonacci#0",
+              "score": 0.0,
+              "output": 7,
+              "error": "expected 13, got 7"
+            },
+            {
+              "case_id": "fibonacci#1",
+              "score": 0.0,
+              "output": 10,
+              "error": "expected 55, got 10"
+            }
+          ],
+          "raw_outputs": {
+            "is_palindrome": [
+              {
+                "got": true,
+                "error": null
+              },
+              {
+                "got": false,
+                "error": null
+              }
+            ],
+            "fizzbuzz": [
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz"
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz",
+                  "4",
+                  "Buzz"
+                ],
+                "error": null
+              }
+            ],
+            "reverse_string": [
+              {
+                "got": "cba",
+                "error": null
+              },
+              {
+                "got": "olleh",
+                "error": null
+              }
+            ],
+            "two_sum": [
+              {
+                "got": [
+                  0,
+                  1
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  2
+                ],
+                "error": null
+              }
+            ],
+            "roman_to_int": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "flatten": [
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    3
+                  ]
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    [
+                      3,
+                      4
+                    ]
+                  ]
+                ],
+                "error": null
+              }
+            ],
+            "count_vowels": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "fibonacci": [
+              {
+                "got": 7,
+                "error": null
+              },
+              {
+                "got": 10,
+                "error": null
+              }
+            ]
+          },
+          "cost_est": 0.00312,
+          "p50_latency_ms": 14136,
+          "braintrust_experiment_url": "https://www.braintrust.dev/app/Karthik/p/Darwin/experiments/coding_bench%2Fgen1%2Fg1-4",
+          "sandbox_id": "6e5728f6-5bb5-43d5-a089-89ae8bb10a65",
+          "snapshot_id": "6e5728f6-5bb5-43d5-a089-89ae8bb10a65-snap-14",
+          "status": "evaluated",
+          "duration_ms": 16839
+        },
+        {
+          "genome": {
+            "genome_id": "g1-5",
+            "generation": 1,
+            "parent_ids": [
+              "g0-3"
+            ],
+            "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+            "tools": {
+              "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+              "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+              "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+              "two_sum": "def two_sum(nums, target):\n    seen = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in seen:\n            return [seen[complement], i]\n        seen[num] = i\n    return []\n",
+              "roman_to_int": "def roman_to_int(s):\n    return 0\n",
+              "flatten": "def flatten(nested):\n    return nested\n",
+              "count_vowels": "def count_vowels(s):\n    return 0\n",
+              "fibonacci": "def fibonacci(n):\n    return n\n"
+            },
+            "params": {
+              "temperature": 0.7,
+              "max_steps": 1.0
+            },
+            "model": "accounts/fireworks/models/glm-5p2",
+            "lineage_note": "Implemented two_sum with a hash-map single-pass lookup so it returns the correct pair of indices."
+          },
+          "fitness": 0.5,
+          "per_case": [
+            {
+              "case_id": "is_palindrome#0",
+              "score": 1.0,
+              "output": true,
+              "error": null
+            },
+            {
+              "case_id": "is_palindrome#1",
+              "score": 1.0,
+              "output": false,
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#0",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#1",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#0",
+              "score": 1.0,
+              "output": "cba",
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#1",
+              "score": 1.0,
+              "output": "olleh",
+              "error": null
+            },
+            {
+              "case_id": "two_sum#0",
+              "score": 1.0,
+              "output": [
+                0,
+                1
+              ],
+              "error": null
+            },
+            {
+              "case_id": "two_sum#1",
+              "score": 1.0,
+              "output": [
+                1,
+                2
+              ],
+              "error": null
+            },
+            {
+              "case_id": "roman_to_int#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 3, got 0"
+            },
+            {
+              "case_id": "roman_to_int#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 1994, got 0"
+            },
+            {
+              "case_id": "flatten#0",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  3
+                ]
+              ],
+              "error": "expected [1, 2, 3], got [1, [2, 3]]"
+            },
+            {
+              "case_id": "flatten#1",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  [
+                    3,
+                    4
+                  ]
+                ]
+              ],
+              "error": "expected [1, 2, 3, 4], got [1, [2, [3, 4]]]"
+            },
+            {
+              "case_id": "count_vowels#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 2, got 0"
+            },
+            {
+              "case_id": "count_vowels#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 5, got 0"
+            },
+            {
+              "case_id": "fibonacci#0",
+              "score": 0.0,
+              "output": 7,
+              "error": "expected 13, got 7"
+            },
+            {
+              "case_id": "fibonacci#1",
+              "score": 0.0,
+              "output": 10,
+              "error": "expected 55, got 10"
+            }
+          ],
+          "raw_outputs": {
+            "is_palindrome": [
+              {
+                "got": true,
+                "error": null
+              },
+              {
+                "got": false,
+                "error": null
+              }
+            ],
+            "fizzbuzz": [
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz"
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz",
+                  "4",
+                  "Buzz"
+                ],
+                "error": null
+              }
+            ],
+            "reverse_string": [
+              {
+                "got": "cba",
+                "error": null
+              },
+              {
+                "got": "olleh",
+                "error": null
+              }
+            ],
+            "two_sum": [
+              {
+                "got": [
+                  0,
+                  1
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  2
+                ],
+                "error": null
+              }
+            ],
+            "roman_to_int": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "flatten": [
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    3
+                  ]
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    [
+                      3,
+                      4
+                    ]
+                  ]
+                ],
+                "error": null
+              }
+            ],
+            "count_vowels": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "fibonacci": [
+              {
+                "got": 7,
+                "error": null
+              },
+              {
+                "got": 10,
+                "error": null
+              }
+            ]
+          },
+          "cost_est": 0.00417,
+          "p50_latency_ms": 10070,
+          "braintrust_experiment_url": "https://www.braintrust.dev/app/Karthik/p/Darwin/experiments/coding_bench%2Fgen1%2Fg1-5",
+          "sandbox_id": "b6618d4f-54dd-4f98-917b-bf97a5f5fd7a",
+          "snapshot_id": "b6618d4f-54dd-4f98-917b-bf97a5f5fd7a-snap-15",
+          "status": "evaluated",
+          "duration_ms": 11194
+        },
+        {
+          "genome": {
+            "genome_id": "g1-6",
+            "generation": 1,
+            "parent_ids": [
+              "g0-1"
+            ],
+            "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+            "tools": {
+              "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+              "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+              "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+              "two_sum": "def two_sum(nums, target):\n    seen = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in seen:\n            return [seen[complement], i]\n        seen[num] = i\n    return []\n",
+              "roman_to_int": "def roman_to_int(s):\n    return 0\n",
+              "flatten": "def flatten(nested):\n    return nested\n",
+              "count_vowels": "def count_vowels(s):\n    return 0\n",
+              "fibonacci": "def fibonacci(n):\n    return n\n"
+            },
+            "params": {
+              "temperature": 0.7,
+              "max_steps": 1.0
+            },
+            "model": "accounts/fireworks/models/kimi-k2p6",
+            "lineage_note": "Implemented hash-map based two_sum to return correct indices instead of empty list."
+          },
+          "fitness": 0.5,
+          "per_case": [
+            {
+              "case_id": "is_palindrome#0",
+              "score": 1.0,
+              "output": true,
+              "error": null
+            },
+            {
+              "case_id": "is_palindrome#1",
+              "score": 1.0,
+              "output": false,
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#0",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#1",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#0",
+              "score": 1.0,
+              "output": "cba",
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#1",
+              "score": 1.0,
+              "output": "olleh",
+              "error": null
+            },
+            {
+              "case_id": "two_sum#0",
+              "score": 1.0,
+              "output": [
+                0,
+                1
+              ],
+              "error": null
+            },
+            {
+              "case_id": "two_sum#1",
+              "score": 1.0,
+              "output": [
+                1,
+                2
+              ],
+              "error": null
+            },
+            {
+              "case_id": "roman_to_int#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 3, got 0"
+            },
+            {
+              "case_id": "roman_to_int#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 1994, got 0"
+            },
+            {
+              "case_id": "flatten#0",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  3
+                ]
+              ],
+              "error": "expected [1, 2, 3], got [1, [2, 3]]"
+            },
+            {
+              "case_id": "flatten#1",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  [
+                    3,
+                    4
+                  ]
+                ]
+              ],
+              "error": "expected [1, 2, 3, 4], got [1, [2, [3, 4]]]"
+            },
+            {
+              "case_id": "count_vowels#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 2, got 0"
+            },
+            {
+              "case_id": "count_vowels#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 5, got 0"
+            },
+            {
+              "case_id": "fibonacci#0",
+              "score": 0.0,
+              "output": 7,
+              "error": "expected 13, got 7"
+            },
+            {
+              "case_id": "fibonacci#1",
+              "score": 0.0,
+              "output": 10,
+              "error": "expected 55, got 10"
+            }
+          ],
+          "raw_outputs": {
+            "is_palindrome": [
+              {
+                "got": true,
+                "error": null
+              },
+              {
+                "got": false,
+                "error": null
+              }
+            ],
+            "fizzbuzz": [
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz"
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz",
+                  "4",
+                  "Buzz"
+                ],
+                "error": null
+              }
+            ],
+            "reverse_string": [
+              {
+                "got": "cba",
+                "error": null
+              },
+              {
+                "got": "olleh",
+                "error": null
+              }
+            ],
+            "two_sum": [
+              {
+                "got": [
+                  0,
+                  1
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  2
+                ],
+                "error": null
+              }
+            ],
+            "roman_to_int": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "flatten": [
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    3
+                  ]
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    [
+                      3,
+                      4
+                    ]
+                  ]
+                ],
+                "error": null
+              }
+            ],
+            "count_vowels": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "fibonacci": [
+              {
+                "got": 7,
+                "error": null
+              },
+              {
+                "got": 10,
+                "error": null
+              }
+            ]
+          },
+          "cost_est": 0.002428,
+          "p50_latency_ms": 9749,
+          "braintrust_experiment_url": "https://www.braintrust.dev/app/Karthik/p/Darwin/experiments/coding_bench%2Fgen1%2Fg1-6",
+          "sandbox_id": "badbd14c-dc9d-42e5-a293-74a205bb967a",
+          "snapshot_id": "badbd14c-dc9d-42e5-a293-74a205bb967a-snap-16",
+          "status": "evaluated",
+          "duration_ms": 12283
+        }
+      ],
+      "best_fitness": 0.5,
+      "champion_id": "g1-2",
+      "started_at": 1784920611.768275,
+      "ended_at": 1784920628.6135921
+    },
+    {
+      "index": 2,
+      "variants": [
+        {
+          "genome": {
+            "genome_id": "g1-2",
+            "generation": 1,
+            "parent_ids": [
+              "g0-1"
+            ],
+            "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+            "tools": {
+              "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+              "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+              "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+              "two_sum": "def two_sum(nums, target):\n    return []\n",
+              "roman_to_int": "def roman_to_int(s):\n    return 0\n",
+              "flatten": "def flatten(nested):\n    result = []\n    for item in nested:\n        if isinstance(item, list):\n            result.extend(flatten(item))\n        else:\n            result.append(item)\n    return result",
+              "count_vowels": "def count_vowels(s):\n    return 0\n",
+              "fibonacci": "def fibonacci(n):\n    return n\n"
+            },
+            "params": {
+              "temperature": 0.7,
+              "max_steps": 1.0
+            },
+            "model": "accounts/fireworks/models/kimi-k2p6",
+            "lineage_note": "Implemented recursive deep-flatten to fix nested list failures."
+          },
+          "fitness": 0.5,
+          "per_case": [
+            {
+              "case_id": "is_palindrome#0",
+              "score": 1.0,
+              "output": true,
+              "error": null
+            },
+            {
+              "case_id": "is_palindrome#1",
+              "score": 1.0,
+              "output": false,
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#0",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#1",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#0",
+              "score": 1.0,
+              "output": "cba",
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#1",
+              "score": 1.0,
+              "output": "olleh",
+              "error": null
+            },
+            {
+              "case_id": "two_sum#0",
+              "score": 0.0,
+              "output": [],
+              "error": "expected [0, 1], got []"
+            },
+            {
+              "case_id": "two_sum#1",
+              "score": 0.0,
+              "output": [],
+              "error": "expected [1, 2], got []"
+            },
+            {
+              "case_id": "roman_to_int#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 3, got 0"
+            },
+            {
+              "case_id": "roman_to_int#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 1994, got 0"
+            },
+            {
+              "case_id": "flatten#0",
+              "score": 1.0,
+              "output": [
+                1,
+                2,
+                3
+              ],
+              "error": null
+            },
+            {
+              "case_id": "flatten#1",
+              "score": 1.0,
+              "output": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "error": null
+            },
+            {
+              "case_id": "count_vowels#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 2, got 0"
+            },
+            {
+              "case_id": "count_vowels#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 5, got 0"
+            },
+            {
+              "case_id": "fibonacci#0",
+              "score": 0.0,
+              "output": 7,
+              "error": "expected 13, got 7"
+            },
+            {
+              "case_id": "fibonacci#1",
+              "score": 0.0,
+              "output": 10,
+              "error": "expected 55, got 10"
+            }
+          ],
+          "raw_outputs": {
+            "is_palindrome": [
+              {
+                "got": true,
+                "error": null
+              },
+              {
+                "got": false,
+                "error": null
+              }
+            ],
+            "fizzbuzz": [
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz"
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz",
+                  "4",
+                  "Buzz"
+                ],
+                "error": null
+              }
+            ],
+            "reverse_string": [
+              {
+                "got": "cba",
+                "error": null
+              },
+              {
+                "got": "olleh",
+                "error": null
+              }
+            ],
+            "two_sum": [
+              {
+                "got": [],
+                "error": null
+              },
+              {
+                "got": [],
+                "error": null
+              }
+            ],
+            "roman_to_int": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "flatten": [
+              {
+                "got": [
+                  1,
+                  2,
+                  3
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "error": null
+              }
+            ],
+            "count_vowels": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "fibonacci": [
+              {
+                "got": 7,
+                "error": null
+              },
+              {
+                "got": 10,
+                "error": null
+              }
+            ]
+          },
+          "cost_est": 0.0,
+          "p50_latency_ms": 0,
+          "braintrust_experiment_url": "https://www.braintrust.dev/app/Karthik/p/Darwin/experiments/coding_bench%2Fgen2%2Fg1-2",
+          "sandbox_id": "1180db8b-f0f1-420c-bb62-8041c8b02227",
+          "snapshot_id": "1180db8b-f0f1-420c-bb62-8041c8b02227-snap-17",
+          "status": "evaluated",
+          "duration_ms": 11241
+        },
+        {
+          "genome": {
+            "genome_id": "g1-5",
+            "generation": 1,
+            "parent_ids": [
+              "g0-3"
+            ],
+            "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+            "tools": {
+              "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+              "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+              "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+              "two_sum": "def two_sum(nums, target):\n    seen = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in seen:\n            return [seen[complement], i]\n        seen[num] = i\n    return []\n",
+              "roman_to_int": "def roman_to_int(s):\n    return 0\n",
+              "flatten": "def flatten(nested):\n    return nested\n",
+              "count_vowels": "def count_vowels(s):\n    return 0\n",
+              "fibonacci": "def fibonacci(n):\n    return n\n"
+            },
+            "params": {
+              "temperature": 0.7,
+              "max_steps": 1.0
+            },
+            "model": "accounts/fireworks/models/glm-5p2",
+            "lineage_note": "Implemented two_sum with a hash-map single-pass lookup so it returns the correct pair of indices."
+          },
+          "fitness": 0.5,
+          "per_case": [
+            {
+              "case_id": "is_palindrome#0",
+              "score": 1.0,
+              "output": true,
+              "error": null
+            },
+            {
+              "case_id": "is_palindrome#1",
+              "score": 1.0,
+              "output": false,
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#0",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#1",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#0",
+              "score": 1.0,
+              "output": "cba",
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#1",
+              "score": 1.0,
+              "output": "olleh",
+              "error": null
+            },
+            {
+              "case_id": "two_sum#0",
+              "score": 1.0,
+              "output": [
+                0,
+                1
+              ],
+              "error": null
+            },
+            {
+              "case_id": "two_sum#1",
+              "score": 1.0,
+              "output": [
+                1,
+                2
+              ],
+              "error": null
+            },
+            {
+              "case_id": "roman_to_int#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 3, got 0"
+            },
+            {
+              "case_id": "roman_to_int#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 1994, got 0"
+            },
+            {
+              "case_id": "flatten#0",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  3
+                ]
+              ],
+              "error": "expected [1, 2, 3], got [1, [2, 3]]"
+            },
+            {
+              "case_id": "flatten#1",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  [
+                    3,
+                    4
+                  ]
+                ]
+              ],
+              "error": "expected [1, 2, 3, 4], got [1, [2, [3, 4]]]"
+            },
+            {
+              "case_id": "count_vowels#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 2, got 0"
+            },
+            {
+              "case_id": "count_vowels#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 5, got 0"
+            },
+            {
+              "case_id": "fibonacci#0",
+              "score": 0.0,
+              "output": 7,
+              "error": "expected 13, got 7"
+            },
+            {
+              "case_id": "fibonacci#1",
+              "score": 0.0,
+              "output": 10,
+              "error": "expected 55, got 10"
+            }
+          ],
+          "raw_outputs": {
+            "is_palindrome": [
+              {
+                "got": true,
+                "error": null
+              },
+              {
+                "got": false,
+                "error": null
+              }
+            ],
+            "fizzbuzz": [
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz"
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz",
+                  "4",
+                  "Buzz"
+                ],
+                "error": null
+              }
+            ],
+            "reverse_string": [
+              {
+                "got": "cba",
+                "error": null
+              },
+              {
+                "got": "olleh",
+                "error": null
+              }
+            ],
+            "two_sum": [
+              {
+                "got": [
+                  0,
+                  1
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  2
+                ],
+                "error": null
+              }
+            ],
+            "roman_to_int": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "flatten": [
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    3
+                  ]
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    [
+                      3,
+                      4
+                    ]
+                  ]
+                ],
+                "error": null
+              }
+            ],
+            "count_vowels": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "fibonacci": [
+              {
+                "got": 7,
+                "error": null
+              },
+              {
+                "got": 10,
+                "error": null
+              }
+            ]
+          },
+          "cost_est": 0.0,
+          "p50_latency_ms": 0,
+          "braintrust_experiment_url": "https://www.braintrust.dev/app/Karthik/p/Darwin/experiments/coding_bench%2Fgen2%2Fg1-5",
+          "sandbox_id": "8c399afa-3290-4fd9-b09e-6a9705cdf970",
+          "snapshot_id": "8c399afa-3290-4fd9-b09e-6a9705cdf970-snap-18",
+          "status": "evaluated",
+          "duration_ms": 9755
+        },
+        {
+          "genome": {
+            "genome_id": "g2-7",
+            "generation": 2,
+            "parent_ids": [
+              "g1-2"
+            ],
+            "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+            "tools": {
+              "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+              "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+              "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+              "two_sum": "def two_sum(nums, target):\n    seen = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in seen:\n            return [seen[complement], i]\n        seen[num] = i\n    return []",
+              "roman_to_int": "def roman_to_int(s):\n    return 0\n",
+              "flatten": "def flatten(nested):\n    result = []\n    for item in nested:\n        if isinstance(item, list):\n            result.extend(flatten(item))\n        else:\n            result.append(item)\n    return result",
+              "count_vowels": "def count_vowels(s):\n    return 0\n",
+              "fibonacci": "def fibonacci(n):\n    return n\n"
+            },
+            "params": {
+              "temperature": 0.7,
+              "max_steps": 1.0
+            },
+            "model": "accounts/fireworks/models/kimi-k2p6",
+            "lineage_note": "Implemented hash-map based two_sum to return correct indices instead of an empty list stub."
+          },
+          "fitness": 0.625,
+          "per_case": [
+            {
+              "case_id": "is_palindrome#0",
+              "score": 1.0,
+              "output": true,
+              "error": null
+            },
+            {
+              "case_id": "is_palindrome#1",
+              "score": 1.0,
+              "output": false,
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#0",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#1",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#0",
+              "score": 1.0,
+              "output": "cba",
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#1",
+              "score": 1.0,
+              "output": "olleh",
+              "error": null
+            },
+            {
+              "case_id": "two_sum#0",
+              "score": 1.0,
+              "output": [
+                0,
+                1
+              ],
+              "error": null
+            },
+            {
+              "case_id": "two_sum#1",
+              "score": 1.0,
+              "output": [
+                1,
+                2
+              ],
+              "error": null
+            },
+            {
+              "case_id": "roman_to_int#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 3, got 0"
+            },
+            {
+              "case_id": "roman_to_int#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 1994, got 0"
+            },
+            {
+              "case_id": "flatten#0",
+              "score": 1.0,
+              "output": [
+                1,
+                2,
+                3
+              ],
+              "error": null
+            },
+            {
+              "case_id": "flatten#1",
+              "score": 1.0,
+              "output": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "error": null
+            },
+            {
+              "case_id": "count_vowels#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 2, got 0"
+            },
+            {
+              "case_id": "count_vowels#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 5, got 0"
+            },
+            {
+              "case_id": "fibonacci#0",
+              "score": 0.0,
+              "output": 7,
+              "error": "expected 13, got 7"
+            },
+            {
+              "case_id": "fibonacci#1",
+              "score": 0.0,
+              "output": 10,
+              "error": "expected 55, got 10"
+            }
+          ],
+          "raw_outputs": {
+            "is_palindrome": [
+              {
+                "got": true,
+                "error": null
+              },
+              {
+                "got": false,
+                "error": null
+              }
+            ],
+            "fizzbuzz": [
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz"
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz",
+                  "4",
+                  "Buzz"
+                ],
+                "error": null
+              }
+            ],
+            "reverse_string": [
+              {
+                "got": "cba",
+                "error": null
+              },
+              {
+                "got": "olleh",
+                "error": null
+              }
+            ],
+            "two_sum": [
+              {
+                "got": [
+                  0,
+                  1
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  2
+                ],
+                "error": null
+              }
+            ],
+            "roman_to_int": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "flatten": [
+              {
+                "got": [
+                  1,
+                  2,
+                  3
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "error": null
+              }
+            ],
+            "count_vowels": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "fibonacci": [
+              {
+                "got": 7,
+                "error": null
+              },
+              {
+                "got": 10,
+                "error": null
+              }
+            ]
+          },
+          "cost_est": 0.003069,
+          "p50_latency_ms": 10984,
+          "braintrust_experiment_url": "https://www.braintrust.dev/app/Karthik/p/Darwin/experiments/coding_bench%2Fgen2%2Fg2-7",
+          "sandbox_id": "69fc0c46-3c8f-4e46-97be-028ecbf31f1d",
+          "snapshot_id": "69fc0c46-3c8f-4e46-97be-028ecbf31f1d-snap-19",
+          "status": "evaluated",
+          "duration_ms": 11047
+        },
+        {
+          "genome": {
+            "genome_id": "g2-8",
+            "generation": 2,
+            "parent_ids": [
+              "g1-5"
+            ],
+            "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+            "tools": {
+              "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+              "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+              "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+              "two_sum": "def two_sum(nums, target):\n    seen = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in seen:\n            return [seen[complement], i]\n        seen[num] = i\n    return []\n",
+              "roman_to_int": "def roman_to_int(s):\n    values = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}\n    result = 0\n    prev = 0\n    for c in reversed(s):\n        curr = values[c]\n        if curr < prev:\n            result -= curr\n        else:\n            result += curr\n        prev = curr\n    return result\n",
+              "flatten": "def flatten(nested):\n    return nested\n",
+              "count_vowels": "def count_vowels(s):\n    return 0\n",
+              "fibonacci": "def fibonacci(n):\n    return n\n"
+            },
+            "params": {
+              "temperature": 0.7,
+              "max_steps": 1.0
+            },
+            "model": "accounts/fireworks/models/glm-5p2",
+            "lineage_note": "Replaced stub with proper Roman-to-int conversion using reverse traversal and subtractive notation handling."
+          },
+          "fitness": 0.625,
+          "per_case": [
+            {
+              "case_id": "is_palindrome#0",
+              "score": 1.0,
+              "output": true,
+              "error": null
+            },
+            {
+              "case_id": "is_palindrome#1",
+              "score": 1.0,
+              "output": false,
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#0",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#1",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#0",
+              "score": 1.0,
+              "output": "cba",
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#1",
+              "score": 1.0,
+              "output": "olleh",
+              "error": null
+            },
+            {
+              "case_id": "two_sum#0",
+              "score": 1.0,
+              "output": [
+                0,
+                1
+              ],
+              "error": null
+            },
+            {
+              "case_id": "two_sum#1",
+              "score": 1.0,
+              "output": [
+                1,
+                2
+              ],
+              "error": null
+            },
+            {
+              "case_id": "roman_to_int#0",
+              "score": 1.0,
+              "output": 3,
+              "error": null
+            },
+            {
+              "case_id": "roman_to_int#1",
+              "score": 1.0,
+              "output": 1994,
+              "error": null
+            },
+            {
+              "case_id": "flatten#0",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  3
+                ]
+              ],
+              "error": "expected [1, 2, 3], got [1, [2, 3]]"
+            },
+            {
+              "case_id": "flatten#1",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  [
+                    3,
+                    4
+                  ]
+                ]
+              ],
+              "error": "expected [1, 2, 3, 4], got [1, [2, [3, 4]]]"
+            },
+            {
+              "case_id": "count_vowels#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 2, got 0"
+            },
+            {
+              "case_id": "count_vowels#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 5, got 0"
+            },
+            {
+              "case_id": "fibonacci#0",
+              "score": 0.0,
+              "output": 7,
+              "error": "expected 13, got 7"
+            },
+            {
+              "case_id": "fibonacci#1",
+              "score": 0.0,
+              "output": 10,
+              "error": "expected 55, got 10"
+            }
+          ],
+          "raw_outputs": {
+            "is_palindrome": [
+              {
+                "got": true,
+                "error": null
+              },
+              {
+                "got": false,
+                "error": null
+              }
+            ],
+            "fizzbuzz": [
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz"
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz",
+                  "4",
+                  "Buzz"
+                ],
+                "error": null
+              }
+            ],
+            "reverse_string": [
+              {
+                "got": "cba",
+                "error": null
+              },
+              {
+                "got": "olleh",
+                "error": null
+              }
+            ],
+            "two_sum": [
+              {
+                "got": [
+                  0,
+                  1
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  2
+                ],
+                "error": null
+              }
+            ],
+            "roman_to_int": [
+              {
+                "got": 3,
+                "error": null
+              },
+              {
+                "got": 1994,
+                "error": null
+              }
+            ],
+            "flatten": [
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    3
+                  ]
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    [
+                      3,
+                      4
+                    ]
+                  ]
+                ],
+                "error": null
+              }
+            ],
+            "count_vowels": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "fibonacci": [
+              {
+                "got": 7,
+                "error": null
+              },
+              {
+                "got": 10,
+                "error": null
+              }
+            ]
+          },
+          "cost_est": 0.00402,
+          "p50_latency_ms": 10541,
+          "braintrust_experiment_url": "https://www.braintrust.dev/app/Karthik/p/Darwin/experiments/coding_bench%2Fgen2%2Fg2-8",
+          "sandbox_id": "ff45be26-c943-4f10-9edc-b27eab25808c",
+          "snapshot_id": "ff45be26-c943-4f10-9edc-b27eab25808c-snap-20",
+          "status": "evaluated",
+          "duration_ms": 11240
+        },
+        {
+          "genome": {
+            "genome_id": "g2-9",
+            "generation": 2,
+            "parent_ids": [
+              "g1-2"
+            ],
+            "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+            "tools": {
+              "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+              "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+              "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+              "two_sum": "def two_sum(nums, target):\n    seen = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in seen:\n            return [seen[complement], i]\n        seen[num] = i\n    return []",
+              "roman_to_int": "def roman_to_int(s):\n    return 0\n",
+              "flatten": "def flatten(nested):\n    result = []\n    for item in nested:\n        if isinstance(item, list):\n            result.extend(flatten(item))\n        else:\n            result.append(item)\n    return result",
+              "count_vowels": "def count_vowels(s):\n    return 0\n",
+              "fibonacci": "def fibonacci(n):\n    return n\n"
+            },
+            "params": {
+              "temperature": 0.7,
+              "max_steps": 1.0
+            },
+            "model": "accounts/fireworks/models/kimi-k2p6",
+            "lineage_note": "Implemented hashmap-based two_sum to correctly return indices of the two numbers that add to target."
+          },
+          "fitness": 0.625,
+          "per_case": [
+            {
+              "case_id": "is_palindrome#0",
+              "score": 1.0,
+              "output": true,
+              "error": null
+            },
+            {
+              "case_id": "is_palindrome#1",
+              "score": 1.0,
+              "output": false,
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#0",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#1",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#0",
+              "score": 1.0,
+              "output": "cba",
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#1",
+              "score": 1.0,
+              "output": "olleh",
+              "error": null
+            },
+            {
+              "case_id": "two_sum#0",
+              "score": 1.0,
+              "output": [
+                0,
+                1
+              ],
+              "error": null
+            },
+            {
+              "case_id": "two_sum#1",
+              "score": 1.0,
+              "output": [
+                1,
+                2
+              ],
+              "error": null
+            },
+            {
+              "case_id": "roman_to_int#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 3, got 0"
+            },
+            {
+              "case_id": "roman_to_int#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 1994, got 0"
+            },
+            {
+              "case_id": "flatten#0",
+              "score": 1.0,
+              "output": [
+                1,
+                2,
+                3
+              ],
+              "error": null
+            },
+            {
+              "case_id": "flatten#1",
+              "score": 1.0,
+              "output": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "error": null
+            },
+            {
+              "case_id": "count_vowels#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 2, got 0"
+            },
+            {
+              "case_id": "count_vowels#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 5, got 0"
+            },
+            {
+              "case_id": "fibonacci#0",
+              "score": 0.0,
+              "output": 7,
+              "error": "expected 13, got 7"
+            },
+            {
+              "case_id": "fibonacci#1",
+              "score": 0.0,
+              "output": 10,
+              "error": "expected 55, got 10"
+            }
+          ],
+          "raw_outputs": {
+            "is_palindrome": [
+              {
+                "got": true,
+                "error": null
+              },
+              {
+                "got": false,
+                "error": null
+              }
+            ],
+            "fizzbuzz": [
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz"
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz",
+                  "4",
+                  "Buzz"
+                ],
+                "error": null
+              }
+            ],
+            "reverse_string": [
+              {
+                "got": "cba",
+                "error": null
+              },
+              {
+                "got": "olleh",
+                "error": null
+              }
+            ],
+            "two_sum": [
+              {
+                "got": [
+                  0,
+                  1
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  2
+                ],
+                "error": null
+              }
+            ],
+            "roman_to_int": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "flatten": [
+              {
+                "got": [
+                  1,
+                  2,
+                  3
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "error": null
+              }
+            ],
+            "count_vowels": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "fibonacci": [
+              {
+                "got": 7,
+                "error": null
+              },
+              {
+                "got": 10,
+                "error": null
+              }
+            ]
+          },
+          "cost_est": 0.005341,
+          "p50_latency_ms": 19392,
+          "braintrust_experiment_url": "https://www.braintrust.dev/app/Karthik/p/Darwin/experiments/coding_bench%2Fgen2%2Fg2-9",
+          "sandbox_id": "dc9351b0-d2fe-4346-9853-f024c363005a",
+          "snapshot_id": "dc9351b0-d2fe-4346-9853-f024c363005a-snap-21",
+          "status": "evaluated",
+          "duration_ms": 10859
+        },
+        {
+          "genome": {
+            "genome_id": "g2-10",
+            "generation": 2,
+            "parent_ids": [
+              "g1-5"
+            ],
+            "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+            "tools": {
+              "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+              "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+              "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+              "two_sum": "def two_sum(nums, target):\n    seen = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in seen:\n            return [seen[complement], i]\n        seen[num] = i\n    return []\n",
+              "roman_to_int": "def roman_to_int(s):\n    values = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}\n    result = 0\n    prev = 0\n    for c in reversed(s):\n        curr = values[c]\n        if curr < prev:\n            result -= curr\n        else:\n            result += curr\n        prev = curr\n    return result\n",
+              "flatten": "def flatten(nested):\n    return nested\n",
+              "count_vowels": "def count_vowels(s):\n    return 0\n",
+              "fibonacci": "def fibonacci(n):\n    return n\n"
+            },
+            "params": {
+              "temperature": 0.7,
+              "max_steps": 1.0
+            },
+            "model": "accounts/fireworks/models/glm-5p2",
+            "lineage_note": "Replaced stub with standard reverse-iteration Roman numeral parser handling subtractive notation (e.g. IV, CM, XC)."
+          },
+          "fitness": 0.625,
+          "per_case": [
+            {
+              "case_id": "is_palindrome#0",
+              "score": 1.0,
+              "output": true,
+              "error": null
+            },
+            {
+              "case_id": "is_palindrome#1",
+              "score": 1.0,
+              "output": false,
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#0",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#1",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#0",
+              "score": 1.0,
+              "output": "cba",
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#1",
+              "score": 1.0,
+              "output": "olleh",
+              "error": null
+            },
+            {
+              "case_id": "two_sum#0",
+              "score": 1.0,
+              "output": [
+                0,
+                1
+              ],
+              "error": null
+            },
+            {
+              "case_id": "two_sum#1",
+              "score": 1.0,
+              "output": [
+                1,
+                2
+              ],
+              "error": null
+            },
+            {
+              "case_id": "roman_to_int#0",
+              "score": 1.0,
+              "output": 3,
+              "error": null
+            },
+            {
+              "case_id": "roman_to_int#1",
+              "score": 1.0,
+              "output": 1994,
+              "error": null
+            },
+            {
+              "case_id": "flatten#0",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  3
+                ]
+              ],
+              "error": "expected [1, 2, 3], got [1, [2, 3]]"
+            },
+            {
+              "case_id": "flatten#1",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  [
+                    3,
+                    4
+                  ]
+                ]
+              ],
+              "error": "expected [1, 2, 3, 4], got [1, [2, [3, 4]]]"
+            },
+            {
+              "case_id": "count_vowels#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 2, got 0"
+            },
+            {
+              "case_id": "count_vowels#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 5, got 0"
+            },
+            {
+              "case_id": "fibonacci#0",
+              "score": 0.0,
+              "output": 7,
+              "error": "expected 13, got 7"
+            },
+            {
+              "case_id": "fibonacci#1",
+              "score": 0.0,
+              "output": 10,
+              "error": "expected 55, got 10"
+            }
+          ],
+          "raw_outputs": {
+            "is_palindrome": [
+              {
+                "got": true,
+                "error": null
+              },
+              {
+                "got": false,
+                "error": null
+              }
+            ],
+            "fizzbuzz": [
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz"
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz",
+                  "4",
+                  "Buzz"
+                ],
+                "error": null
+              }
+            ],
+            "reverse_string": [
+              {
+                "got": "cba",
+                "error": null
+              },
+              {
+                "got": "olleh",
+                "error": null
+              }
+            ],
+            "two_sum": [
+              {
+                "got": [
+                  0,
+                  1
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  2
+                ],
+                "error": null
+              }
+            ],
+            "roman_to_int": [
+              {
+                "got": 3,
+                "error": null
+              },
+              {
+                "got": 1994,
+                "error": null
+              }
+            ],
+            "flatten": [
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    3
+                  ]
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    [
+                      3,
+                      4
+                    ]
+                  ]
+                ],
+                "error": null
+              }
+            ],
+            "count_vowels": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "fibonacci": [
+              {
+                "got": 7,
+                "error": null
+              },
+              {
+                "got": 10,
+                "error": null
+              }
+            ]
+          },
+          "cost_est": 0.007461,
+          "p50_latency_ms": 15440,
+          "braintrust_experiment_url": "https://www.braintrust.dev/app/Karthik/p/Darwin/experiments/coding_bench%2Fgen2%2Fg2-10",
+          "sandbox_id": "6e5728f6-5bb5-43d5-a089-89ae8bb10a65",
+          "snapshot_id": "6e5728f6-5bb5-43d5-a089-89ae8bb10a65-snap-22",
+          "status": "evaluated",
+          "duration_ms": 10986
+        },
+        {
+          "genome": {
+            "genome_id": "g2-11",
+            "generation": 2,
+            "parent_ids": [
+              "g1-2"
+            ],
+            "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+            "tools": {
+              "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+              "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+              "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+              "two_sum": "def two_sum(nums, target):\n    seen = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in seen:\n            return [seen[complement], i]\n        seen[num] = i\n    return []\n",
+              "roman_to_int": "def roman_to_int(s):\n    return 0\n",
+              "flatten": "def flatten(nested):\n    result = []\n    for item in nested:\n        if isinstance(item, list):\n            result.extend(flatten(item))\n        else:\n            result.append(item)\n    return result",
+              "count_vowels": "def count_vowels(s):\n    return 0\n",
+              "fibonacci": "def fibonacci(n):\n    return n\n"
+            },
+            "params": {
+              "temperature": 0.7,
+              "max_steps": 1.0
+            },
+            "model": "accounts/fireworks/models/kimi-k2p6",
+            "lineage_note": "Implemented two_sum using a hash map to store indices and return the pair that adds to target, fixing both failing cases."
+          },
+          "fitness": 0.625,
+          "per_case": [
+            {
+              "case_id": "is_palindrome#0",
+              "score": 1.0,
+              "output": true,
+              "error": null
+            },
+            {
+              "case_id": "is_palindrome#1",
+              "score": 1.0,
+              "output": false,
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#0",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#1",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#0",
+              "score": 1.0,
+              "output": "cba",
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#1",
+              "score": 1.0,
+              "output": "olleh",
+              "error": null
+            },
+            {
+              "case_id": "two_sum#0",
+              "score": 1.0,
+              "output": [
+                0,
+                1
+              ],
+              "error": null
+            },
+            {
+              "case_id": "two_sum#1",
+              "score": 1.0,
+              "output": [
+                1,
+                2
+              ],
+              "error": null
+            },
+            {
+              "case_id": "roman_to_int#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 3, got 0"
+            },
+            {
+              "case_id": "roman_to_int#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 1994, got 0"
+            },
+            {
+              "case_id": "flatten#0",
+              "score": 1.0,
+              "output": [
+                1,
+                2,
+                3
+              ],
+              "error": null
+            },
+            {
+              "case_id": "flatten#1",
+              "score": 1.0,
+              "output": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "error": null
+            },
+            {
+              "case_id": "count_vowels#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 2, got 0"
+            },
+            {
+              "case_id": "count_vowels#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 5, got 0"
+            },
+            {
+              "case_id": "fibonacci#0",
+              "score": 0.0,
+              "output": 7,
+              "error": "expected 13, got 7"
+            },
+            {
+              "case_id": "fibonacci#1",
+              "score": 0.0,
+              "output": 10,
+              "error": "expected 55, got 10"
+            }
+          ],
+          "raw_outputs": {
+            "is_palindrome": [
+              {
+                "got": true,
+                "error": null
+              },
+              {
+                "got": false,
+                "error": null
+              }
+            ],
+            "fizzbuzz": [
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz"
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz",
+                  "4",
+                  "Buzz"
+                ],
+                "error": null
+              }
+            ],
+            "reverse_string": [
+              {
+                "got": "cba",
+                "error": null
+              },
+              {
+                "got": "olleh",
+                "error": null
+              }
+            ],
+            "two_sum": [
+              {
+                "got": [
+                  0,
+                  1
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  2
+                ],
+                "error": null
+              }
+            ],
+            "roman_to_int": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "flatten": [
+              {
+                "got": [
+                  1,
+                  2,
+                  3
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "error": null
+              }
+            ],
+            "count_vowels": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "fibonacci": [
+              {
+                "got": 7,
+                "error": null
+              },
+              {
+                "got": 10,
+                "error": null
+              }
+            ]
+          },
+          "cost_est": 0.002181,
+          "p50_latency_ms": 8193,
+          "braintrust_experiment_url": "https://www.braintrust.dev/app/Karthik/p/Darwin/experiments/coding_bench%2Fgen2%2Fg2-11",
+          "sandbox_id": "b6618d4f-54dd-4f98-917b-bf97a5f5fd7a",
+          "snapshot_id": "b6618d4f-54dd-4f98-917b-bf97a5f5fd7a-snap-23",
+          "status": "evaluated",
+          "duration_ms": 11434
+        },
+        {
+          "genome": {
+            "genome_id": "g2-12",
+            "generation": 2,
+            "parent_ids": [
+              "g1-5"
+            ],
+            "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+            "tools": {
+              "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+              "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+              "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+              "two_sum": "def two_sum(nums, target):\n    seen = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in seen:\n            return [seen[complement], i]\n        seen[num] = i\n    return []\n",
+              "roman_to_int": "def roman_to_int(s):\n    values = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}\n    result = 0\n    prev = 0\n    for c in reversed(s):\n        curr = values[c]\n        if curr < prev:\n            result -= curr\n        else:\n            result += curr\n        prev = curr\n    return result\n",
+              "flatten": "def flatten(nested):\n    return nested\n",
+              "count_vowels": "def count_vowels(s):\n    return 0\n",
+              "fibonacci": "def fibonacci(n):\n    return n\n"
+            },
+            "params": {
+              "temperature": 0.7,
+              "max_steps": 1.0
+            },
+            "model": "accounts/fireworks/models/glm-5p2",
+            "lineage_note": "Implemented roman_to_int with subtractive-notation handling by iterating in reverse and subtracting when a smaller value precedes a larger one."
+          },
+          "fitness": 0.625,
+          "per_case": [
+            {
+              "case_id": "is_palindrome#0",
+              "score": 1.0,
+              "output": true,
+              "error": null
+            },
+            {
+              "case_id": "is_palindrome#1",
+              "score": 1.0,
+              "output": false,
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#0",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "fizzbuzz#1",
+              "score": 1.0,
+              "output": [
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz"
+              ],
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#0",
+              "score": 1.0,
+              "output": "cba",
+              "error": null
+            },
+            {
+              "case_id": "reverse_string#1",
+              "score": 1.0,
+              "output": "olleh",
+              "error": null
+            },
+            {
+              "case_id": "two_sum#0",
+              "score": 1.0,
+              "output": [
+                0,
+                1
+              ],
+              "error": null
+            },
+            {
+              "case_id": "two_sum#1",
+              "score": 1.0,
+              "output": [
+                1,
+                2
+              ],
+              "error": null
+            },
+            {
+              "case_id": "roman_to_int#0",
+              "score": 1.0,
+              "output": 3,
+              "error": null
+            },
+            {
+              "case_id": "roman_to_int#1",
+              "score": 1.0,
+              "output": 1994,
+              "error": null
+            },
+            {
+              "case_id": "flatten#0",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  3
+                ]
+              ],
+              "error": "expected [1, 2, 3], got [1, [2, 3]]"
+            },
+            {
+              "case_id": "flatten#1",
+              "score": 0.0,
+              "output": [
+                1,
+                [
+                  2,
+                  [
+                    3,
+                    4
+                  ]
+                ]
+              ],
+              "error": "expected [1, 2, 3, 4], got [1, [2, [3, 4]]]"
+            },
+            {
+              "case_id": "count_vowels#0",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 2, got 0"
+            },
+            {
+              "case_id": "count_vowels#1",
+              "score": 0.0,
+              "output": 0,
+              "error": "expected 5, got 0"
+            },
+            {
+              "case_id": "fibonacci#0",
+              "score": 0.0,
+              "output": 7,
+              "error": "expected 13, got 7"
+            },
+            {
+              "case_id": "fibonacci#1",
+              "score": 0.0,
+              "output": 10,
+              "error": "expected 55, got 10"
+            }
+          ],
+          "raw_outputs": {
+            "is_palindrome": [
+              {
+                "got": true,
+                "error": null
+              },
+              {
+                "got": false,
+                "error": null
+              }
+            ],
+            "fizzbuzz": [
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz"
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  "1",
+                  "2",
+                  "Fizz",
+                  "4",
+                  "Buzz"
+                ],
+                "error": null
+              }
+            ],
+            "reverse_string": [
+              {
+                "got": "cba",
+                "error": null
+              },
+              {
+                "got": "olleh",
+                "error": null
+              }
+            ],
+            "two_sum": [
+              {
+                "got": [
+                  0,
+                  1
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  2
+                ],
+                "error": null
+              }
+            ],
+            "roman_to_int": [
+              {
+                "got": 3,
+                "error": null
+              },
+              {
+                "got": 1994,
+                "error": null
+              }
+            ],
+            "flatten": [
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    3
+                  ]
+                ],
+                "error": null
+              },
+              {
+                "got": [
+                  1,
+                  [
+                    2,
+                    [
+                      3,
+                      4
+                    ]
+                  ]
+                ],
+                "error": null
+              }
+            ],
+            "count_vowels": [
+              {
+                "got": 0,
+                "error": null
+              },
+              {
+                "got": 0,
+                "error": null
+              }
+            ],
+            "fibonacci": [
+              {
+                "got": 7,
+                "error": null
+              },
+              {
+                "got": 10,
+                "error": null
+              }
+            ]
+          },
+          "cost_est": 0.007421,
+          "p50_latency_ms": 18514,
+          "braintrust_experiment_url": "https://www.braintrust.dev/app/Karthik/p/Darwin/experiments/coding_bench%2Fgen2%2Fg2-12",
+          "sandbox_id": "badbd14c-dc9d-42e5-a293-74a205bb967a",
+          "snapshot_id": "badbd14c-dc9d-42e5-a293-74a205bb967a-snap-24",
+          "status": "evaluated",
+          "duration_ms": 10722
+        }
+      ],
+      "best_fitness": 0.625,
+      "champion_id": "g2-12",
+      "started_at": 1784920711.683705,
+      "ended_at": 1784920723.122292
+    }
+  ],
+  "fitness_curve": [
+    0.375,
+    0.5,
+    0.625
+  ],
+  "final_champion": {
+    "genome_id": "g2-12",
+    "generation": 2,
+    "parent_ids": [
+      "g1-5"
+    ],
+    "system_prompt": "You are a coding agent. For each problem you are given, implement the requested function correctly. Your tools ARE your solutions; improve them until every hidden test passes.",
+    "tools": {
+      "is_palindrome": "def is_palindrome(s):\n    return s == s[::-1]\n",
+      "fizzbuzz": "def fizzbuzz(n):\n    out = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            out.append('FizzBuzz')\n        elif i % 3 == 0:\n            out.append('Fizz')\n        elif i % 5 == 0:\n            out.append('Buzz')\n        else:\n            out.append(str(i))\n    return out\n",
+      "reverse_string": "def reverse_string(s):\n    return s[::-1]\n",
+      "two_sum": "def two_sum(nums, target):\n    seen = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in seen:\n            return [seen[complement], i]\n        seen[num] = i\n    return []\n",
+      "roman_to_int": "def roman_to_int(s):\n    values = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}\n    result = 0\n    prev = 0\n    for c in reversed(s):\n        curr = values[c]\n        if curr < prev:\n            result -= curr\n        else:\n            result += curr\n        prev = curr\n    return result\n",
+      "flatten": "def flatten(nested):\n    return nested\n",
+      "count_vowels": "def count_vowels(s):\n    return 0\n",
+      "fibonacci": "def fibonacci(n):\n    return n\n"
+    },
+    "params": {
+      "temperature": 0.7,
+      "max_steps": 1.0
+    },
+    "model": "accounts/fireworks/models/glm-5p2",
+    "lineage_note": "Implemented roman_to_int with subtractive-notation handling by iterating in reverse and subtracting when a smaller value precedes a larger one."
+  },
+  "config": {
+    "population_size": 8,
+    "generations": 6,
+    "elite_k": 2,
+    "real_isolation": true,
+    "offline_report": {
+      "gen0_fitness": 0.375,
+      "final_fitness": 0.625,
+      "delta": 0.25,
+      "total_cases": 16,
+      "scored_by": "braintrust"
+    }
+  }
+}

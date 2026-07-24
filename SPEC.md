@@ -439,8 +439,11 @@ client = OpenAI(base_url="https://api.fireworks.ai/inference/v1", api_key=FIREWO
 client.chat.completions.create(model="accounts/fireworks/models/<id>", messages=[...],
                                tools=[...], temperature=0)  # function-calling for structured mutation
 ```
-Verify current fast model ids for the catalog (Llama, Qwen, DeepSeek, Kimi, ...). Add a
-concurrency semaphore + retry/backoff for burst limits. Capture per-call latency for p50.
+VERIFIED 2026-07-24 (see DECISIONS.md D11 + LEARNINGS.md): live serverless catalog is
+`gpt-oss-120b, kimi-k2p6, glm-5p1, glm-5p2, deepseek-v4-pro` (legacy Llama/Qwen ids were
+removed 2026-05-14). All calls go through `darwin/core/fw_client.py`: concurrency semaphore +
+retry/backoff for burst limits, per-call latency for p50, cost from the response `usage`.
+Mutation calls must FORCE the function via `tool_choice` and strictly validate arguments.
 
 ### Braintrust
 ```python

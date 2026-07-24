@@ -1,11 +1,14 @@
 <div align="center">
 
-# 🧬 Darwin
+# Darwin
 
 ### It evolves the best whole agent for your task. Safely.
 
 **Give Darwin a task. It evolves the entire agent that solves it, its prompt, its self-written tool code, and the model it runs on, generation over generation, scored by an eval it can't game, inside sandboxes it can't escape. The score climbs while you watch. Point it at a whole domain and it hands back a routing card: the best agent, and model, for each task.**
 
+### [→ Live demo: trydarwin.pages.dev](https://trydarwin.pages.dev)
+
+[![Live](https://img.shields.io/badge/demo-trydarwin.pages.dev-4f7bff)](https://trydarwin.pages.dev)
 [![CI](https://github.com/KarthikSubramanian07/darwin/actions/workflows/ci.yml/badge.svg)](https://github.com/KarthikSubramanian07/darwin/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-black.svg)](./LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-black.svg)](https://www.python.org/)
@@ -91,7 +94,7 @@ python -m darwin.main       # start an evolution run
 
 ## Team
 
-Built at the Daytona HackSprint (SF, July 2026):
+Built at the Daytona SF HackSprint:
 
 - **Lane A** · task decomposition + synthetic data · Shoo
 - **Lane B** · Braintrust eval harness (scorers, experiments, the leaderboard's credibility) · [@KarthikSubramanian07](https://github.com/KarthikSubramanian07)

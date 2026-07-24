@@ -31,7 +31,6 @@ class Features:
     daytona: bool = field(default_factory=lambda: _flag("FEATURE_DAYTONA"))
     braintrust: bool = field(default_factory=lambda: _flag("FEATURE_BRAINTRUST"))
     fireworks: bool = field(default_factory=lambda: _flag("FEATURE_FIREWORKS"))
-    coderabbit: bool = field(default_factory=lambda: _flag("FEATURE_CODERABBIT"))
 
 
 @dataclass(frozen=True)
@@ -45,9 +44,6 @@ class Config:
             "FIREWORKS_BASE_URL", "https://api.fireworks.ai/inference/v1"
         )
     )
-    coderabbit_api_key: str = field(default_factory=lambda: os.getenv("CODERABBIT_API_KEY", ""))
-    github_repo: str = field(default_factory=lambda: os.getenv("GITHUB_REPO", ""))
-
     # Route model inference (mutation + race) through the Braintrust gateway so every call is
     # traced and scored in Braintrust. Provider key lives in Braintrust AI-providers settings.
     use_braintrust_gateway: bool = field(

@@ -91,9 +91,7 @@ that edges everything else. The evidence is the product.
   scored experiment, and the grader is immutable so the agent can't game its own metric.
 - **Daytona** — real execution-based scoring: code outputs run in isolated sandboxes and are
   scored on actual pass/fail, with snapshot rollback for bad mutations.
-- **WorkOS** — AuthKit login and organization-scoped evaluation history, enterprise-ready from
   hour one.
-- **CodeRabbit** — independent review of the code the agent writes about itself, and the review
   signal that supported four lanes building in parallel against frozen contracts.
 
 <!--
@@ -102,7 +100,6 @@ INTERNAL TODO (do not ship in public copy — see docs/LANE_D.md for detail):
     recorded mode is the demo floor. Adapter is forward-compatible.
   * Braintrust experiment URLs + Fireworks cost/latency in the dashboard are mock fixtures today
     (src/fixtures/models.ts), clearly labeled, pending Lane B/C data.
-  * WorkOS AuthKit is fully wired but OFF by default (dev identity fallback) until a client id is
     provided.
   * Daytona execution outcomes shown in the dashboard come from fixtures until the live stream lands.
 -->

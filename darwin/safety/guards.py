@@ -100,12 +100,9 @@ class Guards:
 
     # -- Pillar 4: human veto + compute cap --------------------------------------------- #
 
-    def promote(self, champion: Genome, review=None) -> bool:  # noqa: ANN001
-        """Gate on promoting a NEW champion. A blocking code review (CodeRabbit, Phase 4) or a
-        human veto can deny it. AUTO_APPROVE bypasses for demo speed, but the gate stays real."""
-        if review is not None and getattr(review, "blocks_promotion", False):
-            self._emit("promotion_blocked", {"genome_id": champion.genome_id})
-            return False
+    def promote(self, champion: Genome) -> bool:
+        """Gate on promoting a NEW champion via human veto. AUTO_APPROVE bypasses for demo
+        speed, but the gate stays real (a real veto UI resolves it in the dashboard)."""
         if self.config.auto_approve:
             self._emit("champion_approved", {"genome_id": champion.genome_id, "auto": True})
             return True

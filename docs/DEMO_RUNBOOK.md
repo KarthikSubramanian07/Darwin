@@ -11,8 +11,6 @@ bonus, not a dependency.
 
 - [ ] `cd dashboard && npm install` done; `npm run build` is green.
 - [ ] `dashboard/.env` set. For the safest floor: `VITE_DEMO_MODE=recorded`.
-- [ ] Decide auth: dev identity (default, zero friction) or real WorkOS (`VITE_WORKOS_ENABLED=true`
-      + client id). If unsure, leave WorkOS off.
 - [ ] `npm run dev` running; open `http://localhost:5173/app.html` and confirm the landing screen.
 - [ ] Open a recorded run once to warm it, then return to the landing screen.
 - [ ] Screen zoom / display scaling set so grid cells read from the back of the room.
@@ -23,9 +21,6 @@ bonus, not a dependency.
 | Var | Demo value | Why |
 |-----|-----------|-----|
 | `VITE_DEMO_MODE` | `recorded` | Deterministic, offline-safe demo floor |
-| `VITE_WORKOS_ENABLED` | `false` (or `true` + client id) | Dev identity vs real login |
-| `VITE_WORKOS_CLIENT_ID` | `client_…` (only if enabled) | WorkOS AuthKit app |
-| `VITE_WORKOS_REDIRECT_URI` | `http://localhost:5173/callback` | AuthKit redirect |
 
 ### Services to start
 
@@ -38,7 +33,6 @@ bonus, not a dependency.
 1. Dashboard — landing screen (`localhost:5173/app.html`).
 2. Braintrust project page (the experiments backing the scores).
 3. A Daytona sandbox / execution view (the code-task proof), if available.
-4. (Optional) WorkOS dashboard showing the AuthKit app.
 
 ## Live mode flow
 
@@ -71,7 +65,6 @@ bonus, not a dependency.
 > task in your business — and shows you the evidence."
 
 **0:20 — Input (15s).** Landing screen. "Give it an industry — Legal services." Click **Build my
-model stack**. Note the workspace/identity in the nav (WorkOS).
 
 **0:35 — Decomposition (20s).** Tasks appear.
 > "It breaks the industry into the real work: summarization, clause extraction, citation
@@ -96,11 +89,9 @@ model stack**. Note the workspace/identity in the nav (WorkOS).
 > **"Generic benchmarks tell you which model wins their test. Darwin tells you which model wins
 > your work."**
 
-## WorkOS login handling
 
 - Dev identity (default): you're already "signed in" as the demo operator; the nav shows the user
   and workspace. Optionally click **Sign out** → **Continue to dashboard** to show the gate.
-- Real WorkOS: click **Sign in with WorkOS**, complete the hosted flow, land back authenticated.
   Do a dry run beforehand so the redirect is warm.
 
 ## Braintrust project tab

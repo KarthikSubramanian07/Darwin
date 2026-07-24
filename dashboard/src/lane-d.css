@@ -1,29 +1,30 @@
-/* Darwin dashboard — "phosphor lab", enterprise-calm variant.
-   Dark, high-contrast, tabular readouts, motion only to clarify real transitions. The race grid
-   winners and the routing card are the load-bearing visuals; everything else stays quiet. */
+/* Darwin dashboard — t3.codes theme: zinc-950 canvas, one indigo accent, DM Sans + JetBrains
+   Mono, quiet motion. Matches the landing app's design system to a tee. */
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap");
 
 :root {
   color-scheme: dark;
-  --bg: #0a0b0f;
-  --surface: #14161c;
-  --surface-2: #191c24;
-  --line: #262a34;
-  --line-strong: #333846;
-  --fg: #e6eaf2;
-  --dim: #7c8598;
-  --dim-2: #9aa3b5;
-  --primary: #4ef5a3; /* spring-green, the win */
-  --primary-dim: #2fae76;
+  --bg: #09090b;
+  --surface: #111113;
+  --surface-2: #16171c;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.14);
+  --fg: #fafafa;
+  --dim: #a1a1aa;
+  --dim-2: #d4d4d8;
+  --primary: #4f7bff; /* indigo accent, matches the landing */
+  --primary-dim: #34509c;
   --mutate: #a970ff; /* violet, model swaps */
   --danger: #ff6b6b; /* coral, regressions/failures */
   --warn: #ffc24e; /* amber */
   --info: #6db3f2;
 
-  --radius: 10px;
-  --radius-sm: 7px;
+  --radius: 12px;
+  --radius-sm: 8px;
   --shadow: 0 1px 0 rgba(255, 255, 255, 0.02), 0 8px 24px rgba(0, 0, 0, 0.4);
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 }
 
 * {

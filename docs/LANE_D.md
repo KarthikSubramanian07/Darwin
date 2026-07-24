@@ -1,4 +1,3 @@
-# Lane D — Dashboard, Auth, CodeRabbit, Demo
 
 This is the map for everything Lane D owns and the exact seams where the other lanes plug in.
 
@@ -19,15 +18,11 @@ dashboard/                         React + Vite + TypeScript dashboard
   src/sources/websocket.ts         live WS client (reconnect + honest failure states)
   src/sources/backendAdapter.ts    raw backend event -> normalized DarwinEvent
   src/fixtures/                     mock/recorded runs (Legal services, Customer support)
-  src/auth/                         WorkOS AuthKit integration + dev identity fallback
   src/components/                   all UI (landing, decomposition, race grid, routing, library…)
   scripts/dumpFixtures.ts          serialize fixtures to data/runs/*.dashboard.json
 
 darwin/server/events.py            event channel (Lane D owns the WS surface; see open items)
-darwin/review/coderabbit.py        review integration stub (Lane D/B)
-.coderabbit.yaml                   CodeRabbit config (filters + cross-lane interface guidance)
 data/runs/*.dashboard.json         serialized replay fixtures (generated; source of truth is TS)
-docs/DEVPOST.md, DEMO_RUNBOOK.md, docs/CODERABBIT.md, docs/LANE_D.md
 ```
 
 Lane D does **not** edit `darwin/core/*`, `darwin/eval/*`, `darwin/sandbox/*`, `pipeline/*`.
@@ -121,24 +116,15 @@ To make **Live pipeline** mode fill the grid for real, the backend needs to:
 Until then, live mode connects, shows an honest "waiting/unavailable" state, and offers one-click
 recovery to the recorded run. Recorded mode is the demo floor.
 
-## Auth flag (WorkOS AuthKit)
 
-`src/auth/AuthProvider.tsx` mounts real WorkOS AuthKit when `VITE_WORKOS_ENABLED=true` **and** a
 client id is present; otherwise a polished dev identity. Both paths implement login/logout, a
 protected route (`LoginGate`), and identity + workspace in the nav.
 
-Activate real WorkOS:
 
-1. In the WorkOS dashboard create an AuthKit app; copy the **Client ID** and add
    `http://localhost:5173/callback` (and the prod URL) as a redirect URI.
 2. In `dashboard/.env`:
    ```
-   VITE_WORKOS_ENABLED=true
-   VITE_WORKOS_CLIENT_ID=client_...
-   VITE_WORKOS_REDIRECT_URI=http://localhost:5173/callback
-   VITE_WORKOS_ORG_NAME=Your Org
    ```
-3. Restart `npm run dev`. AuthKit is a client-side redirect flow (`@workos-inc/authkit-react`); no
    server secret is required for this integration. No secret is ever committed.
 
 ## Demo modes
@@ -153,5 +139,4 @@ labeled; cached runs never display as LIVE.
 - [ ] Backend: emit normalized race events (or a thin translator from evolution → race).
 - [ ] Lane C: real Fireworks model ids + measured cost/latency → replace `src/fixtures/models.ts`.
 - [ ] Lane B: real Braintrust experiment URLs on `race_scored` payloads (nulls handled today).
-- [ ] `darwin/review/coderabbit.py`: real PR-review result surfaced as a safeguards signal.
 - [ ] Deploy `dashboard/dist` to `darwin.pages.dev` (Wrangler) — see SPEC §17.

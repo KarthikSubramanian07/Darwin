@@ -1,8 +1,7 @@
-// Darwin dashboard root. Thin router over three views (landing / run / library) plus the auth
-// gate, top nav, and demo-source control. All run state + event handling lives in useDarwinRun.
+// Darwin dashboard root. Thin router over three views (landing / run / library) plus the top
+// nav and demo-source control. All run state + event handling lives in useDarwinRun.
 
 import { useState } from "react";
-import { LoginGate } from "./components/LoginGate";
 import { TopNav } from "./components/TopNav";
 import { IndustryInput } from "./components/IndustryInput";
 import { RunView } from "./components/RunView";
@@ -34,14 +33,13 @@ export default function App(): JSX.Element {
   };
 
   return (
-    <LoginGate>
-      <div className="app">
-        <TopNav
-          mode={mode}
-          onHome={goHome}
-          onOpenLibrary={() => setView("library")}
-          onOpenDemoControls={() => setDemoOpen((v) => !v)}
-        />
+    <div className="app">
+      <TopNav
+        mode={mode}
+        onHome={goHome}
+        onOpenLibrary={() => setView("library")}
+        onOpenDemoControls={() => setDemoOpen((v) => !v)}
+      />
 
         {demoOpen ? (
           <div className="demo-controls-anchor">
@@ -77,7 +75,6 @@ export default function App(): JSX.Element {
             Stop asking which LLM is best. Ask which LLM is best at each task.
           </span>
         </footer>
-      </div>
-    </LoginGate>
+    </div>
   );
 }

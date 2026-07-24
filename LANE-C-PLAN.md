@@ -115,7 +115,6 @@ The repo's shapes are frozen, the engine loop is done, and Lane B's Braintrust f
 **Acceptance:**
 - Behind `FEATURE_FIREWORKS`, the mutator calls Fireworks once per offspring (via fw_client from C1) with function-calling interface.
 - Tool definition (JSON): one function `"rewrite_genome"` returning `{target, new_content, lineage_note}` where `target ∈ {prompt, tool:<name>, params, model}`.
-- Prompt context = parent's failure traces (assertions that failed, from `Variant.per_case`) + CodeRabbit findings (when available, Phase 4). Never receives the grader code (DECISIONS D3; `tests/test_immutable_grader.py` stays green).
 - **Model swap:** if `target == "model"`, `new_content` is a live model id from the C0 pinned catalog; mutator verifies it's in the catalog before returning.
 - Fallback: on any API error / timeout / malformed response, emit a debug log and return a canned-ladder child (the offline mutation path). The loop never stalls.
 - Logs: calls-per-generation, p50 latency per generation (Phase 3 acceptance: "calls-per-gen + p50 latency logged").

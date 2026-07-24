@@ -17,7 +17,7 @@ from pipeline.synth import synth_cases
 
 @pytest.fixture
 def offline(monkeypatch):
-    for var in ("FEATURE_DAYTONA", "FEATURE_BRAINTRUST", "FEATURE_FIREWORKS", "FEATURE_CODERABBIT"):
+    for var in ("FEATURE_DAYTONA", "FEATURE_BRAINTRUST", "FEATURE_FIREWORKS"):
         monkeypatch.setenv(var, "0")
     monkeypatch.delenv("FIREWORKS_API_KEY", raising=False)
 

@@ -14,7 +14,6 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@workos-inc/authkit-react": "^0.9.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
@@ -23,7 +22,7 @@
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "typescript": "^5.5.3",
-    "vite": "^5.4.0",
-    "vitest": "^2.1.9"
+    "vite": "^8.1.5",
+    "vitest": "^4.1.10"
   }
 }

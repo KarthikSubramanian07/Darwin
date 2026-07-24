@@ -703,3 +703,13 @@ h1.title .accent {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* race-grid cell that hasn't been measured yet in the replay (fills in as the run progresses) */
+.cell-queued {
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--fg-faint);
+  border-style: dashed;
+}
+.cell-queued .num {
+  opacity: 0.5;
+}

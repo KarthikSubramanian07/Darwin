@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 // Ease a displayed number toward `target` whenever target changes (for the climbing metric +
 // stat tiles during playback). Respects prefers-reduced-motion.
-export function useTween(target: number, ms = 700): number {
+export function useTween(target: number, ms = 2400): number {
   const [v, setV] = useState(target);
   const from = useRef(target);
   const raf = useRef(0);

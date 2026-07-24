@@ -2,7 +2,7 @@
 
 **The agent that evolves itself, and picks the right model for every task.**
 
-Hackathon working plan. Team of 4. Sponsors: Daytona, Braintrust, Fireworks, CodeRabbit, WorkOS.
+Hackathon working plan. Team of 4. Sponsors: Daytona, Braintrust, Fireworks.
 Companion to [README.md](./README.md) (the pitch), [CONTRIBUTING.md](./CONTRIBUTING.md) (lane
 map), and [DECISIONS.md](./DECISIONS.md) (architecture calls).
 
@@ -43,8 +43,6 @@ construction.
 | **Fireworks** | The mutation engine and the model catalog. Evolving a population is inference-heavy (mutate + evaluate every variant, every generation), and the `model` gene races the open catalog (Llama, Qwen, DeepSeek, Kimi, ...) through one OpenAI-compatible API (`https://api.fireworks.ai/inference/v1`). It is why the loop converges fast enough to climb live and why per-task model comparison is possible. |
 | **Braintrust** | The fitness function. Every variant is a Braintrust experiment tagged by genome, generation, task, and model. The climbing score IS Braintrust experiment data, and the eval is not a report you read after, it is the selection pressure. Plus the immutable-grader property: the agent cannot edit its own eval. |
 | **Daytona** | Containment + parallelism + rollback. Self-written, untrusted variant code runs only in isolated sandboxes; the whole population is evaluated in parallel across a sandbox pool; snapshots roll back broken or regressive mutations, live. Code-type tasks (generate SQL / Python) are executed in the sandbox and scored on real execution, not an opinion. |
-| **CodeRabbit** | The independent reviewer of code the agent writes about itself. Every promoted champion opens a real PR carrying the self-written diff; CodeRabbit reviews it before it can merge (the human veto), a critical finding blocks promotion, and its findings feed the next mutation. On the repo from commit #1. |
-| **WorkOS** | AuthKit login gating the dashboard: enterprise-ready from hour one. About 30 to 60 minutes to integrate. |
 | _(stretch)_ | ElevenLabs narrator announcing new champions; CopilotKit copilot to drive the demo in plain language. Both feature-flagged, each its own Best-Use prize. |
 
 ## 2a. Braintrust is core (three surfaces, not a logger)
@@ -88,7 +86,7 @@ core/
   genome.py     the recipe: system_prompt + tools{name->source} + params + MODEL (mutable)
   engine.py     init -> evaluate -> select (elitism) -> mutate -> repeat; monotonic best score
   mutate.py     Fireworks function-calling: rewrite a tool / tweak the prompt / SWAP the model,
-                informed by failure traces + CodeRabbit findings; canned offline fallback
+                informed by failure traces; canned offline fallback
   population.py generations, elitism, selection, the routing card
 pipeline/
   decompose.py  industry -> tasks (one Fireworks structured-output call)
@@ -101,10 +99,9 @@ sandbox/
   runner.py     materialize a genome, run it in a sandbox, capture outputs (real execution)
 safety/guards.py  host-isolation assert, immutable-grader assert, regression auto-reject +
                   rollback, human veto + compute cap
-review/coderabbit.py  promotion gate + code-quality fitness term + mutation feedback
 server/events.py  FastAPI WebSocket streaming events to the dashboard (local, survives WiFi)
 dashboard/        fitness curve + phylogenetic lineage tree + genome diff + task x model grid +
-                  routing card + safeguards strip; WorkOS AuthKit; CopilotKit copilot
+                  routing card + safeguards strip
 data/runs/        persisted RunRecords (the pre-computed library + honest replay)
 ```
 
@@ -164,10 +161,8 @@ deepest sponsor lane and the leaderboard's credibility.
 Braintrust project page is demo-able, and the grader-untouched test passes; before/after table
 proves the gain.
 
-### Lane D (person 4) - Dashboard + auth + CodeRabbit + demo [WorkOS + CodeRabbit + the wow]
+### Lane D (person 4) - Dashboard + demo [the wow]
 Owns `dashboard/` (fitness curve is the hero, lineage tree, genome diff, task x model grid,
-routing card, safeguards strip, cached-run badge), WorkOS AuthKit login, CodeRabbit on the repo
-from commit #1 (`.coderabbit.yaml`), `darwin/server/events.py`, `darwin/review/coderabbit.py`,
 Devpost + per-sponsor blurbs, and the rehearsed 3-minute run-of-show. Builds against a mock
 `RunRecord` from minute 30, never blocked on A to C.
 **Done when:** the mock-fed dashboard is legible across a room by late morning; real events wired
@@ -202,8 +197,8 @@ identity, in-window; deploy the dashboard to a clean `darwin.pages.dev` via Clou
   tool in itself, and swapped to a cheaper model that scores higher on this task."
 - **1:40 Safety turn.** A seeded bad mutation regresses and is auto-rejected and snapshot-rolled-
   back; the reward-hacking canary tries to reach the grader and is blocked by the immutable-grader
-  guard AND flagged by CodeRabbit. "It cannot cheat, and a champion still needs a human to sign
-  off." Show the champion PR + the CodeRabbit review.
+  guard. "It cannot cheat, and a champion still needs a human to sign
+  off."
 - **2:10 Payoff.** The routing card. "Clause extraction: Qwen at one tenth the cost. Summarization:
   Kimi. SQL: DeepSeek, verified by real execution in a Daytona sandbox, not an opinion. Every cell
   is an auditable Braintrust experiment." Then the library, labeled as pre-computed.
@@ -238,7 +233,7 @@ The offline spine is built and climbs with all sponsor flags off. Status per mod
 
 | Module | Status | Notes |
 |---|---|---|
-| `darwin/config.py` | done | `load_config()` + `Features` + run params. Add `workos` when Lane D needs it. |
+| `darwin/config.py` | done | `load_config()` + `Features` + run params.  |
 | `darwin/core/genome.py` | done | `Genome` + `seed/to_files/from_files/clone`. **`model` gene to be added (see 10).** |
 | `darwin/core/population.py` | done | `Variant/Generation/RunRecord`, `rank/select`. **Add cost/latency/routing fields (10).** |
 | `darwin/core/engine.py` | done | Full generational loop, parallel eval, elitism, event emit. |
@@ -251,7 +246,6 @@ The offline spine is built and climbs with all sponsor flags off. Status per mod
 | `darwin/sandbox/daytona.py` | stub | **Phase 1: real pool + snapshot. Verified API in 14.** |
 | `darwin/sandbox/runner.py` | done | Thin glue: isolation assert + `pool.run_genome`. |
 | `darwin/safety/guards.py` | done | All four pillars. Uses `GRADER_TOKENS`. |
-| `darwin/review/coderabbit.py` | stub | **Phase 4: gate + fitness term + feedback.** |
 | `darwin/server/events.py` | done (in-memory) | `EventChannel.emit`. **WS fan-out = Phase 4.** |
 | `darwin/main.py` | partial | Wire `build_engine` (Phase 0 finish). |
 | `pipeline/*` | done | `decompose.py` + `synth.py` + `build.py` + curated `industries.py`. `python -m pipeline.build <industry>` writes `data/task/<industry>.json`; Fireworks JSON-mode live path with an offline library (legal, support) that climbs. |
@@ -344,7 +338,6 @@ of `run()`. Stops early on `best_fitness >= 1.0` or when `guards.within_caps` is
 Offline: advance the worst improvable problem one ladder rung (deterministic climb). Phase 3
 (Fireworks): for each offspring, one function-calling request returning
 `{target: "prompt"|"tool:<name>"|"params"|"model", new_content, lineage_note}`, informed by the
-parent's failure traces (`Variant.per_case`) and, when available, CodeRabbit findings. The
 `model` target swaps the gene to another catalog model. Log calls-per-generation + p50 latency.
 **Never receives the fitness code.**
 
@@ -373,9 +366,7 @@ reference implementation; `daytona.py` mirrors it against the real SDK (14). Add
 regressions, roll back), `promote(champion, review=None) -> bool` (blocked if
 `review.blocks_promotion` or a human veto; `AUTO_APPROVE` bypasses), `within_caps(sbx, secs)`.
 
-### Review (`review/coderabbit.py`) - LANE B/C
 `CodeReviewer(config).review_genome(genome, parent) -> ReviewResult{findings[], max_severity,
-quality_penalty, blocks_promotion, pr_url}`. Fast path: CodeRabbit CLI/API on the diff. Real
 path: `open_champion_pr(genome) -> pr_url`, then read the PR review. Offline: local
 static-analysis stub flagging exec/eval/network/grader imports. Wire into (1) `guards.promote`
 (gate), (2) fitness as a penalty term, (3) `Mutator` as feedback.
@@ -389,7 +380,7 @@ feature-flagged.
 ### Server + dashboard (`server/events.py`, `dashboard/`) - LANE D
 `EventChannel.emit(type, payload)` is done and synchronous. Phase 4: a FastAPI `/ws` endpoint
 subscribes each client and forwards events; run the engine in a background thread and stream.
-Dashboard reads events and renders the panels (16). WorkOS AuthKit gates the page; CopilotKit
+Dashboard reads events and renders the panels (16). A CopilotKit
 copilot calls back into engine actions via the server.
 
 ## 12. The benchmark task (offline ground truth)
@@ -404,8 +395,8 @@ and re-run it.
 
 ## 13. Config + feature flags
 
-`.env` (see `.env.example`). Flags: `FEATURE_DAYTONA/BRAINTRUST/FIREWORKS/CODERABBIT` (add
-`FEATURE_WORKOS`, `FEATURE_ELEVENLABS`, `FEATURE_COPILOTKIT` as those land). With all off, the
+`.env` (see `.env.example`). Flags: `FEATURE_DAYTONA/BRAINTRUST/FIREWORKS` (add
+`FEATURE_ELEVENLABS`, `FEATURE_COPILOTKIT` as those land). With all off, the
 loop uses the local sandbox + local scorer + canned mutations + static-analysis review and still
 climbs. Run params: `POPULATION_SIZE=8, GENERATIONS=5, ELITE_K=2, MAX_TOTAL_SANDBOXES=48,
 MAX_WALL_CLOCK_S=180, RANDOM_SEED=1337, AUTO_APPROVE=1`. Every integration must degrade to a
@@ -455,14 +446,9 @@ Eval("Darwin", data=lambda: [...], task=lambda input: ..., scores=[ExactMatch]) 
 Tag experiments with `genome_id, generation, task, model`. Wizard/CLI setup exists but do not
 depend on the `bt` CLI in the loop. Project name = `Darwin`.
 
-### CodeRabbit
-`.coderabbit.yaml` is committed (strict, treats genome tool code as untrusted). PR reviews via
 the GitHub app; a CLI/API exists for inline review. Verify the CLI invocation + any API surface.
 Offline fallback: local static analysis.
 
-### WorkOS (AuthKit)
-`npm i @workos-inc/authkit-react` (or the Node SDK for a server callback). Verify current
-AuthKit quickstart. Gate the dashboard route; store the session; show the signed-in user. About
 30 to 60 minutes. Feature-flag so the dashboard renders without it in dev.
 
 ## 14a. Synthetic data generation (Lane A)
@@ -562,8 +548,8 @@ backend and doubles as the honest cached-run fallback. SEO: title, meta descript
   test green; offline before/after table.
 - **Phase 3 (Lane A):** Fireworks function-calling mutation (incl. model swap) beating a random
   baseline; calls-per-gen + p50 latency logged; decompose/synth pipeline.
-- **Phase 4 (Lane B + D):** guards + CodeRabbit gate; dashboard (curve, lineage tree, diff, grid,
-  routing card, safeguards strip); WorkOS auth; seeded regression + reward-hacking canary.
+- **Phase 4 (Lane B + D):** guards; dashboard (curve, lineage tree, diff, grid,
+  routing card, safeguards strip); seeded regression + reward-hacking canary.
 - **Phase 5 (all):** 5+ reliable dry-runs, cached fallback, deploy to darwin.pages.dev, Devpost,
   rehearse.
 

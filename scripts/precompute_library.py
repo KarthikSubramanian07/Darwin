@@ -34,7 +34,6 @@ def main() -> None:
             "FEATURE_DAYTONA",
             "FEATURE_BRAINTRUST",
             "FEATURE_FIREWORKS",
-            "FEATURE_CODERABBIT",
         ):
             os.environ[var] = "0"
 

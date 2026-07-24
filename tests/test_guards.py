@@ -73,15 +73,6 @@ def test_promote_auto_approves_by_default(guards):
     assert guards.promote(Genome(genome_id="champ")) is True
 
 
-def test_promote_blocked_by_review():
-    guards = Guards(load_config())
-
-    class _Review:
-        blocks_promotion = True
-
-    assert guards.promote(Genome(genome_id="champ"), review=_Review()) is False
-
-
 def test_compute_caps(guards):
     cfg = load_config()
     assert guards.within_caps(1, 1.0) is True

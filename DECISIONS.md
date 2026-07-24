@@ -31,7 +31,6 @@ passing; failure traces = the failing assertions handed back to the mutator.
 prints exactly why it failed), the climb is near-deterministic, and because the genome is
 literally code it threads every sponsor through one coherent story: Daytona runs the untrusted
 code, Braintrust scores tests-as-fitness, Fireworks rewrites the solution from the assertion,
-and CodeRabbit reviews the code the agent wrote about itself.
 **Offline determinism:** the canned mutator advances the worst-scoring problem one rung along a
 predefined improvement ladder (broken -> correct), guaranteeing a monotonic climb with all
 flags off. See `darwin/eval/task.py` and `darwin/core/mutate.py`.
@@ -56,7 +55,6 @@ ElevenLabs becomes a 5th, feature-flagged sponsor integration (Best Use of Eleve
 destabilize the sacred path (all are isolatable + flag-off-able).
 
 ### D5 - Sponsor SDK surfaces are VERIFIED, not assumed
-**What:** Daytona / Braintrust / Fireworks / CodeRabbit calls are written against current
 official docs. These SDKs change; training data is stale.
 
 **Verified Daytona surface (2026-07-24, docs.daytona.io):**
@@ -91,7 +89,6 @@ traced and scored in Braintrust. Experiment chaining for the climb: `BaseExperim
 `base_experiment` + comparative scorers (`autoevals.Battle`/`Summary`), or
 `summarize(comparison_experiment_id=...)`.
 
-**Fireworks / CodeRabbit / WorkOS:** record verified surfaces + pinned versions here as those
 lanes implement them.
 
 ### D11 - Braintrust is core on three surfaces (RESOLVED)
@@ -102,8 +99,6 @@ climb as auditable objects, not a passive log.
 **Caveat:** the gateway needs the Fireworks key configured in Braintrust settings; default off in
 `.env` for the local Lane B test, on for the live model race.
 
-### D6 - CodeRabbit is a load-bearing safety component, not a lint pass
-**What:** Darwin is an AI that rewrites its own code, so CodeRabbit reviews every self-written
 change in three roles: (1) a promotion gate (a champion PR is reviewed before merge; a critical
 finding blocks promotion), (2) a code-quality fitness penalty (multi-objective selection so the
 agent evolves code a human would merge), and (3) mutation feedback (findings feed the next
@@ -111,7 +106,6 @@ Fireworks mutation, so the agent learns from review across generations).
 **Why:** it turns "human veto" into a concrete, reviewed PR and adds a second anti-reward-hacking
 layer on top of the immutable grader.
 **Caveat:** offline fallback is a local static-analysis stub (flags exec/eval/network/grader
-imports), honestly labeled as weaker than CodeRabbit's review.
 
 ### D9 - CopilotKit: natural-language control of the demo (RESOLVED)
 **What:** a CopilotKit copilot in the dashboard lets anyone drive Darwin in plain language:

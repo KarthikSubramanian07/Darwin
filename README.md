@@ -13,7 +13,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-black.svg)](./LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-black.svg)](https://www.python.org/)
 
-`self-improving-ai` · `evolutionary-algorithms` · `ai-safety` · `agents` · `llm-routing` · `sandboxing`
+`self-improving-ai` · `evolutionary-algorithms` · `genetic-algorithms` · `agentic-ai` · `ai-safety` · `llm` · `llm-evaluation` · `llm-routing` · `sandboxing` · `daytona` · `braintrust` · `fireworks-ai`
 
 </div>
 
@@ -73,7 +73,33 @@ task / domain ──▶ ┌─────────────────�
         live dashboard: fitness curve · lineage tree · genome diff · task×model grid · routing card
 ```
 
-Load-bearing sponsors, each used at its frontier: **Fireworks** (fast parallel mutation + the model catalog the `model` gene races), **Braintrust** (fitness function, offline eval), **Daytona** (containment, parallelism, snapshot rollback, real execution scoring). Everything else is home-built.
+Load-bearing sponsors, each used at its frontier: **Fireworks AI** (fast parallel mutation + the model catalog the `model` gene races), **Braintrust** (fitness function, offline eval), **Daytona** (containment, parallelism, snapshot rollback, real execution scoring). Everything else is home-built.
+
+## How a generation works
+
+```mermaid
+flowchart LR
+    T([Your task]) --> S[Seed a population<br/>prompt · tools · code · model]
+    S --> E{{Evaluate each variant<br/>in its own Daytona sandbox}}
+    E --> F[Score with Braintrust<br/>the fitness function]
+    F --> G[Select the fittest<br/>elitism keeps the champion]
+    G -->|mutate with Fireworks AI<br/>rewrite a tool · swap the model| S
+    G --> C([Champion + routing card])
+```
+
+The best score is monotonic by construction (elitism), so on screen it only ever climbs.
+
+## Why it's safe to run
+
+```mermaid
+flowchart TD
+    V[Self-written variant] --> B[Runs only inside a Daytona sandbox<br/>never imported into the host]
+    B --> Q{Scores better<br/>than its parent?}
+    Q -->|no| R[Auto-rejected · sandbox rolled back from snapshot]
+    Q -->|yes| H{Human sign-off}
+    H --> P([Promoted champion])
+    GR[[Immutable grader<br/>the agent cannot read or edit it]] -. scores, out of reach .-> B
+```
 
 ## Quickstart
 
@@ -93,15 +119,6 @@ python -m darwin.main --task legal
 ```
 
 **No keys? It still climbs.** With every feature flag off, Darwin falls back to a local subprocess sandbox, a local scorer, canned mutations, and a local static-analysis reviewer, and the fitness curve still climbs. That offline path is the demo floor. With keys on, variants run in real **Daytona** sandboxes, mutate and race across the live **Fireworks** catalog, and every variant is logged as a **Braintrust** experiment.
-
-## Team
-
-Built at the Daytona SF HackSprint:
-
-- **Lane A** · task decomposition + synthetic data · Shoo
-- **Lane B** · Braintrust eval harness (scorers, experiments, the leaderboard's credibility) · [@KarthikSubramanian07](https://github.com/KarthikSubramanian07)
-- **Lane C** · parallel model race on Fireworks + Daytona sandbox execution · deano
-- **Lane D** · dashboard and the demo
 
 ## License
 

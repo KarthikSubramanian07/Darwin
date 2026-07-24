@@ -48,7 +48,7 @@ export function FitnessCurve({ values, activeIndex, height = 200 }: Props) {
               transformBox: "fill-box",
               transformOrigin: "left",
               transform: `scaleX(${progress})`,
-              transition: "transform 2.8s cubic-bezier(0.4, 0, 0.2, 1)",
+              transition: "transform 1.7s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           />
         </clipPath>

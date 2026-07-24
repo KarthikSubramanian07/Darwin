@@ -37,7 +37,7 @@ const MARQUEE = [
 ];
 
 export default function App() {
-  const { gen, phase, run } = useEvolution(9500); // ~1 min replay so it reads as a real run
+  const { gen, phase, run } = useEvolution(5800); // ~30s replay so it reads as a real run
   const live = useLiveRun();
 
   // Live when the WS server is up and at least one run has streamed; otherwise the bundled

@@ -2,7 +2,7 @@
    zinc-950 canvas, near-white text, muted zinc grays, a single indigo/violet accent,
    DM Sans + JetBrains Mono, subtle fractal-noise texture, 12px radii. Minimal, no emoji. */
 
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&family=Syne:wght@600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap");
 
 :root {
   --bg: #09090b;
@@ -24,7 +24,7 @@
 
   --font-sans: "DM Sans", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
-  --font-display: "Syne", "DM Sans", system-ui, sans-serif;
+  --font-display: "DM Sans", system-ui, sans-serif;
 
   --radius: 12px;
   --radius-sm: 8px;

@@ -252,7 +252,7 @@ The offline spine is built and climbs with all sponsor flags off. Status per mod
 | `darwin/server/events.py` | done (in-memory) | `EventChannel.emit`. **WS fan-out = Phase 4.** |
 | `darwin/main.py` | partial | Wire `build_engine` (Phase 0 finish). |
 | `pipeline/decompose.py`, `synth.py` | not created | **Lane A: industry -> tasks -> synth cases.** |
-| `dashboard/` | scaffold | Vite + React shell. **Lane D builds panels.** |
+| `dashboard/` | built + deployed | Vite + React, t3.codes aesthetic, playable evolution replay, live at trydarwin.pages.dev. Wire to a real `RunRecord` + WS next. |
 
 ## 10. Data shapes (exact fields)
 
@@ -496,32 +496,42 @@ cd dashboard && npm install && npm run dev   # dashboard on :5173, proxies /ws t
 CI (`.github/workflows/ci.yml`) runs ruff + pytest with all sponsor flags off on py3.11/3.12,
 plus a dashboard build. Keep it green.
 
-## 16. Design system ("phosphor lab")
+## 16. Design system (follow t3.codes to a tee)
 
-Dark, high-contrast, condensed-display + geometric-sans, tabular-num readouts, punchy purposeful
-motion. Distinct and memorable. The fitness curve is the hero (not a big-number tile).
+The dashboard follows the t3.codes design system exactly: dark, minimal, developer-tool, one
+accent, DM Sans everywhere (no display/serif faces), a subtle fractal-noise texture, tasteful
+motion. The fitness curve is the hero. Copy carries the personality; the type stays clean.
 
 ```
---bg        #0A0B0F   near-black
---surface   #14161C   card
---fg        #E6EAF2   text
---dim       #7C8598   muted
---primary   #4EF5A3   spring-green   (the climb glows)
---mutate    #A970FF   electric violet (mutation events / model swaps)
---danger    #FF6B6B   coral           (regressions / rollback)
---warn      #FFC24E   amber           (awaiting veto)
+--bg        #09090b   zinc-950 canvas
+--bg-card   #111113   card
+--fg        #fafafa   text
+--fg-muted  #a1a1aa   muted / --fg-dim #71717a / --fg-faint #52525b
+--border    rgba(255,255,255,0.08)   / --border-strong rgba(255,255,255,0.14)
+--accent    oklch(0.68 0.17 250)     indigo/violet (single accent)
+--ok        oklch(0.72 0.16 150)     / --warn oklch(0.76 0.15 75) / --bad oklch(0.66 0.2 20)
+--font-sans "DM Sans"   / --font-mono "JetBrains Mono"
+--radius    12px (sm 8, lg 16)
 ```
-Type: a condensed display face for headings + the big fitness number; a geometric sans for body;
-tabular-nums for all numbers; count-up flash on champion improvement. Motion: staggered reveals,
-bounce-in on new champion, a subtle radar/ping on sandbox activity, smooth line-draw on the
-curve. Avoid the AI-default look (no cream/terracotta, no generic hero number, no rounded-blob
-cards). Panels: fitness curve, phylogenetic lineage tree, genome diff, task x model grid, routing
-card, safeguards strip, cached-run badge. Read the `impeccable` / frontend-design guidance.
+Type: DM Sans for everything (wordmark, hero, body), JetBrains Mono + tabular-nums for data.
+Motion: a playable evolution replay (the curve grows generation by generation), count-up numbers,
+staggered reveals, a slowly orbiting logo node, hover lifts, a marquee of differentiators, a
+subtle aurora behind the hero. Avoid the AI-default look and any funky display font (Syne was
+tried and rejected). Panels: fitness curve, population leaderboard, stat tiles, evolution log
+(scrollable), task x model race grid, genome diff, routing card, safeguards strip.
+Built with Vite + React (`dashboard/`), deployed to https://trydarwin.pages.dev.
+
+**Data wiring (kept in place):** `dashboard/src/run.ts` holds a labelled replay whose shapes
+mirror `RunRecord`; to show a real run, fetch a persisted `data/runs/*.json` and map
+`fitness_curve -> CURVE`, `Generation.variants -> POOL`, events -> `EVENTS`, and each
+`Variant.braintrust_experiment_url` to a deep link per row/cell. The live path streams the same
+shapes from `darwin/server/events.py` over `/ws`.
 
 ## 17. Deployment
 
-Dashboard deploys to a clean `darwin.pages.dev` via Cloudflare Pages using Wrangler
-(`wrangler pages deploy dashboard/dist --project-name darwin`). The deployed site is the landing
+Dashboard is deployed to `https://trydarwin.pages.dev` via Cloudflare Pages using Wrangler
+(`cd dashboard && npm run deploy`, which runs `wrangler pages deploy dist --project-name
+trydarwin`). "darwin" was taken, so the project is "trydarwin". The deployed site is the landing
 page + an interactive replay of a real persisted `RunRecord` (bundled JSON), so it works with no
 backend and doubles as the honest cached-run fallback. SEO: title, meta description, Open Graph,
 `sitemap.xml`, `robots.txt`, semantic HTML, Lighthouse pass.

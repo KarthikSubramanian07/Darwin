@@ -14,6 +14,7 @@ import { useTween } from "./useTween";
 
 const KIND_LABEL: Record<string, string> = {
   seed: "seed",
+  eval: "eval",
   champion: "champion",
   mutate: "mutation",
   reject: "rollback",

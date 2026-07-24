@@ -23,11 +23,32 @@ as such and only used when Daytona is disabled.
 contain `eval/`; a test asserts no genome/tool references the fitness module.
 **Why:** "it can't cheat its own grader" is a load-bearing safety property, not a promise.
 
-### D4 - Task choice (TBD - Lane C to finalize)
-**What:** pick a task where improvement is near-deterministic from *structured, actionable*
-failure traces, so the mutator can act on them and the climb is reliable.
-**Why:** a demo that climbs 40→90 boringly beats one that sometimes leaps and sometimes stalls.
-**Status:** candidate options under evaluation - see the plan. Record the final choice here.
+### D4 - Task choice: a coding benchmark (RESOLVED)
+**What:** Darwin evolves an agent on a suite of small, self-contained Python coding problems.
+The genome's tool code IS the candidate solution; fitness = fraction of hidden unit tests
+passing; failure traces = the failing assertions handed back to the mutator.
+**Why:** failure traces are maximally structured and actionable (a test either passes or
+prints exactly why it failed), the climb is near-deterministic, and because the genome is
+literally code it threads every sponsor through one coherent story: Daytona runs the untrusted
+code, Braintrust scores tests-as-fitness, Fireworks rewrites the solution from the assertion,
+and CodeRabbit reviews the code the agent wrote about itself.
+**Offline determinism:** the canned mutator advances the worst-scoring problem one rung along a
+predefined improvement ladder (broken -> correct), guaranteeing a monotonic climb with all
+flags off. See `darwin/eval/task.py` and `darwin/core/mutate.py`.
+
+### D7 - Signature identity: "phosphor lab" (RESOLVED)
+**What:** near-black `#0A0B0F`, primary spring-green `#4EF5A3` (the climb glows), electric
+violet `#A970FF` for mutation events, coral `#FF6B6B` for regressions/rollback. Condensed
+display face + geometric sans, tabular-num readouts, count-up flash on champion improvement.
+**Why:** keeps the reference project's dark, high-contrast, punchy-motion personality while
+being visually distinct and on-theme (living-organism telemetry).
+
+### D8 - Scope: swing big, keep the core reliable (RESOLVED)
+**What:** ship the three stretch beats (reward-hacking canary, live phylogenetic lineage tree,
+ElevenLabs champion narrator) AND keep the core climb boringly reliable (5+ clean dry-runs).
+ElevenLabs becomes a 5th, feature-flagged sponsor integration (Best Use of ElevenLabs).
+**Why:** the user asked for big swings; each beat maps to a prize, and none is allowed to
+destabilize the sacred path (all are isolatable + flag-off-able).
 
 ### D5 - Sponsor SDK surfaces are VERIFIED, not assumed
 **What:** Daytona / Braintrust / Fireworks / CodeRabbit calls are written against current
@@ -59,4 +80,19 @@ layer on top of the immutable grader.
 **Caveat:** offline fallback is a local static-analysis stub (flags exec/eval/network/grader
 imports), honestly labeled as weaker than CodeRabbit's review.
 
-<!-- Append D7+ as decisions are made during the sprint. -->
+### D9 - CopilotKit: natural-language control of the demo (RESOLVED)
+**What:** a CopilotKit copilot in the dashboard lets anyone drive Darwin in plain language:
+"run another generation", "explain why gen 3 won", "show me the tool it rewrote", "veto this
+champion". It reads the live run state and can trigger engine actions through the event server.
+**Why:** turns the dashboard from a passive readout into an interactive agent surface (Best Use
+of CopilotKit), and makes the human-veto pillar something a judge performs by voice/text.
+**Setup:** `npx copilotkit@latest license` needs interactive sign-in (owner runs it once).
+Feature-flagged; dashboard renders fine without it.
+
+### D10 - Deploy via Wrangler to darwin.pages.dev (RESOLVED)
+**What:** deploy the dashboard (landing + interactive replay of a real persisted run) to
+Cloudflare Pages with `wrangler pages deploy`. Owner approves the auth prompt.
+**Why:** hands-off for the owner, one clean SEO link that works with no backend and doubles as
+the honest cached-run fallback.
+
+<!-- Append D11+ as decisions are made during the sprint. -->

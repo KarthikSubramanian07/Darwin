@@ -2,30 +2,34 @@
 
 # 🧬 Darwin
 
-### An agent that evolves itself. Safely.
+### It evolves the best whole agent for your task. Safely.
 
-**Point it at a task it's mediocre at. It rewrites its own tools, prompt, and code, runs every variant in a sandbox it can't escape, scores them with a grader it can't cheat, keeps the fittest, and does it again. The score climbs while you watch.**
+**Give Darwin a task. It evolves the entire agent that solves it, its prompt, its self-written tool code, and the model it runs on, generation over generation, scored by an eval it can't game, inside sandboxes it can't escape. The score climbs while you watch. Point it at a whole domain and it hands back a routing card: the best agent, and model, for each task.**
 
 [![CI](https://github.com/KarthikSubramanian07/darwin/actions/workflows/ci.yml/badge.svg)](https://github.com/KarthikSubramanian07/darwin/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-black.svg)](./LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-black.svg)](https://www.python.org/)
 
-`self-improving-ai` · `evolutionary-algorithms` · `ai-safety` · `agents` · `sandboxing`
+`self-improving-ai` · `evolutionary-algorithms` · `ai-safety` · `agents` · `llm-routing` · `sandboxing`
 
 </div>
 
 ---
 
-## The one-sentence version
+## The pitch
 
-Everyone wants an agent that improves on its own. Nobody will deploy one, because "an AI rewriting its own code" is a liability no one can sign off on. Darwin is that loop, made safe by construction. Self-modification happens only inside disposable sandboxes, the agent can never touch its own grader, every rewrite gets code-reviewed before it lives, regressions are auto-killed and rolled back, and a human signs off on every new champion.
+Everyone picks one model for everything and hand-tunes one agent for weeks. Both are the wrong unit of work. The thing you actually want is the *best whole agent* for the task in front of you, and you want it to find itself. That is what Darwin does, and the reason nobody ships it (an AI rewriting its own code is a liability no one signs off on) is the exact thing Darwin makes safe by construction.
+
+Darwin treats an agent as a genome: its system prompt, its self-written tool code, its params, **and the model it runs on**. It spawns a population, runs each variant in an isolated Daytona sandbox, scores them with a Braintrust eval that acts as the fitness function, keeps the fittest, and mutates the next generation with Fireworks. The best score climbs, on its own, on screen.
+
+Because the model is just one more gene, self-improvement and model selection are the same act. Point Darwin at one task and watch it climb. Point it at a domain of related tasks and it hands back a **routing card**: the winning agent and model for each one. One product, one loop, one wow.
 
 It is literal natural selection over agents:
 
-- **Variation.** Mutate the agent's tools, prompt, and code. Fireworks does the mutating, fast and in parallel.
+- **Variation.** Mutate the agent's tools, prompt, code, and the model it runs on. Fireworks does the mutating, fast and in parallel.
 - **Selection.** A Braintrust eval is the fitness function. The score decides who lives.
 - **Inheritance.** The fittest seed the next generation.
-- **Containment.** Every variant runs in its own isolated Daytona sandbox. A bad mutation can't touch the host and gets snapshot-rolled-back on sight.
+- **Containment.** Every variant runs in its own isolated Daytona sandbox, every rewrite is reviewed by CodeRabbit, and a bad mutation is snapshot-rolled-back on sight.
 
 Generation over generation, the best score climbs. Autonomously. On screen. In real time.
 
@@ -33,12 +37,13 @@ Generation over generation, the best score climbs. Autonomously. On screen. In r
 
 | You've seen | Darwin |
 |---|---|
-| **AlphaEvolve** evolves a *program* toward a fixed objective, in a research harness | evolves a whole **agent** (tools + prompt + code) as a product you point at your task |
-| **DSPy / prompt optimizers** edit the *words* | rewrites the *tools*, a strictly larger search space, run in a real sandbox |
+| **AlphaEvolve** evolves a *program* toward a fixed objective, in a research harness | evolves a whole **agent** (prompt + tools + code + model) as a product you point at your task |
+| **DSPy / prompt optimizers** edit the *words* | rewrites the *tools* and swaps the *model*, a strictly larger search space, run in a real sandbox |
+| **Model leaderboards / routers** rank models on *generic* benchmarks | evolves the best *whole agent and model* on *your* task, and hands back a routing card |
 | **Braintrust / eval tools** *measure* an agent after the fact | uses the eval as *selection pressure*: the score decides which agents survive |
 | **ADAS / meta-agent search** optimizes, unconstrained | optimizes **safely**: sandboxed, immutable grader, code review, rollback, human veto |
 
-> Prompt optimizers edit the words. Darwin rewrites the tools. AlphaEvolve is a paper; Darwin is a product you can run on your task in three minutes.
+> Prompt optimizers edit the words. Model routers rank models on someone else's tasks. Darwin evolves the best whole agent, prompt, tools, code, and model, on yours. AlphaEvolve is a paper; Darwin runs on your task in three minutes.
 
 ## The safety spine
 
@@ -53,22 +58,22 @@ Five guarantees, enforced as code, not slideware:
 ## Architecture
 
 ```
-task ──▶ ┌─────────────────────────────────────────────────────┐
-         │  EvolutionEngine   init ▸ evaluate ▸ select ▸ mutate │◀─┐
-         └─────────────────────────────────────────────────────┘  │
-              │            │             │            │            │
-        Genome pop    Daytona pool   Braintrust   Fireworks        │
-       (prompt+tools  (N parallel     (fitness =   (mutation       │
-        +code,         sandboxes,     immutable     engine,         │
-        mutable)       snapshot/      grader)       parallel)───────┘
-                       rollback)          │
-                            │        CodeRabbit reviews the self-written
-                            │        diff before a champion is promoted
-                            ▼
-                     live dashboard: fitness curve · leaderboard · genome diff
+task / domain ──▶ ┌───────────────────────────────────────────────────┐
+                  │ EvolutionEngine  init ▸ evaluate ▸ select ▸ mutate │◀─┐
+                  └───────────────────────────────────────────────────┘  │
+                       │            │             │            │          │
+                 Genome pop    Daytona pool   Braintrust   Fireworks      │
+                (prompt+tools  (N parallel     (fitness =   (mutation +   │
+                 +code+MODEL,   sandboxes,     immutable     model race,  │
+                 mutable)       snapshot/      grader)       parallel)─────┘
+                                rollback)          │
+                                     │        CodeRabbit reviews the self-written
+                                     │        diff before a champion is promoted
+                                     ▼
+        live dashboard: fitness curve · lineage tree · genome diff · task×model grid · routing card
 ```
 
-Load-bearing sponsors, each used at its frontier: **Daytona** (containment, parallelism, snapshot rollback), **Braintrust** (fitness function, offline eval), **Fireworks** (fast parallel mutation), **CodeRabbit** (independent review of the agent's self-written code). Everything else is home-built.
+Load-bearing sponsors, each used at its frontier: **Fireworks** (fast parallel mutation + the model catalog the `model` gene races), **Braintrust** (fitness function, offline eval), **Daytona** (containment, parallelism, snapshot rollback, real execution scoring), **CodeRabbit** (independent review of the agent's self-written code), **WorkOS** (AuthKit login on the dashboard). Everything else is home-built.
 
 ## Quickstart
 
@@ -83,10 +88,6 @@ python -m darwin.main       # start an evolution run
 ```
 
 **No keys? It still climbs.** With every feature flag off, Darwin falls back to a local subprocess sandbox, a local scorer, canned mutations, and a local static-analysis reviewer, and the fitness curve still climbs on a canned task. That offline path is the demo floor.
-
-## Team and lanes
-
-Built in a one-day sprint. Four lanes, four owners, one sacred path (the evolution loop). See [CONTRIBUTING.md](./CONTRIBUTING.md) for lane boundaries and [DECISIONS.md](./DECISIONS.md) for the architecture calls we made and why.
 
 ## License
 

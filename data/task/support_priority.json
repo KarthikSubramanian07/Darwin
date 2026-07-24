@@ -1,78 +1,80 @@
 {
   "task_id": "support_priority",
-  "description": "Assign a support priority from customer impact.",
+  "description": "Assigns an objective priority level to a support message based on explicit severity indicators, business impact, and time sensitivity, independent of tone or politeness.",
   "industry": "support",
   "problems": [
     {
       "case_id": "support_priority",
       "entrypoint": "solve",
-      "prompt": "Classify support priority.",
+      "prompt": "Evaluate the customer support message and assign exactly one priority level using the objective criteria below. Do not let polite tone lower priority, or rude tone raise it.\n\nCriteria:\n- critical: Security breach, fraud report, safety hazard, complete service outage affecting multiple users, or legal threat.\n- high: Wrong or missing critical item with hard deadline, repeated unresolved failure, payment processing error, or significant revenue at risk.\n- medium: Single non-urgent issue, minor bug, general product question, or routine account update.\n- low: Feedback, feature request, testimonial, or informational question with no deadline.\n\nMessage: {message}\n\nOutput only the exact priority label.",
       "cases": [
         {
           "args": [
-            "Our entire production team cannot log in."
+            "I noticed suspicious activity on my account. There were multiple login attempts from IP addresses in countries I've never visited and my API keys were used to delete production databases at 2AM. This appears to be a security breach."
           ],
-          "expected": "urgent"
+          "expected": "critical"
         },
         {
           "args": [
-            "The checkout page is broken for all customers."
+            "The entire platform is offline. All 200 users at our company are getting 503 errors and cannot access any services. This is a complete outage."
           ],
-          "expected": "urgent"
+          "expected": "critical"
         },
         {
           "args": [
-            "I cannot find a setting in the dashboard."
+            "Our legal department is preparing a lawsuit regarding the data privacy violations we experienced on your platform last month. You need to address this immediately or we will proceed with litigation."
+          ],
+          "expected": "critical"
+        },
+        {
+          "args": [
+            "Our payment gateway is rejecting all transactions. We are currently unable to process any customer orders and estimate revenue loss of $10,000 per hour."
+          ],
+          "expected": "high"
+        },
+        {
+          "args": [
+            "You delivered the wrong surgical instruments to our hospital. We have critical operations scheduled for tomorrow morning and must receive the correct items by 6AM or we will need to cancel procedures."
+          ],
+          "expected": "high"
+        },
+        {
+          "args": [
+            "I have reported this invoice generation bug four times over the past two weeks and it remains unresolved. Every night at midnight the batch job fails and we cannot bill our clients."
+          ],
+          "expected": "high"
+        },
+        {
+          "args": [
+            "When I click the 'Help' button in the settings menu, the tooltip appears slightly cut off on the right side of my screen. It doesn't block my work but I wanted to report it."
+          ],
+          "expected": "medium"
+        },
+        {
+          "args": [
+            "Could you clarify whether the Business plan includes the automated reporting feature? I am reviewing options for my team and want to make sure I understand the differences between tiers."
+          ],
+          "expected": "medium"
+        },
+        {
+          "args": [
+            "I absolutely love using your product! It would be wonderful if you could add a dark mode option in the future. Thank you for all your hard work!"
           ],
           "expected": "low"
         },
         {
           "args": [
-            "One user sees an intermittent error."
-          ],
-          "expected": "normal"
-        },
-        {
-          "args": [
-            "A security incident may have exposed customer data."
-          ],
-          "expected": "urgent"
-        },
-        {
-          "args": [
-            "Please add a dark mode option."
+            "This app is pathetic garbage. Only a complete idiot would ship software without dark mode. Stop being lazy and add it immediately, you useless developers."
           ],
           "expected": "low"
-        },
-        {
-          "args": [
-            "Our monthly invoice appears incorrect."
-          ],
-          "expected": "normal"
-        },
-        {
-          "args": [
-            "The API is down across our account."
-          ],
-          "expected": "urgent"
-        },
-        {
-          "args": [
-            "How can I update my profile photo?"
-          ],
-          "expected": "low"
-        },
-        {
-          "args": [
-            "A payment was declined for one order."
-          ],
-          "expected": "normal"
         }
       ],
       "ladder": [],
       "task_type": "structured",
       "scorer_config": {
-        "method": "exact_match"
+        "method": "exact_match",
+        "task_source": "fireworks",
+        "case_source": "fireworks"
       }
     }
   ]

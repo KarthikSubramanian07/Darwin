@@ -1,80 +1,110 @@
 {
   "task_id": "legal_confidentiality",
-  "description": "Identify confidentiality obligations.",
+  "description": "Characterize the confidentiality obligation symmetry and duration from a non-disclosure or confidentiality clause.",
   "industry": "legal",
   "problems": [
     {
       "case_id": "legal_confidentiality",
       "entrypoint": "solve",
-      "prompt": "Classify confidentiality scope.",
+      "prompt": "Analyze the provided confidentiality clause and extract two attributes. Return a single JSON object containing exactly two keys: (1) \"obligation_type\" with a value of exactly one of: Mutual, Unilateral - recipient bound, Unilateral - discloser bound, None/Not specified; and (2) \"duration\" with a value of exactly one of: Perpetual, Term of agreement, Fixed post-termination period, Not specified. Both values must match the listed strings exactly. Output only the JSON object.",
       "cases": [
         {
           "args": [
-            "Recipient may use confidential information only to perform this agreement."
+            "Each party agrees to hold all Confidential Information of the other party in strict confidence and shall not disclose such information to any third party. These confidentiality obligations shall survive termination of this Agreement and remain in effect indefinitely."
           ],
-          "expected": "restricted_use"
+          "expected": {
+            "obligation_type": "Mutual",
+            "duration": "Perpetual"
+          }
         },
         {
           "args": [
-            "Information already public is not confidential."
+            "The Receiving Party agrees to maintain the confidentiality of the Disclosing Party's Confidential Information for a period of five (5) years following the termination of this Agreement."
           ],
-          "expected": "public_information_exception"
+          "expected": {
+            "obligation_type": "Unilateral - recipient bound",
+            "duration": "Fixed post-termination period"
+          }
         },
         {
           "args": [
-            "Recipient must return or destroy confidential materials on request."
+            "The Disclosing Party agrees to keep all Confidential Information of the Receiving Party confidential during the term of this Agreement."
           ],
-          "expected": "return_or_destroy"
+          "expected": {
+            "obligation_type": "Unilateral - discloser bound",
+            "duration": "Term of agreement"
+          }
         },
         {
           "args": [
-            "Disclosure is permitted when required by law."
+            "Both parties agree to keep all exchanged information confidential solely during the term of this Agreement."
           ],
-          "expected": "legal_disclosure_exception"
+          "expected": {
+            "obligation_type": "Mutual",
+            "duration": "Term of agreement"
+          }
         },
         {
           "args": [
-            "Confidentiality obligations survive for three years."
+            "The Recipient shall hold all Confidential Information of the Discloser in strict confidence and shall not disclose the same at any time, and these obligations shall continue in perpetuity."
           ],
-          "expected": "survival_period"
+          "expected": {
+            "obligation_type": "Unilateral - recipient bound",
+            "duration": "Perpetual"
+          }
         },
         {
           "args": [
-            "Employees with a need to know may access the information."
+            "For purposes of this Agreement, 'Confidential Information' means any non-public technical or financial information disclosed by either party."
           ],
-          "expected": "need_to_know_access"
+          "expected": {
+            "obligation_type": "None/Not specified",
+            "duration": "Not specified"
+          }
         },
         {
           "args": [
-            "Recipient shall protect the information using reasonable care."
+            "Each party shall maintain the confidentiality of the other party's Confidential Information for a period of three (3) years following the expiration or termination of this Agreement."
           ],
-          "expected": "security_standard"
+          "expected": {
+            "obligation_type": "Mutual",
+            "duration": "Fixed post-termination period"
+          }
         },
         {
           "args": [
-            "Independently developed information is excluded."
+            "The Consultant, as recipient, agrees to keep the Client's Confidential Information confidential during the term of this engagement."
           ],
-          "expected": "independent_development_exception"
+          "expected": {
+            "obligation_type": "Unilateral - recipient bound",
+            "duration": "Term of agreement"
+          }
         },
         {
           "args": [
-            "The receiving party must promptly notify the discloser of compelled disclosure."
+            "The Disclosing Party agrees to maintain the confidentiality of the Recipient's trade secrets in perpetuity."
           ],
-          "expected": "notice_requirement"
+          "expected": {
+            "obligation_type": "Unilateral - discloser bound",
+            "duration": "Perpetual"
+          }
         },
         {
           "args": [
-            "Trade secrets remain protected for as long as they qualify as trade secrets."
+            "As the disclosing party, Vendor agrees to hold Buyer's order details in confidence for two (2) years after termination of this Agreement."
           ],
-          "expected": "trade_secret_survival"
+          "expected": {
+            "obligation_type": "Unilateral - discloser bound",
+            "duration": "Fixed post-termination period"
+          }
         }
       ],
       "ladder": [],
       "task_type": "structured",
       "scorer_config": {
         "method": "exact_match",
-        "task_source": "canned",
-        "case_source": "canned"
+        "task_source": "fireworks",
+        "case_source": "fireworks"
       }
     }
   ]

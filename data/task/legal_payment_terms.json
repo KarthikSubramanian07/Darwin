@@ -1,101 +1,91 @@
 {
   "task_id": "legal_payment_terms",
-  "description": "Extract payment terms into a structured record.",
+  "description": "Identify the core payment timing and structure from a financial or payment-related contract clause.",
   "industry": "legal",
   "problems": [
     {
       "case_id": "legal_payment_terms",
       "entrypoint": "solve",
-      "prompt": "Extract payment terms.",
+      "prompt": "Analyze the provided payment clause and classify the payment terms into exactly one category from the following list: Net 30, Net 60, Net 90, Due upon receipt, Milestone-based, Annual upfront, Quarterly, Monthly, Not specified, Other. Return a single JSON object containing exactly one key: \"payment_terms\". The value must match one of the listed strings exactly. Output only the JSON object.",
       "cases": [
         {
           "args": [
-            "Invoices are due net 30 from receipt."
+            "Payment shall be made within thirty (30) days from the date of invoice."
           ],
           "expected": {
-            "days": 30,
-            "prepaid": false
+            "payment_terms": "Net 30"
           }
         },
         {
           "args": [
-            "Customer must prepay annual fees before service begins."
+            "All fees are payable sixty (60) days following the end of the month in which the invoice is issued."
           ],
           "expected": {
-            "days": 0,
-            "prepaid": true
+            "payment_terms": "Net 60"
           }
         },
         {
           "args": [
-            "Payment is due within 15 days after invoice date."
+            "The Client agrees to remit payment no later than ninety (90) calendar days after receipt of a properly submitted invoice."
           ],
           "expected": {
-            "days": 15,
-            "prepaid": false
+            "payment_terms": "Net 90"
           }
         },
         {
           "args": [
-            "All monthly charges are payable in advance."
+            "Invoices are due and payable immediately upon receipt. Late fees shall accrue after five days."
           ],
           "expected": {
-            "days": 0,
-            "prepaid": true
+            "payment_terms": "Due upon receipt"
           }
         },
         {
           "args": [
-            "Amounts are due net 45."
+            "Fifty percent upon execution, twenty-five percent upon delivery of the prototype, and the balance upon final acceptance."
           ],
           "expected": {
-            "days": 45,
-            "prepaid": false
+            "payment_terms": "Milestone-based"
           }
         },
         {
           "args": [
-            "Pay the setup fee immediately upon execution."
+            "The annual subscription fee of $12,000 is to be paid in full at the commencement of each contract year."
           ],
           "expected": {
-            "days": 0,
-            "prepaid": true
+            "payment_terms": "Annual upfront"
           }
         },
         {
           "args": [
-            "Invoices must be paid within 60 calendar days."
+            "License fees shall be remitted on a quarterly basis, with payments due on the first day of each calendar quarter."
           ],
           "expected": {
-            "days": 60,
-            "prepaid": false
+            "payment_terms": "Quarterly"
           }
         },
         {
           "args": [
-            "Subscription fees are billed and paid annually in advance."
+            "Service fees are billed and payable on the first business day of each month."
           ],
           "expected": {
-            "days": 0,
-            "prepaid": true
+            "payment_terms": "Monthly"
           }
         },
         {
           "args": [
-            "Customer shall remit payment no later than 10 days after receipt."
+            "The parties agree that compensation details shall be negotiated separately and documented in a future statement of work."
           ],
           "expected": {
-            "days": 10,
-            "prepaid": false
+            "payment_terms": "Not specified"
           }
         },
         {
           "args": [
-            "Fees are payable upfront each quarter."
+            "Payment terms are 2% 10 Net 45, with a two percent discount available if paid within ten days, otherwise the full amount is due in forty-five days."
           ],
           "expected": {
-            "days": 0,
-            "prepaid": true
+            "payment_terms": "Other"
           }
         }
       ],
@@ -103,8 +93,8 @@
       "task_type": "structured",
       "scorer_config": {
         "method": "exact_match",
-        "task_source": "canned",
-        "case_source": "canned"
+        "task_source": "fireworks",
+        "case_source": "fireworks"
       }
     }
   ]

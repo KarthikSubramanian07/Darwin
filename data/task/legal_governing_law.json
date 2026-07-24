@@ -1,80 +1,100 @@
 {
   "task_id": "legal_governing_law",
-  "description": "Extract the governing jurisdiction.",
+  "description": "Extract and normalize the governing law or jurisdiction explicitly stated in a contract clause.",
   "industry": "legal",
   "problems": [
     {
       "case_id": "legal_governing_law",
       "entrypoint": "solve",
-      "prompt": "Extract governing law.",
+      "prompt": "Identify the governing law or jurisdiction stated in the provided contract clause. Return a single JSON object containing exactly one key: \"jurisdiction\". Normalize the value to the standard full legal name (e.g., \"New York\", \"Delaware\", \"England and Wales\", \"Federal law of the United States\"). If the clause does not specify a governing law, return the value \"Not specified\". Output only the JSON object.",
       "cases": [
         {
           "args": [
-            "This Agreement shall be governed by the laws of the State of California."
+            "This Agreement shall be governed by and construed in accordance with the laws of the State of New York, without regard to its conflict of laws principles."
           ],
-          "expected": "California"
+          "expected": {
+            "jurisdiction": "New York"
+          }
         },
         {
           "args": [
-            "The laws of New York govern this contract."
+            "The internal laws of the State of Delaware shall govern all matters arising out of this Contract."
           ],
-          "expected": "New York"
+          "expected": {
+            "jurisdiction": "Delaware"
+          }
         },
         {
           "args": [
-            "This agreement is governed by Delaware law."
+            "This agreement is subject to the non-exclusive jurisdiction of the courts of England and Wales."
           ],
-          "expected": "Delaware"
+          "expected": {
+            "jurisdiction": "England and Wales"
+          }
         },
         {
           "args": [
-            "The laws of England and Wales apply."
+            "These Terms of Service are governed by the Federal law of the United States."
           ],
-          "expected": "England and Wales"
+          "expected": {
+            "jurisdiction": "Federal law of the United States"
+          }
         },
         {
           "args": [
-            "This Agreement is subject to the laws of Texas."
+            "The laws of the Commonwealth of Massachusetts shall govern this agreement."
           ],
-          "expected": "Texas"
+          "expected": {
+            "jurisdiction": "Massachusetts"
+          }
         },
         {
           "args": [
-            "Washington law governs the interpretation of this Agreement."
+            "This contract shall be interpreted in accordance with Texas law."
           ],
-          "expected": "Washington"
+          "expected": {
+            "jurisdiction": "Texas"
+          }
         },
         {
           "args": [
-            "The laws of Massachusetts shall control."
+            "The parties irrevocably submit to the exclusive jurisdiction of the courts of Singapore."
           ],
-          "expected": "Massachusetts"
+          "expected": {
+            "jurisdiction": "Singapore"
+          }
         },
         {
           "args": [
-            "This contract is governed by the laws of Illinois."
+            "The Seller shall deliver the goods within thirty (30) days of receipt of purchase order."
           ],
-          "expected": "Illinois"
+          "expected": {
+            "jurisdiction": "Not specified"
+          }
         },
         {
           "args": [
-            "Florida law applies to this Agreement."
+            "Le présent contrat est régi par les lois de la République française."
           ],
-          "expected": "Florida"
+          "expected": {
+            "jurisdiction": "France"
+          }
         },
         {
           "args": [
-            "The Province of Ontario's laws shall govern."
+            "This Deed shall be governed by and construed in accordance with the laws of the Republic of India."
           ],
-          "expected": "Ontario"
+          "expected": {
+            "jurisdiction": "India"
+          }
         }
       ],
       "ladder": [],
       "task_type": "structured",
       "scorer_config": {
         "method": "exact_match",
-        "task_source": "canned",
-        "case_source": "canned"
+        "task_source": "fireworks",
+        "case_source": "fireworks"
       }
     }
   ]

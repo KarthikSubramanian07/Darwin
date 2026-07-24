@@ -1,78 +1,80 @@
 {
   "task_id": "support_sentiment",
-  "description": "Classify customer sentiment.",
+  "description": "Identifies the customer's emotional tone using objective linguistic markers to flag conversations requiring de-escalation, empathy, or celebration.",
   "industry": "support",
   "problems": [
     {
       "case_id": "support_sentiment",
       "entrypoint": "solve",
-      "prompt": "Classify ticket sentiment.",
+      "prompt": "Analyze the customer message and classify its sentiment using only the objective markers below. Select the single best match.\n\nCategories:\n- angry: Contains threats, profanity, all-caps shouting, or explicitly hostile language.\n- frustrated: Expresses disappointment, mentions prior failed attempts, or shows impatience without hostility.\n- concerned: Shows anxiety about deadlines, safety, or correctness; cautious but polite.\n- neutral: Purely factual, no emotional adjectives or exclamation points indicating strong feeling.\n- appreciative: Contains thanks, praise, or positive feedback about the product or support.\n\nMessage: {message}\n\nOutput only the exact sentiment label.",
       "cases": [
         {
           "args": [
-            "Thank you, the new feature is fantastic!"
+            "I AM SICK OF THIS! FIX THIS NOW OR I WILL SUE YOU IDIOTS"
           ],
-          "expected": "positive"
+          "expected": "angry"
         },
         {
           "args": [
-            "This is the third time the app has failed me."
+            "This is the third time I've contacted you and the issue still isn't resolved. I'm really disappointed."
           ],
-          "expected": "negative"
+          "expected": "frustrated"
         },
         {
           "args": [
-            "Where can I view my plan details?"
+            "I just wanted to check if the package will arrive by Thursday since I need it for an important event. I hope there won't be any delays."
+          ],
+          "expected": "concerned"
+        },
+        {
+          "args": [
+            "My order number is 45892. I need to change the shipping address to 123 Main Street."
           ],
           "expected": "neutral"
         },
         {
           "args": [
-            "I am extremely disappointed with this service."
+            "Thank you so much for your quick response! Your support team has been incredibly helpful."
           ],
-          "expected": "negative"
+          "expected": "appreciative"
         },
         {
           "args": [
-            "Everything is working well now."
+            "If you don't refund my money immediately I will file a complaint with the Better Business Bureau and post about this everywhere."
           ],
-          "expected": "positive"
+          "expected": "angry"
         },
         {
           "args": [
-            "Please send me the tracking number."
+            "I've been waiting on hold for 45 minutes. This is taking way too long."
+          ],
+          "expected": "frustrated"
+        },
+        {
+          "args": [
+            "Could you please double-check that the dosage instructions are correct? I want to make sure I take this safely."
+          ],
+          "expected": "concerned"
+        },
+        {
+          "args": [
+            "Please confirm the account was closed on January 15."
           ],
           "expected": "neutral"
         },
         {
           "args": [
-            "Your support team solved this quickly, thanks!"
+            "The new update works perfectly. Great job on the redesign!"
           ],
-          "expected": "positive"
-        },
-        {
-          "args": [
-            "This outage is unacceptable."
-          ],
-          "expected": "negative"
-        },
-        {
-          "args": [
-            "Can I change my billing address?"
-          ],
-          "expected": "neutral"
-        },
-        {
-          "args": [
-            "I love how easy the update was."
-          ],
-          "expected": "positive"
+          "expected": "appreciative"
         }
       ],
       "ladder": [],
       "task_type": "structured",
       "scorer_config": {
-        "method": "exact_match"
+        "method": "exact_match",
+        "task_source": "fireworks",
+        "case_source": "fireworks"
       }
     }
   ]

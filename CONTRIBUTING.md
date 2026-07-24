@@ -1,22 +1,30 @@
 # Contributing to Darwin (sprint lane map)
 
 Four lanes, four owners. **No two people touch the same critical file at once.** The
-demo-critical path (the evolution loop + the dashboard) is protected from experimental
+demo-critical path (the race/evolution loop + the dashboard) is protected from experimental
 work. Every integration lands as an isolatable, feature-flagged module that degrades to a
 clean no-op, so the core loop always runs offline.
 
 ## Lanes
 
-| Lane | Owner | Owns | Deliverable |
-|------|-------|------|-------------|
-| **A - Evolution + Mutation** (sacred) | | `darwin/core/engine.py`, `genome.py`, `population.py`, `mutate.py` | the score climbs, repeatably |
-| **B - Sandbox + Safety** | | `darwin/sandbox/daytona.py`, `runner.py`, `darwin/safety/guards.py` | parallel sandboxes; bad mutation rolled back on stage |
-| **C - Fitness + Eval** | | `darwin/eval/fitness.py`, `task.py` | Braintrust as fitness fn; offline before/after table |
-| **D - Dashboard + Pitch** | | `dashboard/`, `darwin/server/events.py`, Devpost | the live climbing curve, legible from across a room |
+| Lane | Person | Scope | Owns (files) |
+|------|--------|-------|--------------|
+| **A** | person 1 | industry → task decomposition + synthetic data generation | `pipeline/decompose.py`, `pipeline/synth.py`, `darwin/eval/task.py`, `scripts/build_task.py`, `data/task/` |
+| **B** | person 2 | the Braintrust eval harness: scorers, experiments, the leaderboard's credibility | `darwin/eval/fitness.py`, scorer configs, `tests/test_immutable_grader.py` |
+| **C** | person 3 | the parallel model race on Fireworks + Daytona sandbox execution + pre-computing the extra industries | `darwin/core/engine.py`, `darwin/core/mutate.py`, `darwin/sandbox/*`, `darwin/safety/guards.py`, `data/runs/` (precomputed library) |
+| **D** | person 4 | dashboard, WorkOS login, CodeRabbit, Devpost, and driving the demo | `dashboard/`, `darwin/server/events.py`, `darwin/review/coderabbit.py`, `.coderabbit.yaml`, Devpost |
 
-**Cross-lane module:** `darwin/review/coderabbit.py` (the independent reviewer of the
-agent's self-written code) is shared by Lane B (promotion gate + safety) and Lane C
-(code-quality fitness term + mutation feedback). Coordinate on its interface before editing.
+**Shared, frozen contract (coordinate before editing):** `darwin/core/genome.py` and
+`darwin/core/population.py` hold the data shapes every lane depends on (`Genome`, `Variant`,
+`Generation`, `RunRecord`, `RoutingCard`). Change them only in a PR that updates
+[SPEC.md](./SPEC.md) section 10 in the same commit.
+
+## One product, not two
+
+Model selection is core, not an add-on: the `model` is a first-class gene on the genome. So the
+"parallel model race" (Lane C) and "self-improvement" are the same loop viewed at different zoom
+levels. **A** produces the tasks + data, **B** scores every variant/model, **C** runs the race
+and evolution in sandboxes, **D** visualizes it as the task×model grid and the routing card.
 
 ## Rules
 

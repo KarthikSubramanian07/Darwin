@@ -106,34 +106,51 @@ The contract that unblocks everyone in 30 minutes: freeze the shapes above + a m
 JSON. Lane D builds against the mock; Lanes A to C fill it in for real. Every integration is
 feature-flagged with a local fallback, so the demo floor is an offline path that always climbs.
 
-### Lane A - Evolution engine + mutation [Fireworks] (sacred path)
-Owns `engine.py`, `genome.py`, `population.py`, `mutate.py`, and the decompose/synth pipeline.
-Deliverable: the score climbs repeatably; the model gene is mutated and the routing card falls
-out. Elitism makes `best_fitness` monotonic (the on-stage curve never drops).
-**Done when:** `python -m darwin.main` climbs 40 to 90+ offline, and swapping the model gene
-changes the winner on at least one task.
+The `model` gene makes the "parallel model race" and "self-improvement" the same loop, so the
+work splits cleanly across four people:
 
-### Lane B - Daytona sandbox pool + safety [Daytona]
-Owns `daytona.py`, `runner.py`, `safety/guards.py`. Parallel sandbox pool, snapshot rollback, the
-four guard pillars, and real execution scoring for code tasks.
-**Done when:** the population evaluates in parallel sandboxes; a seeded bad mutation is rejected
-and rolled back on screen; a code task is scored on real execution.
+### Lane A (person 1) - Task decomposition + synthetic data [Fireworks]
+Owns `pipeline/decompose.py`, `pipeline/synth.py`, `darwin/eval/task.py`, `scripts/build_task.py`,
+`data/task/`. Industry -> a list of real tasks via one Fireworks structured-output call; per-task
+synthetic `EvalCase`s (Fireworks JSON mode), with expected outputs. **Spot-check every dataset by
+hand:** garbage cases mean a meaningless leaderboard, and Braintrust's judge looks at the dataset
+first. Offline fallback: canned task lists + cases for the two live industries. See section 14a on
+data-generation tooling (Braintrust does not generate data; consider NeMo Data Designer).
+**Done when:** `python -m pipeline.decompose "legal"` yields ~5 sane tasks, each with ~10 checked
+cases on disk, loadable by `Task.load`.
 
-### Lane C - Braintrust fitness + eval [Braintrust]
-Owns `fitness.py`, `task.py`, scorer selection per `task_type` (exact/structured, LLM-as-judge
-with a tight low-temperature rubric, execution-based for code), experiment tagging
-(project=Darwin; tags: task, model, generation), and the offline "does the winner generalize"
-check.
-**Done when:** every variant is a scored Braintrust experiment visible in the UI; the
-grader-untouched test passes; a before/after table proves the gain.
+### Lane B (person 2) - Braintrust eval harness [Braintrust]
+Owns `darwin/eval/fitness.py`, scorer selection per `task_type` (autoevals ExactMatch/Levenshtein
+for structured, LLM-as-judge with a tight low-temperature rubric for text, execution-based for
+code), experiment naming/tagging (project=Darwin; tags: industry, task, model, generation), and
+the offline "does the winner generalize" check on a held-out slice. Guards the immutable-grader
+property (`tests/test_immutable_grader.py`). This is the deepest sponsor lane and the leaderboard's
+credibility.
+**Done when:** one (task, model) pair produces a scored Braintrust experiment visible in the UI,
+the Braintrust project page is demo-able, and the grader-untouched test passes.
 
-### Lane D - Dashboard + auth + pitch [WorkOS + CodeRabbit + the wow]
+### Lane C (person 3) - Parallel model race + Daytona + library [Fireworks + Daytona]
+Owns `darwin/core/engine.py`, `darwin/core/mutate.py`, `darwin/sandbox/*`, `darwin/safety/guards.py`,
+and the precomputed library in `data/runs/`. The race is the engine's evaluate-population step:
+N models x M cases fanned out concurrently through Fireworks' OpenAI-compatible API (semaphore +
+retry/backoff for burst limits), each variant run in its own Daytona sandbox with snapshot
+rollback, code-type task outputs scored on **real execution** in the sandbox. Also captures per
+-model cost + p50 latency, and pre-computes the extra industries in-window as the honest library.
+**Done when:** one industry races end-to-end in under 2 minutes and writes a `RunRecord`; 3+
+precomputed `RunRecord`s exist; a bad mutation is rolled back on screen; a code task is scored on
+real execution.
+
+### Lane D (person 4) - Dashboard + auth + CodeRabbit + demo [WorkOS + CodeRabbit + the wow]
 Owns `dashboard/` (fitness curve is the hero, lineage tree, genome diff, task x model grid,
-routing card, safeguards strip, cached badge), WorkOS AuthKit login, CodeRabbit on from commit
-#1, `server/events.py`, Devpost + per-sponsor blurbs, and the rehearsed 3-minute run-of-show.
-Builds against mock data from minute 30, never blocked.
+routing card, safeguards strip, cached-run badge), WorkOS AuthKit login, CodeRabbit on the repo
+from commit #1 (`.coderabbit.yaml`), `darwin/server/events.py`, `darwin/review/coderabbit.py`,
+Devpost + per-sponsor blurbs, and the rehearsed 3-minute run-of-show. Builds against a mock
+`RunRecord` from minute 30, never blocked on A to C.
 **Done when:** the mock-fed dashboard is legible across a room by late morning; real events wired
-by early afternoon; demo rehearsed twice.
+by early afternoon; deployed to `darwin.pages.dev`; demo rehearsed twice.
+
+**Shared, frozen contract:** `genome.py` + `population.py` shapes (`Genome`, `Variant`,
+`Generation`, `RunRecord`, `RoutingCard`). Change only in a PR that also updates section 10.
 
 **Cross-lane rules:** Lane A's loop is sacred; shapes frozen at kickoff; commit under your own
 identity, in-window; deploy the dashboard to a clean `darwin.pages.dev` via Cloudflare.
@@ -420,6 +437,26 @@ Offline fallback: local static analysis.
 `npm i @workos-inc/authkit-react` (or the Node SDK for a server callback). Verify current
 AuthKit quickstart. Gate the dashboard route; store the session; show the signed-in user. About
 30 to 60 minutes. Feature-flag so the dashboard renders without it in dev.
+
+## 14a. Synthetic data generation (Lane A)
+
+**Braintrust does not generate data.** Its Datasets feature stores/curates cases (from
+production, evals, or manual entry) and runs evals over them; generation is on you. So Lane A owns
+data creation, and there are two sane paths:
+
+1. **Fireworks JSON-mode generation (default, lowest-dependency).** For each task, one structured
+   -output call produces `EvalCase`s with `expected` answers, then a human spot-checks. Keeps the
+   stack to sponsors we already use and is enough for 8 to 12 cases per task.
+2. **NVIDIA NeMo Data Designer (optional, higher quality).** `pip install data-designer`. Builds
+   datasets with `DataDesignerConfigBuilder`: statistical samplers + LLM columns, dependency-aware
+   fields, Python/SQL validators, LLM-as-judge quality scoring, and a `preview()` before full
+   generation. No local GPU; it targets any OpenAI-compatible endpoint, so **point it at Fireworks**
+   (set the provider base URL + key) and it doubles as a Fireworks showcase. Python 3.10 to 3.14,
+   async engine. Use it when case quality/diversity matters more than setup time; keep path 1 as
+   the offline fallback either way.
+
+Either path must write cases through `Task`/`EvalCase` so `expected` stays on the grader side and
+never enters a sandbox (immutable-grader property).
 
 ## 15. Dev setup, run, test
 

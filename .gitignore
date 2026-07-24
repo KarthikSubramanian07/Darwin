@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+env/
+.coverage
+coverage.xml
+htmlcov/
+
+# Env / secrets
+.env
+.env.local
+*.key
+
+# Node / dashboard
+node_modules/
+dashboard/dist/
+dashboard/.vite/
+*.log
+
+# Run artifacts (keep the dir, ignore contents except samples)
+data/runs/*
+!data/runs/.gitkeep
+!data/runs/sample_*.json
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp

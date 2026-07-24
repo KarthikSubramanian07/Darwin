@@ -1,0 +1,26 @@
+[project]
+name = "darwin"
+version = "0.1.0"
+description = "An agent that evolves itself — safely, inside sandboxes it cannot escape."
+requires-python = ">=3.11"
+license = { text = "MIT" }
+
+[tool.setuptools.packages.find]
+include = ["darwin*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+addopts = "-ra -q"
+
+[tool.coverage.run]
+source = ["darwin"]
+omit = ["*/__init__.py"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]

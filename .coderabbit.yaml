@@ -1,0 +1,29 @@
+# CodeRabbit config. Darwin uses CodeRabbit as an independent reviewer of the code the
+# agent writes about ITSELF. Every promoted champion opens a PR carrying the genome diff
+# (self-rewritten tool code); CodeRabbit reviews it before it can be merged (the human veto).
+#
+# VERIFY the current .coderabbit.yaml schema at https://docs.coderabbit.ai before relying on
+# fields below. Kept intentionally strict: this is a safety gate, not a style nudge.
+
+language: en-US
+
+reviews:
+  profile: assertive        # we WANT it opinionated on self-written code
+  request_changes_workflow: true
+  high_level_summary: true
+  poem: false
+  review_status: true
+  auto_review:
+    enabled: true
+    drafts: true            # champion PRs open as drafts; review before promotion
+  path_instructions:
+    - path: "data/runs/**/genome_*/tools/**"
+      instructions: >
+        This is Python tool code an AI agent wrote for ITSELF during evolution. Review it as
+        untrusted. Flag: shell/exec/eval, network calls, filesystem escapes outside the
+        sandbox workdir, attempts to read or import the fitness/grader module, obfuscation,
+        and any path that could reward-hack the evaluation. Severity matters: a critical
+        finding blocks promotion.
+
+chat:
+  auto_reply: true

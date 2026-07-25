@@ -3,6 +3,7 @@
 // frame through the backend adapter. It NEVER fabricates data: if the socket cannot open, it
 // reports an error state and the UI offers an honest fallback (open the recorded run).
 
+import { liveWsUrl } from "../lib/wsUrl";
 import type { ConnectionState, DarwinEvent } from "../types";
 import { adaptBackendEvent } from "./backendAdapter";
 import type { RunController } from "./replay";
@@ -14,13 +15,8 @@ export interface WebSocketOptions {
   maxRetries?: number;
 }
 
-const defaultUrl = (): string => {
-  const proto = window.location.protocol === "https:" ? "wss:" : "ws:";
-  return `${proto}//${window.location.host}/ws`;
-};
-
 export function startWebSocket(opts: WebSocketOptions): RunController {
-  const url = opts.url ?? defaultUrl();
+  const url = opts.url ?? liveWsUrl();
   const maxRetries = opts.maxRetries ?? 5;
   let retries = 0;
   let socket: WebSocket | null = null;

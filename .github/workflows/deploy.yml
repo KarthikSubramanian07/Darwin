@@ -35,7 +35,7 @@ jobs:
             echo "ok=false" >> "$GITHUB_OUTPUT"
             echo "::notice::Cloudflare secrets not set; skipping deploy. Add CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID."
           fi
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         if: steps.gate.outputs.ok == 'true'
         with:
           node-version: "20"

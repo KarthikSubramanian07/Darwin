@@ -6,6 +6,7 @@
 // falls back to the bundled replay - with the honest "cached" badge, never a fake "live".
 
 import { useEffect, useRef, useState } from "react";
+import { apiUrl, liveWsUrl } from "./lib/wsUrl";
 import type { EventKind, Genome, RunEvent } from "./run";
 
 export interface LiveRewrite {
@@ -168,8 +169,7 @@ export function useLiveRun() {
     let timer = 0;
 
     function connect() {
-      const proto = location.protocol === "https:" ? "wss" : "ws";
-      const ws = new WebSocket(`${proto}://${location.host}/ws`);
+      const ws = new WebSocket(liveWsUrl());
       wsRef.current = ws;
       ws.onopen = () => {
         retry = 0;
@@ -199,7 +199,7 @@ export function useLiveRun() {
   }, []);
 
   async function startRun(task = "coding_bench") {
-    const res = await fetch("/api/run", {
+    const res = await fetch(apiUrl("/api/run"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ task }),

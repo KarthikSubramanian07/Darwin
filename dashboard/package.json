@@ -18,12 +18,12 @@
     "@react-three/fiber": "^8.18.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "three": "^0.171.0"
+    "three": "^0.185.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "@types/three": "^0.171.0",
+    "@types/three": "^0.185.1",
     "@vitejs/plugin-react": "^5.2.0",
     "typescript": "^5.5.3",
     "vite": "^8.1.5",

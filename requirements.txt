@@ -2,7 +2,7 @@
 # NOTE (Claude Code / build): pin exact versions once the sponsor SDK
 # surfaces are VERIFIED against current docs. Do not invent method names.
 
-python-dotenv>=1.0.0
+python-dotenv>=1.2.2
 
 # Sponsor SDKs — VERIFY install name + import surface before writing calls
 daytona            # Daytona: parallel sandboxes + snapshot/restore  (verified: pip install daytona)

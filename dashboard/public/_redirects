@@ -1,0 +1,3 @@
+# Pretty Lab URL on Cloudflare Pages (serves the Vite app.html entry).
+/app /app.html 200
+/app/ /app.html 200

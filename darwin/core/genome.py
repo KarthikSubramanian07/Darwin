@@ -13,6 +13,8 @@ from pathlib import Path
 
 from pydantic import BaseModel, Field
 
+from darwin.safety.ids import require_tool_id
+
 DEFAULT_SYSTEM_PROMPT = (
     "You are a coding agent. For each problem you are given, implement the requested function "
     "correctly. Your tools ARE your solutions; improve them until every hidden test passes."
@@ -70,8 +72,9 @@ class Genome(BaseModel):
         (root / "meta.json").write_text(json.dumps({"model": self.model}, indent=2))
         manifest = {}
         for problem_id, source in self.tools.items():
-            (tools_dir / f"{problem_id}.py").write_text(source)
-            manifest[problem_id] = f"tools/{problem_id}.py"
+            safe_id = require_tool_id(problem_id)
+            (tools_dir / f"{safe_id}.py").write_text(source)
+            manifest[safe_id] = f"tools/{safe_id}.py"
         (root / "manifest.json").write_text(json.dumps(manifest, indent=2))
         return root
 

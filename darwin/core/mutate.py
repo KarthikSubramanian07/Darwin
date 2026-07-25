@@ -235,7 +235,7 @@ class Mutator:
                 continue
             shown += 1
             errors = [
-                pc.error
+                (pc.error or "")[:200]
                 for pc in parent.per_case
                 if pc.case_id.startswith(f"{problem_id}#") and pc.error
             ]

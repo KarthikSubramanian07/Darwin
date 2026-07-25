@@ -25,7 +25,7 @@ jobs:
     name: build + deploy to Cloudflare Pages
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Check secrets present
         id: gate
         run: |

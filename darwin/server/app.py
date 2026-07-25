@@ -10,6 +10,10 @@ Surfaces:
                       {"task": "coding_bench", "offline": false}. 409 if a run is active.
   * `GET /api/status` - {"running", "task", "events"} for the UI's live/cached badge.
 
+Auth: when ``DARWIN_API_TOKEN`` is set in the environment, ``POST /api/run`` and ``WS /ws``
+require ``Authorization: Bearer <token>`` (or ``?token=`` for WebSocket clients that cannot
+set headers). Leave the env var unset for loopback-only local demos.
+
 Threading model: the engine runs in a plain daemon thread and emits synchronously; each WS
 client gets an asyncio.Queue fed via loop.call_soon_threadsafe, so the sync engine never
 touches the event loop directly. One EventChannel lives for the server's lifetime - history
@@ -19,10 +23,14 @@ accumulates across runs and `run_started` marks the boundaries.
 from __future__ import annotations
 
 import asyncio
+import os
+import secrets
 import threading
 from dataclasses import fields, replace
+from typing import Annotated
 
-from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
+from fastapi import Depends, FastAPI, HTTPException, Query, WebSocket, WebSocketDisconnect
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel
 
 from darwin.config import Features, load_config
@@ -34,6 +42,30 @@ app = FastAPI(title="Darwin live server")
 channel = EventChannel()
 _run_lock = threading.Lock()
 _run_state: dict = {"running": False, "task": None, "thread": None}
+_bearer = HTTPBearer(auto_error=False)
+
+
+def _required_token() -> str | None:
+    raw = os.getenv("DARWIN_API_TOKEN", "").strip()
+    return raw or None
+
+
+def _token_ok(presented: str | None) -> bool:
+    expected = _required_token()
+    if expected is None:
+        return True
+    if not presented:
+        return False
+    return secrets.compare_digest(presented, expected)
+
+
+def require_api_token(
+    creds: Annotated[HTTPAuthorizationCredentials | None, Depends(_bearer)] = None,
+) -> None:
+    """Gate mutating / streaming endpoints when DARWIN_API_TOKEN is configured."""
+    presented = creds.credentials if creds else None
+    if not _token_ok(presented):
+        raise HTTPException(status_code=401, detail="unauthorized")
 
 
 class RunRequest(BaseModel):
@@ -76,14 +108,18 @@ def _run_engine(task_id: str, offline: bool) -> None:
 
 
 @app.post("/api/run")
-def start_run(req: RunRequest) -> dict:
+def start_run(
+    req: RunRequest,
+    _: Annotated[None, Depends(require_api_token)] = None,
+) -> dict:
     with _run_lock:
         if _run_state["running"]:
             raise HTTPException(status_code=409, detail=f"run already active: {_run_state['task']}")
         try:
             Task.load(req.task)  # fail fast with a 400 before spawning the thread
         except Exception as e:  # noqa: BLE001
-            raise HTTPException(status_code=400, detail=f"unknown task {req.task!r}: {e}") from e
+            # Do not echo filesystem paths / file contents from traversal attempts.
+            raise HTTPException(status_code=400, detail=f"unknown task {req.task!r}") from e
         _run_state["running"] = True
         _run_state["task"] = req.task
         thread = threading.Thread(
@@ -109,7 +145,18 @@ def status() -> dict:
 
 
 @app.websocket("/ws")
-async def ws_events(ws: WebSocket) -> None:
+async def ws_events(
+    ws: WebSocket,
+    token: str | None = Query(default=None),
+) -> None:
+    auth = ws.headers.get("authorization") or ""
+    presented = token
+    if auth.lower().startswith("bearer "):
+        presented = auth[7:].strip()
+    if not _token_ok(presented):
+        await ws.close(code=4401)
+        return
+
     await ws.accept()
     loop = asyncio.get_running_loop()
     queue: asyncio.Queue[dict] = asyncio.Queue()

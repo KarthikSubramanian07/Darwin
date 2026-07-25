@@ -9,6 +9,7 @@ Real containment is darwin/sandbox/daytona.py.
 from __future__ import annotations
 
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -22,6 +23,32 @@ from darwin.sandbox.harness import HARNESS_SRC, parse_result
 _CPU_SECONDS = 5
 _MEM_BYTES = 512 * 1024 * 1024
 _WALL_TIMEOUT = 10
+
+# Allowlist for the child process environment. Genome tool code is untrusted LLM
+# output; never inherit API keys / tokens from the parent Darwin process.
+_ENV_ALLOW = frozenset(
+    {
+        "PATH",
+        "HOME",
+        "LANG",
+        "LC_ALL",
+        "LC_CTYPE",
+        "TMPDIR",
+        "TEMP",
+        "TMP",
+        "SYSTEMROOT",
+        "USERPROFILE",
+        "WINDIR",
+        "PATHEXT",
+        "COMSPEC",
+        "LD_LIBRARY_PATH",
+        "DYLD_LIBRARY_PATH",
+    }
+)
+
+
+def _sandbox_env() -> dict[str, str]:
+    return {k: v for k, v in os.environ.items() if k in _ENV_ALLOW}
 
 
 def _limit_resources() -> None:  # pragma: no cover - POSIX-only, exercised in subprocess
@@ -72,12 +99,15 @@ class LocalSandboxPool:
         (wd / "inputs.json").write_text(json.dumps(inputs_spec))
         (wd / "harness.py").write_text(HARNESS_SRC)
         try:
+            # Scrub the environment: genome tool code is untrusted LLM output and must
+            # never inherit DAYTONA_/BRAINTRUST_/FIREWORKS_ API keys from the parent.
             proc = subprocess.run(
                 [sys.executable, "harness.py"],
                 cwd=wd,
                 capture_output=True,
                 text=True,
                 timeout=_WALL_TIMEOUT,
+                env=_sandbox_env(),
                 preexec_fn=_limit_resources if sys.platform != "win32" else None,
             )
         except subprocess.TimeoutExpired:

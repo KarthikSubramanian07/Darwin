@@ -14,17 +14,21 @@ champion_changed · mutation · guard · run_complete
 from __future__ import annotations
 
 import time
+from collections import deque
 from collections.abc import Callable
 
 Subscriber = Callable[[dict], None]
+
+# Bound memory growth across long-lived server processes / hammered /api/run.
+_DEFAULT_MAX_EVENTS = 2000
 
 
 class EventChannel:
     """Fan-out of engine events. Synchronous and dependency-free so the loop can call it from
     anywhere; the WS server registers itself as a subscriber."""
 
-    def __init__(self, *, echo: bool = False):
-        self.events: list[dict] = []
+    def __init__(self, *, echo: bool = False, max_events: int = _DEFAULT_MAX_EVENTS):
+        self.events: deque[dict] = deque(maxlen=max(1, max_events))
         self._subscribers: list[Subscriber] = []
         self._echo = echo
 

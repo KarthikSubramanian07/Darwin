@@ -11,7 +11,9 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
+
+from darwin.safety.ids import require_slug, require_tool_id
 
 DATA_DIR = Path(__file__).resolve().parents[2] / "data" / "task"
 
@@ -30,6 +32,11 @@ class Problem(BaseModel):
     task_type: str = "code"  # "code" | "text" | "structured" (drives scorer choice)
     scorer_config: dict = Field(default_factory=dict)  # per-type scorer knobs (Lane C)
 
+    @field_validator("case_id")
+    @classmethod
+    def _case_id_slug(cls, value: str) -> str:
+        return require_tool_id(value)
+
 
 class Task(BaseModel):
     task_id: str
@@ -37,9 +44,17 @@ class Task(BaseModel):
     industry: str = ""  # set when the task came from pipeline.decompose
     problems: list[Problem] = Field(default_factory=list)
 
+    @field_validator("task_id")
+    @classmethod
+    def _task_id_slug(cls, value: str) -> str:
+        return require_slug(value, what="task_id")
+
     @classmethod
     def load(cls, task_id: str = "coding_bench") -> Task:
-        path = DATA_DIR / f"{task_id}.json"
+        safe_id = require_slug(task_id, what="task_id")
+        path = (DATA_DIR / f"{safe_id}.json").resolve()
+        if not path.is_relative_to(DATA_DIR.resolve()):
+            raise ValueError(f"task path escaped data dir: {task_id!r}")
         if not path.exists():
             raise FileNotFoundError(
                 f"Task dataset {path} not found. Run: python scripts/build_task.py"

@@ -117,7 +117,7 @@ export default function App() {
         <div className="links">
           <a className="navlink" href="#run">Overview</a>
           <a className="navlink" href="https://github.com/KarthikSubramanian07/Darwin">GitHub</a>
-          <a className="btn btn-primary btn-sm" href="/app.html">The Lab ↗</a>
+          <a className="btn btn-primary btn-sm" href="/app">The Lab ↗</a>
         </div>
       </nav>
 

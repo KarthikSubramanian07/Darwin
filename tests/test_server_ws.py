@@ -78,6 +78,26 @@ def test_second_run_while_active_is_a_409(client):
         app_module._run_state["running"] = False
 
 
+def test_run_requires_token_when_configured(client, monkeypatch):
+    tc, app_module = client
+    monkeypatch.setenv("DARWIN_API_TOKEN", "test-secret-token")
+    assert tc.post("/api/run", json={"task": "coding_bench", "offline": True}).status_code == 401
+    ok = tc.post(
+        "/api/run",
+        json={"task": "coding_bench", "offline": True},
+        headers={"Authorization": "Bearer test-secret-token"},
+    )
+    # May 200 or 409 depending on leftover state; must not be 401
+    assert ok.status_code in (200, 409)
+
+
+def test_path_traversal_task_is_a_400(client):
+    tc, _ = client
+    res = tc.post("/api/run", json={"task": "../runs/x", "offline": True})
+    assert res.status_code == 400
+    assert "data/" not in res.json().get("detail", "")
+
+
 def test_offline_run_never_mutates_process_env(client, monkeypatch):
     """Regression: an offline=true run used to do os.environ["FEATURE_X"] = "0" with nothing
     ever setting it back - in the long-lived server process that permanently downgraded every
@@ -91,3 +111,4 @@ def test_offline_run_never_mutates_process_env(client, monkeypatch):
     app_module._run_engine("coding_bench", True)  # synchronous call, offline=True
 
     assert os.environ["FEATURE_FIREWORKS"] == "1", "offline run leaked into the process env"
+

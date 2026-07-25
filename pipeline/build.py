@@ -16,6 +16,7 @@ from pathlib import Path
 
 from darwin.config import Config, load_config
 from darwin.eval.task import Case, Problem, Task
+from darwin.safety.ids import slugify
 from pipeline.decompose import TaskSpec, industry_to_tasks
 from pipeline.industries import INDUSTRIES
 from pipeline.synth import synth_cases
@@ -28,7 +29,7 @@ def _seed_stub(spec: TaskSpec) -> str:
 
 
 def build_industry_task(industry: str, config: Config) -> Task:
-    key = industry.lower().strip()
+    key = slugify(industry)
 
     if key in INDUSTRIES:
         data = INDUSTRIES[key]

@@ -8,7 +8,7 @@ python-dotenv>=1.2.2
 daytona            # Daytona: parallel sandboxes + snapshot/restore  (verified: pip install daytona)
 braintrust         # Braintrust: init()/Experiment.log()/summarize() (verified 2026-07)
 autoevals          # Braintrust scorers (ExactMatch, Levenshtein, LLM-judge); optional at runtime
-openai>=2.48.0     # Fireworks is OpenAI-compatible; set base_url     (VERIFY base_url + model ids)
+openai>=2.53.0     # Fireworks is OpenAI-compatible; set base_url     (VERIFY base_url + model ids)
 
 # Server / plumbing
 fastapi>=0.140.0

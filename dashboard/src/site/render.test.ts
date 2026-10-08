@@ -111,6 +111,15 @@ describe("JSON-LD", () => {
     expect(cp.contactType).toBeTruthy();
   });
 
+  it("Organization carries a PostalAddress", () => {
+    expect(ORGANIZATION.address).toEqual({
+      "@type": "PostalAddress",
+      addressLocality: "Berkeley",
+      addressRegion: "CA",
+      addressCountry: "US",
+    });
+  });
+
   it("uses page-specific types for About and Contact", () => {
     const t = (p: typeof ABOUT) => (renderJsonLd(p)["@graph"] as { "@type": string }[])[3]["@type"];
     expect(t(ABOUT)).toBe("AboutPage");

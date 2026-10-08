@@ -7,6 +7,8 @@
 export const SITE_URL = "https://trydarwin.pages.dev";
 export const REPO_URL = "https://github.com/KarthikSubramanian07/Darwin";
 export const ISSUES_URL = `${REPO_URL}/issues`;
+export const CLI_VERSION = "0.1.0";
+export const RELEASE_WHEEL_URL = `${REPO_URL}/releases/download/v${CLI_VERSION}/trydarwin-${CLI_VERSION}-py3-none-any.whl`;
 // Already published in SECURITY.md; the only contact address the project advertises.
 export const CONTACT_EMAIL = "karthik.subramanian@berkeley.edu";
 
@@ -68,10 +70,10 @@ const HOW_AGENTS_CALL: Section = {
   heading: "How an agent should use Darwin",
   blocks: [
     list(
-      "Clone the repository and run `darwin --offline` for a deterministic, key-free evolution run; read the fitness curve from stdout.",
+      "Install the CLI (`brew install karthiksubramanian07/tap/trydarwin`) and run `darwin --offline` for a deterministic, key-free evolution run; read the fitness curve from stdout.",
       "Run `darwin-server` to start the local HTTP and WebSocket API on 127.0.0.1:8000, then `POST /api/run` with `{\"task\": \"coding_bench\", \"offline\": true}` and stream events from `WS /ws`.",
-      "Poll `GET /api/status` to see whether a run is active. Run records are written as JSON under `data/runs/`.",
-      "Add your own task as a JSON file under `data/task/` and pass its id with `--task`.",
+      "Poll `GET /api/status` to see whether a run is active. Run records are written as JSON under `~/.darwin/runs/` (or `data/runs/` in a clone; override with `DARWIN_DATA_DIR`).",
+      "Add your own task as a JSON file under `~/.darwin/task/` (or `data/task/` in a clone) and pass its id with `--task`.",
     ),
   ],
 };
@@ -206,6 +208,7 @@ export const ABOUT: Page = {
           "License: MIT",
           "Language: Python 3.11+ engine, TypeScript and React dashboard",
           "Maintainer: Karthik Subramanian",
+          "Based in: Berkeley, California, USA",
           "Contact: see [Contact](/contact)",
         ),
       ],
@@ -245,7 +248,7 @@ export const CONTACT: Page = {
       heading: "Everything else",
       blocks: [
         p(
-          `For collaborations, talks, or press, email [${CONTACT_EMAIL}](mailto:${CONTACT_EMAIL}) with "Darwin" in the subject line.`,
+          `For collaborations, talks, or press, email [${CONTACT_EMAIL}](mailto:${CONTACT_EMAIL}) with "Darwin" in the subject line. Darwin is based in Berkeley, California, USA.`,
         ),
       ],
     },
@@ -313,12 +316,17 @@ export const DEVELOPERS: Page = {
         code(
           "bash",
           [
-            "git clone https://github.com/KarthikSubramanian07/Darwin.git darwin",
-            "cd darwin",
-            "python -m venv .venv && source .venv/bin/activate",
-            "pip install -e .",
+            "# Homebrew (macOS, Linux)",
+            "brew install karthiksubramanian07/tap/trydarwin",
+            "",
+            "# or pipx, straight from the GitHub release",
+            `pipx install ${RELEASE_WHEEL_URL}`,
+            "",
             "darwin --offline        # evolves an agent with no keys and no network",
           ].join("\n"),
+        ),
+        p(
+          `Hacking on Darwin itself? Clone [the repository](${REPO_URL}) and run \`pip install -e ".[all]"\` instead. The \`[all]\` extra adds the optional Daytona, Braintrust, and autoevals SDKs; the base install runs fully offline without them.`,
         ),
         p(
           "The offline run uses a local sandbox, a local scorer, and canned mutations, so it is deterministic and free. The output ends with the fitness curve, the champion genome, and the path of the saved run record.",
@@ -328,9 +336,9 @@ export const DEVELOPERS: Page = {
     {
       heading: "CLI",
       blocks: [
-        p("Installing the package puts two commands on your PATH:"),
+        p("The `trydarwin` package puts two commands on your PATH:"),
         list(
-          "`darwin [--task ID] [--offline] [--echo]`: run one evolution. `--task` picks a task under `data/task/` (default `coding_bench`), `--offline` forces every integration off, `--echo` prints each event.",
+          "`darwin [--task ID] [--offline] [--echo]`: run one evolution. `--task` picks a task id: a built-in such as `coding_bench` (the default), `legal`, or `support`, or one of your own, `--offline` forces every integration off, `--echo` prints each event.",
           "`darwin-server`: start the live API on 127.0.0.1:8000 for the dashboard and for scripts.",
         ),
         p("Both are also available as modules: `python -m darwin.main` and `python -m darwin.server.app`."),

@@ -211,6 +211,12 @@ export const ORGANIZATION = {
   image: `${SITE_URL}/og.png`,
   description: SUMMARY,
   founder: { "@type": "Person", name: "Karthik Subramanian" },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Berkeley",
+    addressRegion: "CA",
+    addressCountry: "US",
+  },
   sameAs: [REPO_URL],
   contactPoint: [
     {

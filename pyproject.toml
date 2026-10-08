@@ -1,22 +1,39 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
 [project]
-name = "darwin"
+# PyPI name: "darwin" is taken. The import package and the CLI command are still `darwin`.
+name = "trydarwin"
 version = "0.1.0"
 description = "An agent that evolves itself — safely, inside sandboxes it cannot escape."
 requires-python = ">=3.11"
 license = { text = "MIT" }
 readme = "README.md"
 keywords = ["ai-agents", "evolutionary-algorithms", "self-improving-ai", "llm-routing", "sandboxing"]
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Environment :: Console",
+]
+authors = [{ name = "Karthik Subramanian" }]
 dependencies = [
   "python-dotenv>=1.2.2",
-  "daytona",
-  "braintrust",
-  "autoevals",
   "openai>=2.48.0",
   "fastapi>=0.140.0",
   "uvicorn[standard]>=0.51.0",
   "pydantic>=2.13.4",
   "httpx>=0.28.1",
 ]
+
+[project.optional-dependencies]
+# Sponsor SDKs are imported lazily, only when their FEATURE_* flag is on.
+daytona = ["daytona"]
+braintrust = ["braintrust", "autoevals"]
+all = ["daytona", "braintrust", "autoevals"]
 
 [project.urls]
 Homepage = "https://trydarwin.pages.dev"
@@ -27,8 +44,15 @@ Repository = "https://github.com/KarthikSubramanian07/Darwin"
 darwin = "darwin.main:main"
 darwin-server = "darwin.server.app:main"
 
-[tool.setuptools.packages.find]
-include = ["darwin*"]
+[tool.hatch.build.targets.wheel]
+packages = ["darwin"]
+
+# Ship the built-in benchmark tasks inside the wheel so an installed CLI runs with no clone.
+[tool.hatch.build.targets.wheel.force-include]
+"data/task" = "darwin/_data/task"
+
+[tool.hatch.build.targets.sdist]
+include = ["darwin", "data/task", "README.md", "LICENSE", "pyproject.toml"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"

@@ -11,6 +11,13 @@ def _scripts() -> dict[str, str]:
     return tomllib.loads(PYPROJECT.read_text())["project"]["scripts"]
 
 
+def test_distribution_name_and_bundled_tasks():
+    project = tomllib.loads(PYPROJECT.read_text())
+    assert project["project"]["name"] == "trydarwin"
+    force = project["tool"]["hatch"]["build"]["targets"]["wheel"]["force-include"]
+    assert force == {"data/task": "darwin/_data/task"}
+
+
 def test_cli_scripts_declared():
     assert set(_scripts()) == {"darwin", "darwin-server"}
 

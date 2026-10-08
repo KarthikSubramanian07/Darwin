@@ -18,10 +18,11 @@ from darwin.core.engine import EvolutionEngine
 from darwin.core.mutate import Mutator
 from darwin.eval.fitness import Fitness
 from darwin.eval.task import Task
+from darwin.paths import data_root
 from darwin.safety.guards import Guards
 from darwin.server.events import EventChannel
 
-RUNS_DIR = Path(__file__).resolve().parents[1] / "data" / "runs"
+RUNS_DIR = data_root() / "runs"
 
 
 def _make_sandbox_pool(config: Config):
@@ -60,7 +61,7 @@ def persist(record) -> Path:  # noqa: ANN001
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Darwin: evolve the best whole agent, safely.")
-    parser.add_argument("--task", default="coding_bench", help="task id under data/task/")
+    parser.add_argument("--task", default="coding_bench", help="task id: built-in (coding_bench, legal, support, ...) or a JSON file in the data dir")
     parser.add_argument("--offline", action="store_true", help="force all feature flags off")
     parser.add_argument("--echo", action="store_true", help="print each event to stdout")
     args = parser.parse_args()

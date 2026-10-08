@@ -101,7 +101,19 @@ flowchart TD
     GR[[Immutable grader<br/>the agent cannot read or edit it]] -. scores, out of reach .-> B
 ```
 
-## Setup
+## Install the CLI
+
+```bash
+brew install karthiksubramanian07/tap/trydarwin          # Homebrew (macOS, Linux)
+pipx install https://github.com/KarthikSubramanian07/Darwin/releases/download/v0.1.0/trydarwin-0.1.0-py3-none-any.whl
+
+darwin --offline        # evolves an agent with no keys and no network; runs land in ~/.darwin/runs
+darwin-server           # local HTTP + WebSocket API on 127.0.0.1:8000
+```
+
+The package is `trydarwin` (the name `darwin` is taken on PyPI); the command and the import are still `darwin`. Built-in tasks ship inside the wheel, and `DARWIN_DATA_DIR` moves the data directory. Releases are cut by pushing a `v*` tag (see `.github/workflows/release.yml`).
+
+## Setup (from source)
 
 **Prerequisites:** Python 3.11+ and (for the dashboard) Node 20+.
 
@@ -110,7 +122,7 @@ flowchart TD
 ```bash
 git clone https://github.com/KarthikSubramanian07/darwin.git && cd darwin
 python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt && pip install -e .   # puts `darwin` + `darwin-server` on PATH
+pip install -e ".[all]"               # `darwin` + `darwin-server` on PATH, plus the sponsor SDKs
 python scripts/build_task.py          # (re)generate the coding benchmark
 ```
 

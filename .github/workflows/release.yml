@@ -1,0 +1,82 @@
+name: Release CLI
+
+# Push a tag like v0.1.0 (matching `version` in pyproject.toml) to ship the `trydarwin` CLI:
+#   1. build the sdist + wheel and smoke-test the wheel in a clean venv (`darwin --offline` must climb)
+#   2. attach both to a GitHub Release (pipx and the Homebrew tap install from there)
+#   3. publish to PyPI with Trusted Publishing (no token stored in the repo)
+#
+# One-time PyPI setup by the owner: pypi.org -> Your account -> Publishing -> add a pending
+# publisher: project "trydarwin", owner KarthikSubramanian07, repo Darwin, workflow release.yml,
+# environment "pypi". Until then only step 3 fails; the GitHub Release still ships.
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: build + smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Tag matches pyproject version
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          version=$(python -c "import tomllib;print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])")
+          test "v$version" = "$GITHUB_REF_NAME" || { echo "::error::tag $GITHUB_REF_NAME != pyproject v$version"; exit 1; }
+      - name: Build sdist + wheel
+        run: |
+          python -m pip install --upgrade build
+          python -m build
+      - name: Installed wheel climbs offline with no clone
+        run: |
+          python -m venv /tmp/cli
+          /tmp/cli/bin/pip install dist/*.whl
+          cd /tmp && HOME=/tmp/home /tmp/cli/bin/darwin --offline | tee run.out
+          grep -q "fitness curve: \[.*1.0\]" run.out
+      - uses: actions/upload-artifact@v7
+        with:
+          name: dist
+          path: dist/
+
+  github-release:
+    name: GitHub Release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist
+      - name: Create or update release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view "$GITHUB_REF_NAME" -R "$GITHUB_REPOSITORY" >/dev/null 2>&1 \
+            && gh release upload "$GITHUB_REF_NAME" dist/* --clobber -R "$GITHUB_REPOSITORY" \
+            || gh release create "$GITHUB_REF_NAME" dist/* -R "$GITHUB_REPOSITORY" --generate-notes \
+                 --title "trydarwin $GITHUB_REF_NAME"
+
+  pypi:
+    name: Publish to PyPI
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/trydarwin/
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist
+      - uses: pypa/gh-action-pypi-publish@v1.14.2

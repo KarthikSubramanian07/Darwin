@@ -4,6 +4,28 @@ version = "0.1.0"
 description = "An agent that evolves itself — safely, inside sandboxes it cannot escape."
 requires-python = ">=3.11"
 license = { text = "MIT" }
+readme = "README.md"
+keywords = ["ai-agents", "evolutionary-algorithms", "self-improving-ai", "llm-routing", "sandboxing"]
+dependencies = [
+  "python-dotenv>=1.2.2",
+  "daytona",
+  "braintrust",
+  "autoevals",
+  "openai>=2.48.0",
+  "fastapi>=0.140.0",
+  "uvicorn[standard]>=0.51.0",
+  "pydantic>=2.13.4",
+  "httpx>=0.28.1",
+]
+
+[project.urls]
+Homepage = "https://trydarwin.pages.dev"
+Documentation = "https://trydarwin.pages.dev/developers"
+Repository = "https://github.com/KarthikSubramanian07/Darwin"
+
+[project.scripts]
+darwin = "darwin.main:main"
+darwin-server = "darwin.server.app:main"
 
 [tool.setuptools.packages.find]
 include = ["darwin*"]

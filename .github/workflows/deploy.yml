@@ -53,4 +53,6 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dashboard/dist --project-name trydarwin --branch main
+          # Run from dashboard/ so wrangler picks up dashboard/functions (Markdown negotiation, 404s).
+          workingDirectory: dashboard
+          command: pages deploy dist --project-name trydarwin --branch main

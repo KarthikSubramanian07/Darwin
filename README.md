@@ -101,7 +101,19 @@ flowchart TD
     GR[[Immutable grader<br/>the agent cannot read or edit it]] -. scores, out of reach .-> B
 ```
 
-## Setup
+## Install the CLI
+
+```bash
+brew install karthiksubramanian07/tap/trydarwin          # Homebrew (macOS, Linux)
+pipx install https://github.com/KarthikSubramanian07/Darwin/releases/download/v0.1.0/trydarwin-0.1.0-py3-none-any.whl
+
+darwin --offline        # evolves an agent with no keys and no network; runs land in ~/.darwin/runs
+darwin-server           # local HTTP + WebSocket API on 127.0.0.1:8000
+```
+
+The package is `trydarwin` (the name `darwin` is taken on PyPI); the command and the import are still `darwin`. Built-in tasks ship inside the wheel, and `DARWIN_DATA_DIR` moves the data directory. Releases are cut by pushing a `v*` tag (see `.github/workflows/release.yml`).
+
+## Setup (from source)
 
 **Prerequisites:** Python 3.11+ and (for the dashboard) Node 20+.
 
@@ -110,7 +122,7 @@ flowchart TD
 ```bash
 git clone https://github.com/KarthikSubramanian07/darwin.git && cd darwin
 python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
+pip install -e ".[all]"               # `darwin` + `darwin-server` on PATH, plus the sponsor SDKs
 python scripts/build_task.py          # (re)generate the coding benchmark
 ```
 
@@ -127,7 +139,7 @@ cp .env.example .env
 **3. Run an evolution (CLI)**
 
 ```bash
-python -m darwin.main --offline            # ~2s, offline, curve climbs 37.5 -> 100%
+darwin --offline                            # ~2s, offline, curve climbs 37.5 -> 100%  (= python -m darwin.main)
 python -m darwin.main                       # uses whatever keys/flags are in .env
 
 # point it at a whole domain: decompose an industry, then evolve a specialist per task
@@ -148,6 +160,18 @@ cd dashboard && npm install && npm run dev  # http://localhost:5173
 The home page is the pitch + the self-improvement run (the climb, the safety beats). **The Lab** (`/app`) is the interactive routing tool: name a domain, watch the task x model race, get a routing card. **Deploy:** `cd dashboard && npm run build && npx wrangler pages deploy dist --project-name trydarwin`.
 
 **No keys? It still climbs.** With every flag off, Darwin uses a local subprocess sandbox, a local scorer, and canned mutations, and the curve still climbs. That offline path is the demo floor. With keys on, variants run in real **Daytona** sandboxes, mutate and race across the live **Fireworks AI** catalog, and every variant is logged as a **Braintrust** experiment.
+
+## For agents
+
+The site is built to be read by machines as well as people. Every page is generated from one source (`dashboard/src/site/content.ts`) into HTML plus a Markdown twin, and a Cloudflare Pages middleware (`dashboard/functions/_middleware.ts`) negotiates between them.
+
+| Endpoint | What it gives an agent |
+|---|---|
+| [`/llms.txt`](https://trydarwin.pages.dev/llms.txt) | Markdown index of the site, with *when to use Darwin* and *how to call it* |
+| `curl -H 'Accept: text/markdown' https://trydarwin.pages.dev/` | Any page as `text/markdown` (`Vary: Accept`); browsers still get HTML |
+| [`/developers`](https://trydarwin.pages.dev/developers) | Quickstart, CLI, local API, configuration, offline sandbox |
+| [`/sitemap.xml`](https://trydarwin.pages.dev/sitemap.xml) | Every indexable URL with `lastmod` |
+| any unknown path | A real `404`, with a Markdown body when Markdown is preferred |
 
 ## License
 

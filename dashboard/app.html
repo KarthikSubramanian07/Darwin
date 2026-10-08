@@ -30,21 +30,10 @@
       content="Generic benchmarks tell you which model wins their test. Darwin tells you which model wins your work."
     />
     <meta name="twitter:image" content="https://trydarwin.pages.dev/og.png" />
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "Darwin Lab",
-        "url": "https://trydarwin.pages.dev/app",
-        "description": "Benchmark models on your company's tasks and export an evidence-backed routing strategy.",
-        "applicationCategory": "BusinessApplication",
-        "isAccessibleForFree": true,
-        "image": "https://trydarwin.pages.dev/og.png"
-      }
-    </script>
+    <!--agent:head-->
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><!--agent:prerender--></div>
     <script type="module" src="/src/mainLaneD.tsx"></script>
   </body>
 </html>

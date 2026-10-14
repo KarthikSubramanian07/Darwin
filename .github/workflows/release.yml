@@ -2,7 +2,8 @@ name: Release CLI
 
 # Push a tag like v0.1.0 (matching `version` in pyproject.toml) to ship the `trydarwin` CLI:
 #   1. build the sdist + wheel and smoke-test the wheel in a clean venv (`darwin --offline` must climb)
-#   2. attach both to a GitHub Release (pipx and the Homebrew tap install from there)
+#   2. attach both to a GitHub Release (pipx and Formula/trydarwin.rb install from there;
+#      bump the formula's url + sha256 to the new sdist after each release)
 #   3. publish to PyPI with Trusted Publishing (no token stored in the repo)
 #
 # One-time PyPI setup by the owner: pypi.org -> Your account -> Publishing -> add a pending

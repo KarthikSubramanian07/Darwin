@@ -104,14 +104,15 @@ flowchart TD
 ## Install the CLI
 
 ```bash
-brew install karthiksubramanian07/tap/trydarwin          # Homebrew (macOS, Linux)
+brew tap karthiksubramanian07/darwin https://github.com/KarthikSubramanian07/Darwin
+brew install trydarwin                                   # Homebrew (macOS, Linux)
 pipx install https://github.com/KarthikSubramanian07/Darwin/releases/download/v0.1.0/trydarwin-0.1.0-py3-none-any.whl
 
 darwin --offline        # evolves an agent with no keys and no network; runs land in ~/.darwin/runs
 darwin-server           # local HTTP + WebSocket API on 127.0.0.1:8000
 ```
 
-The package is `trydarwin` (the name `darwin` is taken on PyPI); the command and the import are still `darwin`. Built-in tasks ship inside the wheel, and `DARWIN_DATA_DIR` moves the data directory. Releases are cut by pushing a `v*` tag (see `.github/workflows/release.yml`).
+The package is `trydarwin` (the name `darwin` is taken on PyPI); the command and the import are still `darwin`. Built-in tasks ship inside the wheel, and `DARWIN_DATA_DIR` moves the data directory. The Homebrew formula lives in this repo at `Formula/trydarwin.rb`, so the tap is the repo itself. Releases are cut by pushing a `v*` tag (see `.github/workflows/release.yml`).
 
 ## Setup (from source)
 

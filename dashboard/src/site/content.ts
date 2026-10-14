@@ -70,7 +70,7 @@ const HOW_AGENTS_CALL: Section = {
   heading: "How an agent should use Darwin",
   blocks: [
     list(
-      "Install the CLI (`brew install karthiksubramanian07/tap/trydarwin`) and run `darwin --offline` for a deterministic, key-free evolution run; read the fitness curve from stdout.",
+      "Install the CLI (`brew tap karthiksubramanian07/darwin https://github.com/KarthikSubramanian07/Darwin && brew install trydarwin`) and run `darwin --offline` for a deterministic, key-free evolution run; read the fitness curve from stdout.",
       "Run `darwin-server` to start the local HTTP and WebSocket API on 127.0.0.1:8000, then `POST /api/run` with `{\"task\": \"coding_bench\", \"offline\": true}` and stream events from `WS /ws`.",
       "Poll `GET /api/status` to see whether a run is active. Run records are written as JSON under `~/.darwin/runs/` (or `data/runs/` in a clone; override with `DARWIN_DATA_DIR`).",
       "Add your own task as a JSON file under `~/.darwin/task/` (or `data/task/` in a clone) and pass its id with `--task`.",
@@ -317,7 +317,8 @@ export const DEVELOPERS: Page = {
           "bash",
           [
             "# Homebrew (macOS, Linux)",
-            "brew install karthiksubramanian07/tap/trydarwin",
+            `brew tap karthiksubramanian07/darwin ${REPO_URL}`,
+            "brew install trydarwin",
             "",
             "# or pipx, straight from the GitHub release",
             `pipx install ${RELEASE_WHEEL_URL}`,

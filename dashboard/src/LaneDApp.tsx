@@ -1,7 +1,7 @@
 // Darwin dashboard root. Thin router over three views (landing / run / library) plus the top
 // nav and demo-source control. All run state + event handling lives in useDarwinRun.
 
-import { useState } from "react";
+import { type JSX, useState } from "react";
 import { TopNav } from "./components/TopNav";
 import { IndustryInput } from "./components/IndustryInput";
 import { RunView } from "./components/RunView";

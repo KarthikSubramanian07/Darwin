@@ -2,6 +2,7 @@
 // comparison computed from the RunRecord (deltas may be negative and are shown as such), plus
 // export / Braintrust / start-another actions.
 
+import type { JSX } from "react";
 import { buildExport, compareStacks } from "../lib/routing";
 import { latency, money, pct, signedPct, signedPts } from "../lib/format";
 import type { ModelInfo, RaceResult, RoutingCard, RunSummary, TaskInfo } from "../types";

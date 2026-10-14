@@ -1,6 +1,7 @@
 // Detail for a selected/hovered race cell: model, task, score, cost, latency, cases, Braintrust
 // link, and the Daytona execution result for code tasks.
 
+import type { JSX } from "react";
 import { latency, money, pct } from "../lib/format";
 import type { ModelInfo, RaceResult, TaskInfo } from "../types";
 

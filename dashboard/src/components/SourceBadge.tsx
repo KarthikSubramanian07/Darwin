@@ -1,5 +1,6 @@
 // Honest provenance badge. Cached/recorded runs are NEVER shown as live.
 
+import type { JSX } from "react";
 import type { RunSource } from "../types";
 
 const META: Record<RunSource, { label: string; cls: string }> = {

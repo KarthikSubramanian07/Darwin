@@ -1,6 +1,7 @@
 // Honest live-connection status. On failure it offers recovery (open the recorded run) instead
 // of silently swapping in fake data while still claiming LIVE.
 
+import type { JSX } from "react";
 import type { ConnectionState } from "../types";
 
 const LABEL: Partial<Record<ConnectionState, string>> = {

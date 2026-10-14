@@ -3,7 +3,7 @@
 // Completed cells show the score big and legible; the row winner gets a clear ring. Kept
 // deliberately calm elsewhere so the winners read from across a room.
 
-import { useMemo } from "react";
+import { type JSX, useMemo } from "react";
 import { pickWinner } from "../lib/routing";
 import { pct } from "../lib/format";
 import type { CellState, ModelInfo, RaceResult, TaskInfo } from "../types";

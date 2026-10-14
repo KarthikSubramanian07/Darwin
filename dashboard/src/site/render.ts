@@ -20,7 +20,7 @@ import {
   type Block,
   type Page,
   type Section,
-} from "./content";
+} from "./content.ts";
 
 export const escapeHtml = (s: string): string =>
   s

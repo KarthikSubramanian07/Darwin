@@ -1,6 +1,6 @@
 // Screen 1: the landing / industry input. Focused, high-trust, editable.
 
-import { useState } from "react";
+import { type JSX, useState } from "react";
 
 const EXAMPLES = ["Legal services", "Customer support", "Finance", "Healthcare operations"];
 

@@ -1,7 +1,7 @@
 // Composes screens 2-4 for an active/opened run based on run phase. Selection + the "waiting for
 // live" state live here so App stays a thin router.
 
-import { lazy, Suspense, useMemo, useState } from "react";
+import { type JSX, lazy, Suspense, useMemo, useState } from "react";
 import type { DemoMode } from "../store/useDarwinRun";
 import { raceProgress, type RunState } from "../store/reducer";
 import type { RaceResult } from "../types";

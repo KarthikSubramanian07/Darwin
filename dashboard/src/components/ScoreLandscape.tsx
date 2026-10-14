@@ -19,7 +19,7 @@
 // (all-pairs protan dE 29.5), normal-vision floor (33.8) and 3:1 contrast. The neutral is
 // intentionally below the chroma floor -- it is the recessive "grey the rest", not an identity.
 
-import { type JSX, useEffect, useMemo, useRef, useState } from "react";
+import { type JSX, type RefObject, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, type ThreeEvent } from "@react-three/fiber";
 import { Html, OrbitControls } from "@react-three/drei";
 import { PlaneGeometry, type Mesh } from "three";
@@ -160,6 +160,7 @@ function Scene({
   instant,
   onSelect,
   onHover,
+  labelPortal,
 }: {
   columns: LandscapeColumn[];
   tasks: TaskInfo[];
@@ -169,6 +170,7 @@ function Scene({
   instant: boolean;
   onSelect: (key: string) => void;
   onHover: (c: LandscapeColumn | null) => void;
+  labelPortal: RefObject<HTMLElement>;
 }): JSX.Element {
   const nCols = Math.max(1, models.length);
   const nRows = Math.max(1, tasks.length);
@@ -205,14 +207,16 @@ function Scene({
 
       {/* Axis labels ride the DOM (drei Html) rather than 3D text: they inherit the app's
           typography and need no webfont fetch, which matters on venue Wi-Fi. No distanceFactor,
-          so they hold a constant, legible screen size instead of scaling with perspective. */}
+          so they hold a constant, legible screen size instead of scaling with perspective.
+          Every label portals into the canvas wrapper: without a fixed target, Html re-creates
+          its React root once fiber connects events, and under React 19 a label can vanish. */}
       {models.map((m, i) => (
-        <Html key={m.id} position={[xOf(i), 0, zOf(nRows - 1) + LABEL_RING]} center>
+        <Html key={m.id} position={[xOf(i), 0, zOf(nRows - 1) + LABEL_RING]} center portal={labelPortal}>
           <span className="ls-axis-label">{m.label}</span>
         </Html>
       ))}
       {tasks.map((t, i) => (
-        <Html key={t.id} position={[xOf(0) - LABEL_RING, 0, zOf(i)]} center>
+        <Html key={t.id} position={[xOf(0) - LABEL_RING, 0, zOf(i)]} center portal={labelPortal}>
           <span className="ls-axis-label">{t.name}</span>
         </Html>
       ))}
@@ -226,6 +230,7 @@ function Scene({
             key={`v-${c.key}`}
             position={[xOf(c.col), heightFor(c) + 0.26, zOf(c.row)]}
             center
+            portal={labelPortal}
           >
             <span className="ls-value-label tabular">{pct(c.score as number)}</span>
           </Html>
@@ -254,6 +259,7 @@ export function ScoreLandscape({
   onSelect,
 }: ScoreLandscapeProps): JSX.Element {
   const [hovered, setHovered] = useState<LandscapeColumn | null>(null);
+  const canvasWrap = useRef<HTMLDivElement>(null!);
   const reducedMotion = usePrefersReducedMotion();
 
   const landscape = useMemo(
@@ -297,7 +303,7 @@ export function ScoreLandscape({
         </span>
       </figcaption>
 
-      <div className="ls-canvas-wrap">
+      <div className="ls-canvas-wrap" ref={canvasWrap}>
         <Canvas
           camera={{ position: [6.5, 7.2, 8.0], fov: 42 }}
           dpr={[1, 2]}
@@ -312,6 +318,7 @@ export function ScoreLandscape({
             instant={reducedMotion}
             onSelect={(key) => onSelect(selected === key ? null : key)}
             onHover={setHovered}
+            labelPortal={canvasWrap}
           />
           <OrbitControls
             enablePan={false}

@@ -1,6 +1,6 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
-import { agentSite } from "./src/site/vitePlugin";
+import { agentSite } from "./src/site/vitePlugin.ts";
 
 // Local WS backend (darwin/server/app.py) is proxied in dev so the dashboard
 // survives flaky venue WiFi. Static build deploys to Cloudflare Pages (trydarwin.pages.dev).

@@ -1,5 +1,6 @@
 // Screen 2: decomposition. Tasks appear as they are created (driven by real task_created events).
 
+import type { JSX } from "react";
 import type { TaskInfo, TaskType } from "../types";
 
 const TYPE_CLASS: Record<TaskType, string> = {

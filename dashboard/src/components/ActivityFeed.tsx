@@ -1,6 +1,7 @@
 // Compact, meaningful activity feed. Only surfaces product-relevant events (scores, execution,
 // routing), never raw infrastructure noise.
 
+import type { JSX } from "react";
 import type { FeedItem } from "../store/reducer";
 
 const KIND_ICON: Record<FeedItem["kind"], string> = {

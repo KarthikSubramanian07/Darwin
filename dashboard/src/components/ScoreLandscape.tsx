@@ -19,7 +19,7 @@
 // (all-pairs protan dE 29.5), normal-vision floor (33.8) and 3:1 contrast. The neutral is
 // intentionally below the chroma floor -- it is the recessive "grey the rest", not an identity.
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { type JSX, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, type ThreeEvent } from "@react-three/fiber";
 import { Html, OrbitControls } from "@react-three/drei";
 import { PlaneGeometry, type Mesh } from "three";

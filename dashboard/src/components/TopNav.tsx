@@ -1,5 +1,6 @@
 // Top navigation: brand, previous-runs access, and the demo-source control.
 
+import type { JSX } from "react";
 import { DEMO_MODE_LABEL, type DemoMode } from "../store/useDarwinRun";
 
 interface TopNavProps {

@@ -1,6 +1,7 @@
 // Previous-run library, built from persisted/recorded RunDocs. Cached runs open INSTANTLY (the
 // store hydrates final state; no fake loading). Every card carries an honest source badge.
 
+import type { JSX } from "react";
 import { pct, formatDate } from "../lib/format";
 import { RUN_LIBRARY } from "../fixtures";
 import type { RunDoc } from "../types";

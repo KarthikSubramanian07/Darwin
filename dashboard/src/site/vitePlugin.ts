@@ -8,7 +8,7 @@
 
 import { readFileSync } from "node:fs";
 import type { Plugin } from "vite";
-import { HOME, LAB, NOT_FOUND, PAGES, type Page } from "./content";
+import { HOME, LAB, NOT_FOUND, PAGES, type Page } from "./content.ts";
 import {
   jsonLd,
   markdownPath,
@@ -19,7 +19,7 @@ import {
   renderMarkdown,
   renderPageHtml,
   renderSitemap,
-} from "./render";
+} from "./render.ts";
 
 export const PRERENDER_MARK = "<!--agent:prerender-->";
 export const HEAD_MARK = "<!--agent:head-->";

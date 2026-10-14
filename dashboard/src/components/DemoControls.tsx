@@ -2,6 +2,7 @@
 // reliable source if venue Wi-Fi fails. The selected source is always clearly indicated in the
 // nav; this panel just switches it.
 
+import type { JSX } from "react";
 import { DEMO_MODE_LABEL, type DemoMode } from "../store/useDarwinRun";
 
 const MODES: DemoMode[] = ["live", "recorded", "mock"];

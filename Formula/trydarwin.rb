@@ -9,7 +9,7 @@ class Trydarwin < Formula
 
   def install
     # Private venv under libexec; dependencies resolve from PyPI at install time.
-    system Formula["python@3.12"].opt_bin/"python3.12", "-m", "venv", libexec
+    system formula_opt_bin("python@3.12")/"python3.12", "-m", "venv", libexec
     system libexec/"bin/pip", "install", "--no-cache-dir", buildpath
     bin.install_symlink libexec/"bin/darwin", libexec/"bin/darwin-server"
   end

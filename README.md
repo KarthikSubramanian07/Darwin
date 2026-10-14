@@ -116,7 +116,7 @@ The package is `trydarwin` (the name `darwin` is taken on PyPI); the command and
 
 ## Setup (from source)
 
-**Prerequisites:** Python 3.11+ and (for the dashboard) Node 20+.
+**Prerequisites:** Python 3.11+ and (for the dashboard) Node 22+.
 
 **1. Clone + install**
 

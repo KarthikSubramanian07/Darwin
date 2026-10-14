@@ -96,6 +96,9 @@ jobs:
       - name: Typecheck
         working-directory: dashboard
         run: npm run lint
+      - name: Test (site renderers, content negotiation, middleware)
+        working-directory: dashboard
+        run: npm test
       - name: Build
         working-directory: dashboard
         run: npm run build

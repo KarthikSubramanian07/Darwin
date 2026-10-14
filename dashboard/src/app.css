@@ -654,6 +654,14 @@ h1.title .accent {
   flex-wrap: wrap;
   gap: 8px;
 }
+.footlinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footlinks a:hover {
+  color: var(--fg);
+}
 
 /* ---------- responsive (mobile + tablet) ---------- */
 @media (max-width: 768px) {

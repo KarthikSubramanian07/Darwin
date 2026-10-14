@@ -372,7 +372,13 @@ export default function App() {
 
       <footer className="footer">
         <span>The number goes up on its own. The sandbox is why you can sleep.</span>
-        <span>Darwin · Daytona SF HackSprint</span>
+        <nav className="footlinks" aria-label="Footer">
+          <a href="/developers">Developers</a>
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+          <a href="/privacy">Privacy</a>
+          <span>Darwin · Daytona SF HackSprint</span>
+        </nav>
       </footer>
     </div>
   );

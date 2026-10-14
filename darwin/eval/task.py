@@ -9,13 +9,13 @@ a genome or placed in a sandbox, which preserves the immutable-grader property.
 from __future__ import annotations
 
 import json
-from pathlib import Path
 
 from pydantic import BaseModel, Field, field_validator
 
+from darwin.paths import BUNDLED_TASK_DIR, data_root
 from darwin.safety.ids import require_slug, require_tool_id
 
-DATA_DIR = Path(__file__).resolve().parents[2] / "data" / "task"
+DATA_DIR = data_root() / "task"
 
 
 class Case(BaseModel):
@@ -52,12 +52,17 @@ class Task(BaseModel):
     @classmethod
     def load(cls, task_id: str = "coding_bench") -> Task:
         safe_id = require_slug(task_id, what="task_id")
-        path = (DATA_DIR / f"{safe_id}.json").resolve()
-        if not path.is_relative_to(DATA_DIR.resolve()):
-            raise ValueError(f"task path escaped data dir: {task_id!r}")
-        if not path.exists():
+        # User/clone tasks win; the copies bundled in the wheel are the fallback.
+        for base in (DATA_DIR, BUNDLED_TASK_DIR):
+            path = (base / f"{safe_id}.json").resolve()
+            if not path.is_relative_to(base.resolve()):
+                raise ValueError(f"task path escaped data dir: {task_id!r}")
+            if path.exists():
+                break
+        else:
             raise FileNotFoundError(
-                f"Task dataset {path} not found. Run: python scripts/build_task.py"
+                f"Task dataset {safe_id}.json not found in {DATA_DIR}. "
+                "Run: python scripts/build_task.py"
             )
         return cls.model_validate(json.loads(path.read_text()))
 

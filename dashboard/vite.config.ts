@@ -1,5 +1,6 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import { agentSite } from "./src/site/vitePlugin";
 
 // Local WS backend (darwin/server/app.py) is proxied in dev so the dashboard
 // survives flaky venue WiFi. Static build deploys to Cloudflare Pages (trydarwin.pages.dev).
@@ -7,7 +8,7 @@ import { defineConfig } from "vite";
 // Two entries: index.html is the landing/evolution replay, app.html is Lane D's run
 // dashboard. They keep separate bundles because they carry independent design systems.
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), agentSite()],
   server: {
     port: 5173,
     proxy: {

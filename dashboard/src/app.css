@@ -60,6 +60,17 @@
   *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .marquee .track {
+    animation: none !important;
+    flex-wrap: wrap;
+    width: auto;
+    max-width: 100%;
+    transform: none !important;
+  }
+  .marquee .track span {
+    white-space: normal;
   }
 }
 
@@ -78,6 +89,7 @@
   margin: 0 auto;
   padding: 0 24px 120px;
   position: relative;
+  overflow-x: clip;
 }
 
 /* subtle aurora behind the hero */
@@ -249,15 +261,40 @@ h1.title .accent {
   z-index: 1;
   overflow: hidden;
   margin: 8px 0 44px;
+  max-width: 100%;
   mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.marquee-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 6px;
+}
+.marquee-toggle {
+  appearance: none;
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  color: var(--fg-muted);
+  font: inherit;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.marquee-toggle:hover {
+  color: var(--fg);
+  border-color: var(--fg-dim);
 }
 .marquee .track {
   display: flex;
   gap: 44px;
   width: max-content;
+  max-width: none;
   animation: marquee 34s linear infinite;
   color: var(--fg-dim);
   font-size: 13.5px;
+}
+.marquee.is-paused .track {
+  animation-play-state: paused;
 }
 .marquee .track span {
   white-space: nowrap;
@@ -426,6 +463,7 @@ h1.title .accent {
   line-height: 1.75;
   white-space: pre;
   overflow-x: auto;
+  max-width: 100%;
   margin-top: 12px;
 }
 .diff .add {
@@ -527,6 +565,10 @@ h1.title .accent {
   scrollbar-color: var(--border-strong) transparent;
   padding-right: 6px;
 }
+.feed:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
 .feed::-webkit-scrollbar {
   width: 8px;
 }
@@ -594,13 +636,24 @@ h1.title .accent {
 /* ---------- race grid ---------- */
 .racescroll {
   overflow-x: auto;
+  max-width: 100%;
   scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+.racescroll:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 .racegrid {
   display: grid;
   gap: 6px;
   align-items: center;
-  min-width: 460px;
+  min-width: min(460px, 100%);
+}
+@media (min-width: 480px) {
+  .racegrid {
+    min-width: 460px;
+  }
 }
 .race .rh {
   font-size: 10.5px;

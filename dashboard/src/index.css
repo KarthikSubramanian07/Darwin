@@ -10,8 +10,9 @@
   --bg-card: #111113;
   --fg: #fafafa;
   --fg-muted: #a1a1aa;
-  --fg-dim: #71717a;
-  --fg-faint: #52525b;
+  /* Was zinc-500 (#71717a, 4.11:1 / 3.9:1 on card) — lifted for WCAG AA 4.5:1. */
+  --fg-dim: #808089;
+  --fg-faint: #808089;
   --border: rgba(255, 255, 255, 0.08);
   --border-strong: rgba(255, 255, 255, 0.14);
 
@@ -79,4 +80,41 @@ body::after {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  z-index: 10000;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--fg);
+  color: var(--bg);
+  font-weight: 600;
+  font-size: 13px;
+  transform: translateY(-120%);
+  transition: transform 0.15s ease;
+}
+.skip-link:focus {
+  transform: none;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

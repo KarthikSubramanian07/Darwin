@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./app.css";
 import { FitnessCurve } from "./FitnessCurve";
 import { Logo } from "./Logo";
@@ -39,6 +40,7 @@ const MARQUEE = [
 export default function App() {
   const { gen, phase, run } = useEvolution(5800); // ~30s replay so it reads as a real run
   const live = useLiveRun();
+  const [marqueePaused, setMarqueePaused] = useState(false);
 
   // Live when the WS server is up and at least one run has streamed; otherwise the bundled
   // replay - always labelled as such (honesty rule: never present a cached run as live).
@@ -107,9 +109,12 @@ export default function App() {
 
   return (
     <div className="app">
-      <div className="aurora" />
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
+      <div className="aurora" aria-hidden="true" />
 
-      <nav className="nav">
+      <nav className="nav" aria-label="Primary">
         <a className="brand" href="/" aria-label="Darwin home">
           <Logo size={26} />
           <span className="wordmark">Darwin</span>
@@ -121,6 +126,7 @@ export default function App() {
         </div>
       </nav>
 
+      <main id="main">
       <section className="hero">
         <div className="herotext">
           <span className="eyebrow reveal">
@@ -157,7 +163,17 @@ export default function App() {
         </div>
       </section>
 
-      <div className="marquee">
+      <div className={`marquee${marqueePaused ? " is-paused" : ""}`}>
+        <div className="marquee-toolbar">
+          <button
+            type="button"
+            className="marquee-toggle"
+            aria-pressed={marqueePaused}
+            onClick={() => setMarqueePaused((p) => !p)}
+          >
+            {marqueePaused ? "Play headlines" : "Pause headlines"}
+          </button>
+        </div>
         <div className="track">
           {[...MARQUEE, ...MARQUEE].map(([a, b], i) => (
             <span key={i}>
@@ -223,11 +239,11 @@ export default function App() {
         <div className="card hoverable">
           <h3>Evolution log</h3>
           <div className="cap" style={{ marginBottom: 8 }}>what happened, generation by generation</div>
-          <div className="feed">
+          <div className="feed" tabIndex={0} role="log" aria-label="Evolution log">
             {log.length === 0 && <div className="feeditem muted">waiting for the first generation…</div>}
             {log.map((e, i) => (
               <div className={`feeditem ${e.kind}`} key={`${e.gen}-${e.text}`} style={{ animationDelay: `${Math.min(i, 3) * 0.04}s` }}>
-                <span className="edot" />
+                <span className="edot" aria-hidden="true" />
                 <span className="etag">{KIND_LABEL[e.kind]}</span>
                 <span className="etext">{e.text}</span>
               </div>
@@ -262,7 +278,7 @@ export default function App() {
             ? `${raceModels.length} models × ${raceRows.length} problems on ${L.task} · every cell is a best pass-rate from THIS run`
             : `${MODELS.length} models × ${RACE.length} tasks · each cell is a Braintrust experiment · filling in as the run progresses`}
         </div>
-        <div className="racescroll">
+        <div className="racescroll" tabIndex={0} role="region" aria-label="Model race results">
           <div className="racegrid" style={{ gridTemplateColumns: `120px repeat(${raceModels.length}, minmax(64px, 1fr))` }}>
             <div className="rh" />
             {raceModels.map((m) => (
@@ -370,6 +386,8 @@ export default function App() {
         ))}
       </section>
 
+      </main>
+
       <footer className="footer">
         <span>The number goes up on its own. The sandbox is why you can sleep.</span>
         <nav className="footlinks" aria-label="Footer">
@@ -399,11 +417,17 @@ function RaceRow({
       {row.scores.map((s, i) => {
         const shown = revealed[i];
         const win = shown && showWinner && i === row.winner;
+        // Cap the fill so white numerals stay ≥ 4.5:1 on the mixed accent background.
+        const fill = Math.min(s * 0.4, 40);
         return (
           <div
             className={`cell ${shown ? "" : "cell-queued"} ${win ? "win" : ""}`}
             key={i}
-            style={shown ? { background: `color-mix(in oklch, var(--accent) ${s * 0.85}%, transparent)` } : undefined}
+            style={
+              shown
+                ? { background: `color-mix(in oklch, var(--accent) ${fill}%, var(--bg-card))` }
+                : undefined
+            }
           >
             <span className="num">{shown ? s : "·"}</span>
           </div>

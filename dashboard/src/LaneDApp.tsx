@@ -34,8 +34,12 @@ export default function App(): JSX.Element {
 
   return (
     <div className="app">
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
       <TopNav
         mode={mode}
+        demoOpen={demoOpen}
         onOpenLibrary={() => setView("library")}
         onOpenDemoControls={() => setDemoOpen((v) => !v)}
       />
@@ -53,7 +57,7 @@ export default function App(): JSX.Element {
           </div>
         ) : null}
 
-        <main className="app-main">
+        <main id="main" className="app-main">
           {view === "landing" ? (
             <IndustryInput onStart={startRun} onOpenLibrary={() => setView("library")} />
           ) : view === "library" ? (

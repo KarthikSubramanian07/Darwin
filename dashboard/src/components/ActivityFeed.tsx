@@ -18,7 +18,12 @@ export function ActivityFeed({ items }: { items: FeedItem[] }): JSX.Element {
       <div className="feed-head">
         <h3>Live activity</h3>
       </div>
-      <ol className="feed-list" aria-live="polite">
+      <ol
+        className="feed-list"
+        tabIndex={0}
+        aria-label="Live activity events"
+        aria-live="polite"
+      >
         {items.length === 0 ? (
           <li className="feed-item dim">Waiting for the run to begin…</li>
         ) : (

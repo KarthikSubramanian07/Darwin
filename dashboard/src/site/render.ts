@@ -100,7 +100,7 @@ const htmlInline = (text: string): string =>
 const htmlBlock = (b: Block): string => {
   if (b.kind === "p") return `<p>${htmlInline(b.text)}</p>`;
   if (b.kind === "list") return `<ul>${b.items.map((i) => `<li>${htmlInline(i)}</li>`).join("")}</ul>`;
-  return `<pre><code class="language-${b.lang}">${escapeHtml(b.code)}</code></pre>`;
+  return `<pre tabindex="0"><code class="language-${b.lang}">${escapeHtml(b.code)}</code></pre>`;
 };
 
 const htmlSection = (s: Section, depth: number): string =>
@@ -172,12 +172,13 @@ export function renderPageHtml(page: Page): string {
     <script type="application/ld+json">${jsonLd(renderJsonLd(page))}</script>
   </head>
   <body class="doc">
+    <a class="skip-link" href="#main">Skip to content</a>
     <div class="aurora" aria-hidden="true"></div>
     <header class="nav">
       <a class="brand" href="/" aria-label="Darwin home">${LOGO_SVG}<span class="wordmark">Darwin</span></a>
       <nav class="links" aria-label="Primary">${linkRow(NAV_LINKS)}</nav>
     </header>
-    <main class="prose">${renderArticle(page)}</main>
+    <main id="main" class="prose">${renderArticle(page)}</main>
     <footer class="footer">
       <span>Darwin · ${TAGLINE}</span>
       <nav aria-label="Footer">${linkRow(FOOTER_LINKS)}</nav>

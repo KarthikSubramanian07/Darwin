@@ -294,6 +294,11 @@ export function ScoreLandscape({
     );
   }
 
+  const altSummary = landscape.columns
+    .filter((c) => c.score !== null)
+    .map((c) => `${c.taskName} × ${c.modelLabel}: ${pct(c.score as number)}${c.winner ? " (winner)" : ""}`)
+    .join(". ");
+
   return (
     <figure className="ls-figure">
       <figcaption className="ls-caption">
@@ -303,11 +308,26 @@ export function ScoreLandscape({
         </span>
       </figcaption>
 
-      <div className="ls-canvas-wrap" ref={canvasWrap}>
+      <p className="visually-hidden" id="score-landscape-alt">
+        Interactive 3D score landscape. Every value is also in the race grid above.
+        {altSummary ? ` Measured cells: ${altSummary}.` : " No measured cells yet."}
+        {baseline
+          ? ` Best single-model baseline: ${baseline.label} at ${pct(baseline.avgScore)} average.`
+          : ""}
+        Orbit and selection are pointer-driven; use the grid for keyboard access.
+      </p>
+
+      <div
+        className="ls-canvas-wrap"
+        ref={canvasWrap}
+        role="img"
+        aria-labelledby="score-landscape-alt"
+      >
         <Canvas
           camera={{ position: [6.5, 7.2, 8.0], fov: 42 }}
           dpr={[1, 2]}
           gl={{ antialias: true }}
+          aria-hidden="true"
         >
           <Scene
             columns={landscape.columns}

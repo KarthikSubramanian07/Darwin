@@ -2,7 +2,7 @@
 // reliable source if venue Wi-Fi fails. The selected source is always clearly indicated in the
 // nav; this panel just switches it.
 
-import type { JSX } from "react";
+import { type JSX, useEffect, useRef } from "react";
 import { DEMO_MODE_LABEL, type DemoMode } from "../store/useDarwinRun";
 
 const MODES: DemoMode[] = ["live", "recorded", "mock"];
@@ -22,8 +22,59 @@ export function DemoControls({
   onSelect: (m: DemoMode) => void;
   onClose: () => void;
 }): JSX.Element {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const previousFocus = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    previousFocus.current = document.activeElement as HTMLElement | null;
+    const root = rootRef.current;
+    if (!root) return;
+
+    const focusables = () =>
+      [
+        ...root.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        ),
+      ].filter((el) => !el.hasAttribute("disabled"));
+
+    const first = focusables()[0];
+    first?.focus();
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const items = focusables();
+      if (items.length === 0) return;
+      const firstEl = items[0];
+      const lastEl = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === firstEl) {
+        e.preventDefault();
+        lastEl.focus();
+      } else if (!e.shiftKey && document.activeElement === lastEl) {
+        e.preventDefault();
+        firstEl.focus();
+      }
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      previousFocus.current?.focus?.();
+    };
+  }, [onClose]);
+
   return (
-    <div className="demo-controls" role="dialog" aria-label="Demo source">
+    <div
+      className="demo-controls"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Demo source"
+      ref={rootRef}
+    >
       <div className="demo-controls-head">
         <h3>Demo source</h3>
         <button className="btn btn-ghost btn-sm" onClick={onClose} aria-label="Close">

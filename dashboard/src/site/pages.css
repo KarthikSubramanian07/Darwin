@@ -108,6 +108,10 @@ body.doc::after {
 .prose > nav a {
   color: var(--fg-muted);
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 2px 0;
 }
 .doc .nav .links a:hover,
 .doc .footer a:hover,

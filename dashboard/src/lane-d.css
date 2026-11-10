@@ -189,6 +189,7 @@ dd {
   min-height: 100%;
   display: flex;
   flex-direction: column;
+  overflow-x: clip;
 }
 .app-main {
   flex: 1;
@@ -196,6 +197,12 @@ dd {
   max-width: 1320px;
   margin: 0 auto;
   padding: 1.5rem 1.75rem 3rem;
+  min-width: 0;
+}
+@media (max-width: 480px) {
+  .app-main {
+    padding: 1.25rem 1rem 2.5rem;
+  }
 }
 .app-foot {
   border-top: 1px solid var(--line);
@@ -1072,7 +1079,7 @@ dd {
 }
 .library-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
   gap: 1rem;
 }
 .lib-card {

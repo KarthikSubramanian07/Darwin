@@ -1297,22 +1297,19 @@ dd {
   }
 }
 @keyframes cellIn {
+  /* Transform only — opacity fades blend text into the surface and fail contrast mid-flight. */
   from {
-    opacity: 0.2;
-    transform: scale(0.9);
+    transform: scale(0.92);
   }
   to {
-    opacity: 1;
     transform: scale(1);
   }
 }
 @keyframes feedIn {
   from {
-    opacity: 0;
     transform: translateY(-4px);
   }
   to {
-    opacity: 1;
     transform: translateY(0);
   }
 }

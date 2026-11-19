@@ -213,7 +213,9 @@ body.doc::after {
   font-weight: 600;
   font-size: 13px;
   text-decoration: none;
-  transform: translateY(-120%);
+  /* Park it wholly above the viewport: it sits 12px down, so lift it by its own height plus
+     that offset and a margin. A bare -120% left a ~5px sliver showing at the top. */
+  transform: translateY(calc(-100% - 24px));
 }
 .doc .skip-link:focus,
 .prose .skip-link:focus {

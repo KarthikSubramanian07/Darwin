@@ -102,3 +102,9 @@ jobs:
       - name: Build
         working-directory: dashboard
         run: npm run build
+      - name: Install Playwright browser
+        working-directory: dashboard
+        run: npx playwright install --with-deps chromium
+      - name: Browser checks (built site, desktop and phone)
+        working-directory: dashboard
+        run: npm run test:e2e
